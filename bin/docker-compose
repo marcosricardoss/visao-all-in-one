@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+if ! [ "$EUID" -ne 0 ]
+  then echo "please run as non-root"
+  exit
+fi
+
+USER_NAME=$(whoami) USER_ID=$(id -u) GROUP_ID=$(id -g) docker-compose $*

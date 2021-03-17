@@ -1,0 +1,35 @@
+version: "3.2"
+services:
+  media-service:
+    container_name: media-service
+    restart: always
+    image: "httpd:latest"
+    logging:
+      driver: none
+    volumes:
+      - "./media:/usr/local/apache2/htdocs"
+    ports:
+      - "${MEDIA_SERVICE_PORT}:80"        
+
+  all-in-one-app:
+    container_name: all-in-one-app
+    restart: always
+    build:
+      context: ./app
+      args:
+        BUILD_ENV: $ENV        
+        GROUP_ID: $GROUP_ID        
+        USER_ID: $USER_ID
+        USER_NAME: $USER_NAME
+    image: all-in-one-app:latest
+    environment:       
+      DEFAULT_MEDIA_FOLDER: /usr/src/media/
+      FLASK_APP: app.py
+      FLASK_ENV: $ENV
+      FLASK_PORT: "${APP_SERVICE_PORT}"            
+    command: /usr/src/app/start      
+    volumes:
+      - "./app:/usr/src/app"      
+      - "./media:/usr/src/media/"
+    ports:
+      - "${APP_SERVICE_PORT}:${APP_SERVICE_PORT}"
