@@ -4,7 +4,6 @@ import collections
 from waitress import serve
 from flask import Flask, request, render_template, redirect, jsonify
 
-
 ##
 ## FLASK CONFIGURATION
 ##
