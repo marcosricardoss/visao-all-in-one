@@ -33,3 +33,11 @@ services:
       - "./media:/usr/src/media/"
     ports:
       - "${APP_SERVICE_PORT}:${APP_SERVICE_PORT}"
+
+  adminlte:
+    container_name: adminlte
+    image: 'httpd:latest'    
+    volumes:
+      - './AdminLTE-3.0.5:/usr/local/apache2/htdocs'
+    ports:
+      - "8008:80"
