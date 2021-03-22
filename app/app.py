@@ -16,11 +16,15 @@ def index():
     return render_template('index.html', url="http://localhost:8000/data")
 
 d = collections.deque(["#777", "green", "#777"]) # DEBUG
+step = 0 # DEBUG
 @app.route('/data', methods=['GET'])
 def get_data():           
     global d; d.rotate() # DEBUG
+    global step
+    step = 0 if step == 15 else step + 1
     colors = list(d)    
     return jsonify({
+        "step": step,
         "colors": colors
     })         
 
