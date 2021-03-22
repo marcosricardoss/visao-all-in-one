@@ -52,6 +52,7 @@
           fetch(URL)
           .then(res => res.json())
           .then((data) => {                        
+            console.log(data["step"])  
             document.getElementById("circle1").style.fill = data['colors'][0]
             document.getElementById("circle2").style.fill = data['colors'][1]
             document.getElementById("circle3").style.fill = data['colors'][2]
