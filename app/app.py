@@ -2,7 +2,7 @@ import os
 import random
 import collections
 from waitress import serve
-from flask import Flask, request, render_template, redirect, jsonify
+from flask import Flask, request, render_template, redirect, jsonify, url_for
 
 ##
 ## FLASK CONFIGURATION
@@ -13,7 +13,7 @@ app.config['TESTING'] = False
 
 @app.route('/', methods=['GET'])
 def index():    
-    return render_template('index.html', url="http://localhost:8000/data")
+    return render_template('index.html', url=url_for('get_data'))
 
 d = collections.deque(["#777", "green", "#777"]) # DEBUG
 step = 0 # DEBUG
