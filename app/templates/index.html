@@ -44,19 +44,14 @@
         </div><!-- /.row -->
     </div>
 
-    <script>    
-        // var intervalID = window.setInterval(getData, 500, 'http://localhost:8000/data',);
+    <script>            
         let URL = document.getElementById('circles').getAttribute("data-route");
-        let intervalID = window.setInterval(getData, 2000, URL);
+        let intervalID = window.setInterval(getData, 1000, URL);
         function getData(URL) {          
           fetch(URL)
           .then(res => res.json())
           .then((data) => {                        
             console.log(data["step"])  
-            document.getElementById("circle1").style.fill = data['colors'][0]
-            document.getElementById("circle2").style.fill = data['colors'][1]
-            document.getElementById("circle3").style.fill = data['colors'][2]
-            
           })
           .catch(err => { throw err });
         }    

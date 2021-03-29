@@ -1,8 +1,8 @@
 version: "3.2"
 services:
 
-  redis-service:
-    container_name: redis-service
+  all-in-one-redis:
+    container_name: all-in-one-redis
     image: redis:latest
     restart: always
     logging:
@@ -10,8 +10,8 @@ services:
     ports:
       - "${REDIS_SERVICE_PORT}:6379"
 
-  media-service:
-    container_name: media-service
+  all-in-one-media:
+    container_name: all-in-one-media
     restart: always
     image: "httpd:latest"
     logging:
@@ -46,8 +46,8 @@ services:
     ports:
       - "${APP_SERVICE_PORT}:${APP_SERVICE_PORT}"
     depends_on:
-      - redis-service
-      - media-service      
+      - all-in-one-redis
+      - all-in-one-media
 
   all-in-one-app-worker:
     image: all-in-one-app:latest
@@ -58,8 +58,8 @@ services:
       FLASK_ENV: $ENV
       FLASK_APP: app.py
       DEFAULT_MEDIA_FOLDER: /usr/src/all-in-one/media/
-      CELERY_RESULT_BACKEND: redis://redis-service:6379/0
-      CELERY_BROKER_URL: redis://redis-service:6379/0
+      CELERY_RESULT_BACKEND: redis://all-in-one-redis:6379/0
+      CELERY_BROKER_URL: redis://all-in-one-redis:6379/0
     command: /usr/src/all-in-one/start_celery
     volumes:
       - "./app:/usr/src/all-in-one/app"      

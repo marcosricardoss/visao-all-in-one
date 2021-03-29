@@ -2,7 +2,7 @@
 
 if [ "$FLASK_ENV" = "development" ] || [ "$FLASK_ENV" = "testing" ]
 then  
-  watchmedo auto-restart --directory=./ --pattern=*.py --recursive -- celery worker -B -l info -A app.tasks -n scheduler-worker -s /tmp/celerybeat-schedule
+  watchmedo auto-restart --directory=./ --pattern=*.py --recursive -- celery worker -B -l info -A app.tasks -n all-in-one-worker -s /tmp/celerybeat-schedule
 else  
-  celery worker -B -l info -A app.tasks -n scheduler-worker -s /tmp/celerybeat-schedule
+  celery worker -B -l info -A app.tasks -n all-in-one-worker -s /tmp/celerybeat-schedule
 fi

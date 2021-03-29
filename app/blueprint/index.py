@@ -8,4 +8,4 @@ bp = Blueprint('index', __name__, url_prefix='')
 
 @bp.route('/', methods=['GET'])
 def index():    
-    return render_template('index.html', url=url_for('api.get_data'))
+    return render_template('index.html', url=url_for('api.get_status'))
