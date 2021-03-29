@@ -1,8 +1,10 @@
 import os
 import random
 import collections
+
+from celery import Celery
 from waitress import serve
-from flask import Flask, request, render_template, redirect, jsonify, url_for
+from flask import Flask, jsonify, redirect, render_template, request, url_for
 
 ##
 ## FLASK CONFIGURATION
@@ -10,6 +12,46 @@ from flask import Flask, request, render_template, redirect, jsonify, url_for
 
 app = Flask(__name__)
 app.config['TESTING'] = False  
+app.config['CELERY_BROKER_URL'] = os.environ.get('CELERY_BROKER_URL')
+app.config['CELERY_RESULT_BACKEND'] = os.environ.get('CELERY_RESULT_BACKEND')
+app.config['CELERY_TASK_LIST'] = ['app.tasks']    
+
+##
+## CELERY APP SERVER 
+##
+
+def create_celery_app():
+    """Create a celery application
+
+    Parameters:
+    flask.app.Flask: A application instance    
+
+    Returns: 
+    celery.Celery = A celery instance
+    """
+
+    global app
+    celery = Celery(
+        app.import_name,
+        backend=app.config['CELERY_RESULT_BACKEND'],
+        broker=app.config['CELERY_BROKER_URL'],
+        include=app.config['CELERY_TASK_LIST'],        
+    )
+    celery.conf.update(app.config)
+
+    class ContextTask(celery.Task): # pragma: no cover
+        def __call__(self, *args, **kwargs):
+            with app.app_context():
+                return self.run(*args, **kwargs)
+
+    celery.Task = ContextTask
+    return celery
+
+
+##
+## ROUTES
+##
+
 
 @app.route('/', methods=['GET'])
 def index():    

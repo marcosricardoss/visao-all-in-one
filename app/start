@@ -1,2 +1,8 @@
 #!/usr/bin/env bash
-python -u app.py
+
+if [ "$FLASK_ENV" = "development" ] || [ "$FLASK_ENV" = "testing" ]
+then
+  python -m flask run --host=0.0.0.0 --port=$FLASK_PORT  
+else
+  waitress-serve --port=$FLASK_PORT --call 'app:create_app' 
+fi
