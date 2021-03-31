@@ -43,6 +43,6 @@ def get_status():
     task = long_task.AsyncResult(task_id)
     return make_response(jsonify({
         "task_state": str(task.state),
-        "step": task.info.get("step")
+        "data": task.info
     }), 200)
     

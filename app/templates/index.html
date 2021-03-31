@@ -51,7 +51,8 @@
           fetch(URL)
           .then(res => res.json())
           .then((data) => {                        
-            console.log(data["step"])  
+            console.log(data["data"])  
+            console.log(data["task_state"])              
           })
           .catch(err => { throw err });
         }    
