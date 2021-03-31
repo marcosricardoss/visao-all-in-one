@@ -37,8 +37,8 @@ services:
       FLASK_ENV: $ENV
       FLASK_APP: app.py
       DEFAULT_MEDIA_FOLDER: /usr/src/all-in-one/media/
-      CELERY_RESULT_BACKEND: redis://redis-service:6379/0
-      CELERY_BROKER_URL: redis://redis-service:6379/0
+      CELERY_RESULT_BACKEND: redis://all-in-one-redis:6379/0
+      CELERY_BROKER_URL: redis://all-in-one-redis:6379/0      
     command: /usr/src/all-in-one/app/start      
     volumes:
       - "./app:/usr/src/all-in-one/app"      
