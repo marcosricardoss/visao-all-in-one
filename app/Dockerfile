@@ -1,9 +1,8 @@
 FROM python:3.8
 
 # app folders
-RUN mkdir /usr/src/app/
-RUN mkdir /usr/src/media/
-WORKDIR /usr/src/app
+WORKDIR /usr/src/all-in-one
+RUN mkdir -p /var/log/celery/ /var/run/celery/
 
 # python installation
 
@@ -24,8 +23,8 @@ RUN adduser --disabled-password --gecos '' --uid $USER_ID --gid $GROUP_ID $USER_
 
 # change the app directory ownership
 
-RUN chown $USER_NAME:$USER_NAME -R /usr/src/app/
-RUN chown $USER_NAME:$USER_NAME -R /usr/src/media/
+RUN chown $USER_NAME:$USER_NAME -R /usr/src/all-in-one/
+RUN chown $USER_NAME:$USER_NAME /var/run/celery/ && chown $USER_NAME:$USER_NAME /var/log/celery/ 
 
 USER $USER_NAME
 ENV PATH="/home/$USER_NAME/.local/bin:${PATH}"
@@ -33,3 +32,4 @@ ENV PATH="/home/$USER_NAME/.local/bin:${PATH}"
 # bootstrap script
 
 ADD start ./start
+ADD start_celery ./start_celery

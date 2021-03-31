@@ -1,7 +1,17 @@
 version: "3.2"
 services:
-  media-service:
-    container_name: media-service
+
+  all-in-one-redis:
+    container_name: all-in-one-redis
+    image: redis:latest
+    restart: always
+    logging:
+     driver: none
+    ports:
+      - "${REDIS_SERVICE_PORT}:6379"
+
+  all-in-one-media:
+    container_name: all-in-one-media
     restart: always
     image: "httpd:latest"
     logging:
@@ -23,16 +33,39 @@ services:
         USER_NAME: $USER_NAME
     image: all-in-one-app:latest
     environment:       
-      DEFAULT_MEDIA_FOLDER: /usr/src/media/
-      FLASK_APP: app.py
-      FLASK_ENV: $ENV
       FLASK_PORT: "${APP_SERVICE_PORT}"            
-    command: /usr/src/app/start      
+      FLASK_ENV: $ENV
+      FLASK_APP: app.py
+      DEFAULT_MEDIA_FOLDER: /usr/src/all-in-one/media/
+      CELERY_RESULT_BACKEND: redis://all-in-one-redis:6379/0
+      CELERY_BROKER_URL: redis://all-in-one-redis:6379/0      
+    command: /usr/src/all-in-one/app/start      
     volumes:
-      - "./app:/usr/src/app"      
-      - "./media:/usr/src/media/"
+      - "./app:/usr/src/all-in-one/app"      
+      - "./media:/usr/src/all-in-one/media/"
     ports:
       - "${APP_SERVICE_PORT}:${APP_SERVICE_PORT}"
+    depends_on:
+      - all-in-one-redis
+      - all-in-one-media
+
+  all-in-one-app-worker:
+    image: all-in-one-app:latest
+    container_name: all-in-one-app-worker
+    restart: always        
+    environment:
+      FLASK_PORT: "${APP_SERVICE_PORT}"            
+      FLASK_ENV: $ENV
+      FLASK_APP: app.py
+      DEFAULT_MEDIA_FOLDER: /usr/src/all-in-one/media/
+      CELERY_RESULT_BACKEND: redis://all-in-one-redis:6379/0
+      CELERY_BROKER_URL: redis://all-in-one-redis:6379/0
+    command: /usr/src/all-in-one/start_celery
+    volumes:
+      - "./app:/usr/src/all-in-one/app"      
+      - "./media:/usr/src/all-in-one/media/"
+    depends_on:
+      - all-in-one-app
 
   adminlte:
     container_name: adminlte
@@ -40,4 +73,5 @@ services:
     volumes:
       - './AdminLTE-3.0.5:/usr/local/apache2/htdocs'
     ports:
-      - "8008:80"
+      - "8008:80"      
+    
