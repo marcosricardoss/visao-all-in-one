@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+curl -X POST -H \
+  "Content-Type: application/json" -d '{}' \
+  http://localhost:8000/api/v1.0/task/
