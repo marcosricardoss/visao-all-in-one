@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+if [ "$USER_NAME" != "pi" ]
+then
+  addgroup --gid $GROUP_ID $USER_NAME
+  adduser --disabled-password --gecos '' --uid $USER_ID --gid $GROUP_ID $USER_NAME
+  usermod -aG video $USER_NAME
+  export PATH="/home/$USER_NAME/.local/bin:${PATH}"
+fi 
+exit 0
