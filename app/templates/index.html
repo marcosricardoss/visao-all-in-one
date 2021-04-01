@@ -6,6 +6,7 @@
 
     <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
         <h1 class="display-4">STAGES</h1>
+        <h3 id="steps">#0</h3>
         <p class="lead">Quickly build an effective pricing table for your potential customers with this Bootstrap
             example. It’s built with default Bootstrap components and utilities with little customization.</p>
     </div>
@@ -52,6 +53,9 @@
           .then(res => res.json())
           .then((data) => {                        
             console.log(data["data"])  
+            if(data["data"]['step']) {
+                document.getElementById("steps").innerHTML = "#" + data["data"]['step'];
+            }
             console.log(data["task_state"])              
           })
           .catch(err => { throw err });
