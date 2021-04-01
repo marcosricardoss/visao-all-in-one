@@ -743,14 +743,24 @@
             padding-top: 100%; /* 1:1 Aspect Ratio */
           }
 
-        </style>
+        </style>       
 
         <div class="container-all-in-one">
           <iframe 
-            src="http://localhost:8000" 
+            id="app"
+            src="" 
             class="responsive-iframe" 
             frameBorder="0"></iframe>
         </div>
+
+
+        <script>
+          const queryString = window.location.search;
+          const urlParams = new URLSearchParams(queryString);
+          const app = urlParams.get('app')
+          console.log(app)
+          document.getElementById("app").src = app;
+        </script>
 
 
       </div><!-- /.container-fluid -->
