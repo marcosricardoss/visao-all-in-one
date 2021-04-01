@@ -1,4 +1,6 @@
-FROM python:3.8
+FROM jumidlej/raspios-buster:tensorflow2.2.0
+
+USER root
 
 # app folders
 WORKDIR /usr/src/all-in-one
@@ -9,17 +11,16 @@ RUN mkdir -p /var/log/celery/ /var/run/celery/
 ARG BUILD_ENV=production
 ADD requirements ./requirements
 
-RUN pip install --upgrade pip
-RUN pip install -r requirements/$BUILD_ENV.txt
+RUN python3 -m pip install --upgrade pip
+RUN python3 -m pip install -r requirements/$BUILD_ENV.txt
 
 # creating user
 
 ARG GROUP_ID
 ARG USER_ID
 ARG USER_NAME
-
-RUN addgroup --gid $GROUP_ID $USER_NAME
-RUN adduser --disabled-password --gecos '' --uid $USER_ID --gid $GROUP_ID $USER_NAME  
+ADD adduser ./adduser
+RUN ./adduser > /dev/null 2>&1
 
 # change the app directory ownership
 

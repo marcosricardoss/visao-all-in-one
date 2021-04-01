@@ -5,4 +5,9 @@ if ! [ "$EUID" -ne 0 ]
   exit
 fi
 
-USER_NAME=$(whoami) USER_ID=$(id -u) GROUP_ID=$(id -g) docker-compose $*
+if [ $(whoami) == "pi" ]
+then
+  USER_NAME=$(whoami) USER_ID=$(id -u) GROUP_ID=$(id -g) docker-compose $*
+else
+  USER_NAME=vision USER_ID=$(id -u) GROUP_ID=$(id -g) docker-compose $*
+fi  
