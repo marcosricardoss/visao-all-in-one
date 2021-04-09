@@ -14,8 +14,7 @@ def check_task_running(): # pragma: no cover
     """ Get the current long_task ID. """
 
     i = celery.control.inspect(['celery@all-in-one-worker'])
-    workers = i.active()  
-    logger.info(workers)      
+    workers = i.active()      
     for task in workers['celery@all-in-one-worker']:
         if workers['celery@all-in-one-worker'][0]["name"] == 'app.tasks.long_task':
             return workers['celery@all-in-one-worker'][0]['id']            
