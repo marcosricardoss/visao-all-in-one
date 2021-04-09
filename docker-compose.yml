@@ -66,3 +66,13 @@ services:
       - "./media:/usr/src/all-in-one/media/"
     depends_on:
       - all-in-one-app
+  
+  adminlte:
+    container_name: adminlte
+    image: 'httpd:latest'    
+    logging:
+      driver: none
+    volumes:
+      - './AdminLTE-3.0.5:/usr/local/apache2/htdocs'
+    ports:
+      - "8008:80"      
