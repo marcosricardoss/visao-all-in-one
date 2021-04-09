@@ -33,7 +33,7 @@ def get_status():
     from app.tasks import long_task
     
     # checking for a running task
-    task_id = r.get('taskid')
+    task_id = request.args.get('task_id')
     if not task_id:
         return make_response(jsonify({
             "msg": "there is no task running",
