@@ -6,7 +6,6 @@ from redis import Redis
 from flask import Blueprint, jsonify, make_response, request, url_for
 
 bp = Blueprint('api', __name__, url_prefix="/api/v1.0/task")
-r = Redis(host='all-in-one-redis', port=6379, db=0, decode_responses=True)
 
 @bp.route('/', methods=['POST'])
 def longtask():               
@@ -21,8 +20,7 @@ def longtask():
             }), 429)  
     
     # creating a new task
-    task = long_task.apply_async() 
-    r.set('taskid', task.id)    
+    task = long_task.apply_async()     
     return make_response(jsonify({
         "task_state": str(task.state),
         "taskID": str(task.id),

@@ -9,14 +9,13 @@ logger = get_task_logger(__name__)
 # from app.visao import blablabla
 # from .video import blablabla
 
-r = Redis(host='all-in-one-redis', port=6379, db=0, decode_responses=True)
-
 @celery.task()
 def check_task_running(): # pragma: no cover
     """ Get the current long_task ID. """
 
     i = celery.control.inspect(['celery@all-in-one-worker'])
-    workers = i.active()        
+    workers = i.active()  
+    logger.info(workers)      
     for task in workers['celery@all-in-one-worker']:
         if workers['celery@all-in-one-worker'][0]["name"] == 'app.tasks.long_task':
             return workers['celery@all-in-one-worker'][0]['id']            
@@ -45,15 +44,13 @@ def long_task(self):
     #     "step": 2
     # }
     # self.update_state(state='PROGRESS', meta=meta)
-    # time.sleep(2) # code
-    
+    # time.sleep(2) # code    
     
     # # step3
     # meta = {
     #     "step": 3
     # }
     # self.update_state(state='FINISHED', meta=meta)
-    # time.sleep(2) # code    
+    # time.sleep(2) # code        
     
-    r.delete('taskid')
-    return {'status': 'CONCLUDED',}
+    return {'status': 'CONCLUDED'}

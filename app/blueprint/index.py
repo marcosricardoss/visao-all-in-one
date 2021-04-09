@@ -18,7 +18,6 @@ def index():
         task_id = str(running_task.result)
     else:
         task = long_task.apply_async()
-        task_id = task.id
+        task_id = task.id    
     
-    # return 
     return render_template('index.html', url=url_for('api.get_status', task_id=task_id))     
