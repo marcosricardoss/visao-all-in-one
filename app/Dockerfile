@@ -1,4 +1,6 @@
-FROM python:3.8
+FROM jumidlej/raspios-buster:tensorflow2.2.0
+
+USER root
 
 # app folders
 WORKDIR /usr/src/all-in-one
@@ -9,8 +11,8 @@ RUN mkdir -p /var/log/celery/ /var/run/celery/
 ARG BUILD_ENV=production
 ADD requirements ./requirements
 
-RUN pip install --upgrade pip
-RUN pip install -r requirements/$BUILD_ENV.txt
+RUN python3 -m pip install --upgrade pip
+RUN python3 -m pip install -r requirements/$BUILD_ENV.txt
 
 # creating user
 
