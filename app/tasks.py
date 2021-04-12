@@ -5,6 +5,7 @@ from app import create_celery_app
 
 celery = create_celery_app()
 logger = get_task_logger(__name__)
+r = Redis(host='all-in-one-redis', port=6379, db=0, decode_responses=True)
 
 # from app.visao import blablabla
 # from .video import blablabla
@@ -53,3 +54,8 @@ def long_task(self):
     # time.sleep(2) # code        
     
     return {'status': 'CONCLUDED'}
+
+
+# Inicia a tarefa e envia seu ID para o frontend via Redis
+task = long_task.apply_async()
+r.set('taskid', task.id)
