@@ -12,6 +12,7 @@ services:
 
   all-in-one-redis-cli:
     container_name: all-in-one-redis-cli
+    restart: always
     image: redis:latest    
     command: redis-cli -h all-in-one-redis -p 6379 FLUSHALL
     depends_on: 
