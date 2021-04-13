@@ -10,6 +10,13 @@ services:
     ports:
       - "${REDIS_SERVICE_PORT}:6379"
 
+  all-in-one-redis-cli:
+    container_name: all-in-one-redis-cli
+    image: redis:latest    
+    command: redis-cli -h all-in-one-redis -p 6379 FLUSHALL
+    depends_on: 
+      - all-in-one-redis
+
   all-in-one-media:
     container_name: all-in-one-media
     restart: always
@@ -46,7 +53,7 @@ services:
     ports:
       - "${APP_SERVICE_PORT}:${APP_SERVICE_PORT}"
     depends_on:
-      - all-in-one-redis
+      - all-in-one-redis-cli
       - all-in-one-media
 
   all-in-one-app-worker:
