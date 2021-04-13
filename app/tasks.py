@@ -10,33 +10,21 @@ r = Redis(host='all-in-one-redis', port=6379, db=0, decode_responses=True)
 # from app.visao import blablabla
 # from .video import blablabla
 
-@celery.task()
-def check_task_running(): # pragma: no cover
-    """ Get the current long_task ID. """
-
-    i = celery.control.inspect(['celery@all-in-one-worker'])
-    workers = i.active()      
-    for task in workers['celery@all-in-one-worker']:
-        if workers['celery@all-in-one-worker'][0]["name"] == 'app.tasks.long_task':
-            return workers['celery@all-in-one-worker'][0]['id']            
-    
-    return None
-
 @celery.task(bind=True)
 def long_task(self):   
-    """ Do a long task """
-    
+    """ Do a long task """   
+
     step = 0
     while True:
-        state = "EVEN" if step % 2 == 0 else "ODD"
-        self.update_state(state=state, meta={"step":step})
+        t = "EVEN" if step % 2 == 0 else "ODD"
+        self.update_state(state="PROGRESS", meta={"step":step, "type": t})
         time.sleep(1);step = step + 1
 
     # # step1
     # meta = {
     #     "step": 1
     # }
-    # self.update_state(state='STATED', meta=meta)
+    # self.update_state(state='STARTED', meta=meta)
     # time.sleep(5) # code
     
     # # step2
@@ -56,6 +44,8 @@ def long_task(self):
     return {'status': 'CONCLUDED'}
 
 
-# Inicia a tarefa e envia seu ID para o frontend via Redis
-task = long_task.apply_async()
-r.set('taskid', task.id)
+# start the task and send your ID to the frontend via Redis
+task_id = r.get('taskid')
+if not task_id:
+    task = long_task.apply_async()
+    r.set('taskid', task.id)
