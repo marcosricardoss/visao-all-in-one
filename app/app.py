@@ -22,10 +22,8 @@ app.config['CELERY_TASK_LIST'] = ['app.tasks']
 
 def create_celery_app():
     """Create a celery application
-
     Parameters:
     flask.app.Flask: A application instance    
-
     Returns: 
     celery.Celery = A celery instance
     """
@@ -57,11 +55,12 @@ def create_celery_app():
 def index():    
     return render_template('index.html', url=url_for('get_data'))
 
-d = collections.deque(["#777", "green", "#777"]) # DEBUG
+
+d = collections.deque(["#17a2b8", "#dd4b39", "#28a745"]) # DEBUG
 step = 0 # DEBUG
 @app.route('/data', methods=['GET'])
 def get_data():           
-    global d; d.rotate() # DEBUG
+    global d; # DEBUG
     global step
     step = 0 if step == 15 else step + 1
     colors = list(d)    
