@@ -1,4 +1,4 @@
-FROM jumidlej/raspios-buster:tensorflow2.2.0
+FROM jumidlej/raspios-buster:tensorflow2.3.1
 
 USER root
 
@@ -13,6 +13,10 @@ ADD requirements ./requirements
 
 RUN python3 -m pip install --upgrade pip
 RUN python3 -m pip install -r requirements/$BUILD_ENV.txt
+
+# install gpio library
+
+RUN apt install -y python3-gpiozero
 
 # creating user
 
