@@ -95,14 +95,22 @@ def segment_pcbs(image):
     mask = fill_holes(close, 1000)
 
     # ler template
-    template = cv.imread('app/visao/preprocessing/template-fhd.jpeg',0)
+    template = cv.imread('preprocessing/template-fhd.jpeg',0)
 
     # resize pra uma proporção boa pra a distância da camera
     template = imutils.resize(template, width=500)
     w, h = template.shape[::-1]
 
+    # specify a threshold
+    threshold = 0.4
+
     # template matching
     res = cv.matchTemplate(mask,template,cv.TM_CCOEFF_NORMED)
+    
+    if (res.any() >= threshold):
+        pass
+    else:
+        return None, None
 
     # pegar melhor resultado e recortar
     min_val, max_val, min_loc, max_loc = cv.minMaxLoc(res)
@@ -111,6 +119,7 @@ def segment_pcbs(image):
     bottom_right = (top_left[0] + w, top_left[1] + h)
     x1 = top_left[0]
 
+    # pintar o que já foi pego de preto
     cv.rectangle(mask,top_left, bottom_right, 0, -1)
     
     add_w = 20
@@ -120,6 +129,11 @@ def segment_pcbs(image):
 
     # template matching
     res = cv.matchTemplate(mask,template,cv.TM_CCOEFF_NORMED)
+    
+    if (res.any() >= threshold):
+        pass
+    else:
+        return None, None
 
     # pegar melhor resultado e recortar
     min_val, max_val, min_loc, max_loc = cv.minMaxLoc(res)

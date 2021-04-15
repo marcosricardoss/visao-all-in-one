@@ -24,6 +24,9 @@ def makeDetection(frame, yolo, class_models):
     # Separa as duas PCBs
     pcb_left, pcb_right = segment_pcbs(frame)
 
+    if pcb_left.all() == None and pcb_right.all() == None:
+        return None, None, None
+
     # se retornar duas imagens ou duas alguma coisa
     if pcbL.all() == None and pcbR.all() == None:
         return None, None, None
@@ -137,10 +140,8 @@ def makeDetection(frame, yolo, class_models):
 
 @celery.task(bind=True)
 def long_task(self):
-
     # Inicialização
-    step = 1
-    self.update_state(state='INITIALIZING', meta={"step":step})
+    self.update_state(state='INITIALIZING', meta={"step":1})
 
     # Carregar a rede neural YOLO
     checkpoints_path = "app/visao/checkpoints/yolov3_C920-13all-50epochs_Tiny"
@@ -154,22 +155,15 @@ def long_task(self):
         '2': tf.keras.models.load_model('app/visao/classification_models/pequeno')
     }
 
-    # step = 2
-    # self.update_state(state='LOADING BUTTONS', meta={"step":step})
-
     butaoB = Button(2)
     butaoA = Button(3)
-
-    # step = 3
-    # self.update_state(state='LOADING CAMERA SETTINGS', meta={"step":step})
 
     cam = cv.VideoCapture(0)
     cam.set(cv.CAP_PROP_FRAME_WIDTH, 1920)
     cam.set(cv.CAP_PROP_FRAME_HEIGHT, 1080)
 
     while True:
-        step = 2
-        self.update_state(state='READY FOR THE ACTION!', meta={"step":step})
+        self.update_state(state='READY FOR THE ACTION!', meta={"step":2})
 
         # Pegar imagem da câmera
         ret, frame = cam.read()
@@ -183,24 +177,22 @@ def long_task(self):
 
         # Botão de saída
         if butaoA.is_pressed:
-            step = 0
-            self.update_state(state='WHY DID YOU LEFT ME?', meta={"step":step})
-
+            self.update_state(state='WHY DID YOU LEFT ME?', meta={"step":0})
             break
 
         # Detecção
         elif butaoB.is_pressed:
-            step = 3
-            self.update_state(state='DETECTION IN PROGRESS...', meta={"step":step})
+            self.update_state(state='DETECTION IN PROGRESS...', meta={"step":3})
 
             pcbR, pcbL, data = makeDetection(frame, yolo, class_models)
-            if pcbL.any() != None:
+            if pcbL.all() == None and pcbR.all() == None:
+                self.update_state(state="PCBS WERE NOT FOUND!", meta={"step":5})
+                time.sleep(5)
+            else:
                 cv.imwrite("/usr/src/all-in-one/media/left.jpg", pcbL)
-            if pcbR.any() != None:
                 cv.imwrite("/usr/src/all-in-one/media/right.jpg", pcbR)
-
-            data["step"] = 4
-            self.update_state(state='SHOW TIME!', meta={"data":data})
-            time.sleep(15)
+                data["step"] = 4
+                self.update_state(state='SHOW TIME!', meta={"data":data})
+                time.sleep(10)
 
     return {'status': 'the task have been successfully processed'}
