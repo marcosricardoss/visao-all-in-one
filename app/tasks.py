@@ -23,6 +23,11 @@ logger = get_task_logger(__name__)
 def makeDetection(frame, yolo, class_models):
     # Separa as duas PCBs
     pcb_left, pcb_right = segment_pcbs(frame)
+
+    # se retornar duas imagens ou duas alguma coisa
+    if pcbL.all() == None and pcbR.all() == None:
+        return None, None, None
+
     data = {}
 
     def draw_bboxes(index, image, bboxes):
