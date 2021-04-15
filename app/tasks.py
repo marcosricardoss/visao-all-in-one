@@ -24,12 +24,11 @@ def makeDetection(frame, yolo, class_models):
     # Separa as duas PCBs
     pcb_left, pcb_right = segment_pcbs(frame)
 
-    if pcb_left.all() == None and pcb_right.all() == None:
-        return None, None, None
-
-    # se retornar duas imagens ou duas alguma coisa
-    if pcbL.all() == None and pcbR.all() == None:
-        return None, None, None
+    try:
+        if pcb_left == None and pcb_right == None:
+            return None, None, None
+    except ValueError:
+        pass
 
     data = {}
 
@@ -185,10 +184,11 @@ def long_task(self):
             self.update_state(state='DETECTION IN PROGRESS...', meta={"step":3})
 
             pcbR, pcbL, data = makeDetection(frame, yolo, class_models)
-            if pcbL.all() == None and pcbR.all() == None:
-                self.update_state(state="PCBS WERE NOT FOUND!", meta={"step":5})
-                time.sleep(5)
-            else:
+            try:
+                if pcbR == None and pcbL == None:
+                    self.update_state(state="PCBS WERE NOT FOUND!", meta={"step":5})
+                    time.sleep(5)
+            except ValueError:
                 cv.imwrite("/usr/src/all-in-one/media/left.jpg", pcbL)
                 cv.imwrite("/usr/src/all-in-one/media/right.jpg", pcbR)
                 data["step"] = 4

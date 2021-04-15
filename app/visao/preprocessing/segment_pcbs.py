@@ -107,9 +107,7 @@ def segment_pcbs(image):
     # template matching
     res = cv.matchTemplate(mask,template,cv.TM_CCOEFF_NORMED)
     
-    if (res.any() >= threshold):
-        pass
-    else:
+    if np.all(res < threshold):
         return None, None
 
     # pegar melhor resultado e recortar
@@ -130,9 +128,7 @@ def segment_pcbs(image):
     # template matching
     res = cv.matchTemplate(mask,template,cv.TM_CCOEFF_NORMED)
     
-    if (res.any() >= threshold):
-        pass
-    else:
+    if np.all(res < threshold):
         return None, None
 
     # pegar melhor resultado e recortar
