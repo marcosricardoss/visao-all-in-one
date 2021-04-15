@@ -4,48 +4,245 @@
 
 {% block body %}
 
-    <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-        <h1 class="display-4">STAGES</h1>
-        <h3 id="steps">#0</h3>
-        <p class="lead">Quickly build an effective pricing table for your potential customers with this Bootstrap
-            example. It’s built with default Bootstrap components and utilities with little customization.</p>
-    </div>
-    
-    <div id="circles" class="container center" data-route="{{ url|safe }}">
-        <!-- Three columns of text below the carousel -->
-        <div class="row circles-item" >
-            <div class="col-lg-4">
-                <svg class="bd-placeholder-img rounded-circle" width="140" height="140"
-                    xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140"
-                    preserveAspectRatio="xMidYMid slice" focusable="false">
-                    <title>Placeholder</title>
-                    <rect id="circle1" width="100%" height="100%" fill="#777" />                    
-                </svg>
-                <h2>Step #1</h2>
-                
-            </div><!-- /.col-lg-4 -->
-            <div class="col-lg-4">
-                <svg class="bd-placeholder-img rounded-circle" width="140" height="140"
-                    xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140"
-                    preserveAspectRatio="xMidYMid slice" focusable="false">
-                    <title>Placeholder</title>
-                    <rect id="circle2" width="100%" height="100%" fill="#777" />                    
-                </svg>
-                <h2>Step #2</h2>                
-            </div><!-- /.col-lg-4 -->
-            <div class="col-lg-4">
-                <svg class="bd-placeholder-img rounded-circle" width="140" height="140"
-                    xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140"
-                    preserveAspectRatio="xMidYMid slice" focusable="false">
-                    <title>Placeholder</title>
-                    <rect id="circle3" width="100%" height="100%" fill="#777" />     
-                </svg>
-                <h2>Step #3</h2>                
-            </div><!-- /.col-lg-4 -->
-        </div><!-- /.row -->
-    </div>
+<div id="circles" class=" row center" data-route="{{ url|safe }}">
 
-    <script>            
+    <section class="pcb-side col-xs-12 col-sm-9 col-md-9 col-lg-9 center">
+        <div class="video-capture ">
+            <img class="rounded center pallet-img" src="http://localhost:1001/img1.jpeg" alt="imagem de teste">
+        </div>
+            
+        <div id="image-on" >
+            <div class="pcb1 col-xs-10 col-sm-5 col-md-5">
+                <!-- <p class="pcb-title">Left</p> -->
+                <img class=" pcb-img " src="http://localhost:1001/img2.jpeg" alt="imagem de teste">
+            </div>
+            <div class="pcb2 col-xs-10 col-sm-5 col-md-5">
+                <!-- <p class="pcb-title">Right</p> -->
+                <img class="  pcb-img " src="http://localhost:1001/img3.jpeg" alt="imagem de teste">
+            </div>
+
+        </div>      
+        <div id="image-off" >
+            <div class="pcb1 col-xs-10 col-sm-5 col-md-5">
+                <!-- <p class="pcb-title">Left</p> -->
+                <div class="spinner-border text-light img-spinner " role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+            <div class="pcb2 col-xs-10 col-sm-5 col-md-5">
+                <!-- <p class="pcb-title">Right</p> -->
+                <div class="spinner-border text-light img-spinner " role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+
+        </div>      
+        <div id="image-none" >
+            <div class="pcb1 col-xs-10 col-sm-5 col-md-5">
+                <!-- <p class="pcb-title">Left</p> -->
+                <div class="pcb-img"></div>
+            </div>
+            <div class="pcb2 col-xs-10 col-sm-5 col-md-5">
+                <!-- <p class="pcb-title">Right</p> -->
+                <div class="pcb-img"></div>
+            </div>
+
+        </div>      
+
+    </section>
+
+
+    <section id="blue-section" class="table-side col-xs-12 col-sm-3 col-md-3 col-lg-3">
+
+        <table class="table table-striped component-table ">
+            <thead class="component-table-bar">
+                <tr>
+                    <th scope="col">Componente</th>
+                    <th scope="col">Left</th>
+                    <th scope="col">Right</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="component-table-white">
+                    <th scope="row">Azul</th>
+                    <td> <i class="bi bi-hourglass-split"></i> </td>
+                    <td> <i class="bi bi-hourglass-split"></i> </td>
+                </tr>
+                <tr class="component-table-gray">
+                    <th scope="row">Branco</th>
+                    <td> <i class="bi bi-hourglass-split"></i> </td>
+                    <td> <i class="bi bi-hourglass-split"></i> </td>
+                </tr>
+                <tr class="component-table-white">
+                    <th scope="row">Pequeno</th>
+                    <td> <i class="bi bi-hourglass-split"></i> </td>
+                    <td> <i class="bi bi-hourglass-split"></i> </td>
+                </tr>
+                <tr class="component-table-gray">
+                    <th scope="row">Preto</th>
+                    <td> <i class="bi bi-hourglass-split"></i> </td>
+                    <td> <i class="bi bi-hourglass-split"></i> </td>
+                </tr>
+                <tr class="component-table-white">
+                    <th scope="row">Roxo 1</th>
+                    <td> <i class="bi bi-hourglass-split"></i> </td>
+                    <td> <i class="bi bi-hourglass-split"></i> </td>
+                </tr>
+                <tr class="component-table-gray">
+                    <th scope="row">Roxo 2</th>
+                    <td> <i class="bi bi-hourglass-split"></i> </td>
+                    <td> <i class="bi bi-hourglass-split"></i> </td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section id="red-section" class="table-side col-xs-5 col-sm-3 col-md-3 col-lg-3">
+
+        <table class="table table-striped component-table ">
+            <thead class="component-table-bar">
+                <tr>
+                    <th scope="col">Componente</th>
+                    <th scope="col">PCB1</th>
+                    <th scope="col">PCB2</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="component-table-white">
+                    <th scope="row">Pequeno</th>
+                    <td> <i class="bi bi-x-circle-fill wrong"></i> </td>
+                    <td> <i class="bi bi-x-circle-fill wrong"></i> </td>
+                </tr>
+                <tr class="component-table-gray">
+                    <th scope="row">Roxo 1</th>
+                    <td> <i class="bi bi-exclamation-octagon-fill warning"></i> </td>
+                    <td> <i class="bi bi-x-circle-fill wrong"></i> </td>
+                </tr>
+                <tr class="component-table-white">
+                    <th scope="row">Azul</th>
+                    <td> <i class="bi bi-check-circle-fill check"></i> </td>
+                    <td> <i class="bi bi-check-circle-fill check"></i> </td>
+                </tr>
+                <tr class="component-table-gray">
+                    <th scope="row">Branco</th>
+                    <td> <i class="bi bi-check-circle-fill check"></i> </td>
+                    <td> <i class="bi bi-check-circle-fill check"></i> </td>
+                </tr>
+                <tr class="component-table-white">
+                    <th scope="row">Preto</th>
+                    <td> <i class="bi bi-check-circle-fill check"></i> </td>
+                    <td> <i class="bi bi-check-circle-fill check"></i> </td>
+                </tr>
+                <tr class="component-table-gray">
+                    <th scope="row">Roxo 2</th>
+                    <td> <i class="bi bi-check-circle-fill check"></i> </td>
+                    <td> <i class="bi bi-check-circle-fill check"></i> </td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section id="green-section" class="table-side col-xs-5 col-sm-3 col-md-3 col-lg-3">
+
+        <table class="table table-striped component-table ">
+            <thead class="component-table-bar">
+                <tr>
+                    <th scope="col">Componente</th>
+                    <th scope="col">PCB1</th>
+                    <th scope="col">PCB2</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="component-table-white">
+                    <th scope="row">Azul</th>
+                    <td> <i class="bi bi-check-circle-fill check"></i> </td>
+                    <td> <i class="bi bi-check-circle-fill check"></i> </td>
+                </tr>
+                <tr class="component-table-gray">
+                    <th scope="row">Branco</th>
+                    <td> <i class="bi bi-check-circle-fill check"></i> </td>
+                    <td> <i class="bi bi-check-circle-fill check"></i> </td>
+                </tr>
+                <tr class="component-table-white">
+                    <th scope="row">Pequeno</th>
+                    <td> <i class="bi bi-check-circle-fill check"></i> </td>
+                    <td> <i class="bi bi-check-circle-fill check"></i> </td>
+                </tr>
+                <tr class="component-table-gray">
+                    <th scope="row">Preto</th>
+                    <td> <i class="bi bi-check-circle-fill check"></i> </td>
+                    <td> <i class="bi bi-check-circle-fill check"></i> </td>
+                </tr>
+                <tr class="component-table-white">
+                    <th scope="row">Roxo 1</th>
+                    <td> <i class="bi bi-check-circle-fill check"></i> </td>
+                    <td> <i class="bi bi-check-circle-fill check"></i> </td>
+                </tr>
+                <tr class="component-table-gray">
+                    <th scope="row">Roxo 2</th>
+                    <td> <i class="bi bi-check-circle-fill check"></i> </td>
+                    <td> <i class="bi bi-check-circle-fill check"></i> </td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <!-- inicialização -->
+    <script>
+        // background color
+        document.body.style.backgroundColor = "#17a2b8";
+
+        // table
+        let blueSection = document.getElementById("blue-section");
+        blueSection.style.display = "block"
+
+        let redSection = document.getElementById("red-section");
+        redSection.style.display = "none"
+
+        let greenSection = document.getElementById("green-section");
+        greenSection.style.display = "none"
+
+        // PCB img
+        let imageOn = document.getElementById("image-on");
+        imageOn.style.display = "none"
+
+        let imageOff = document.getElementById("image-off");
+        imageOff.style.display = "none"
+
+        let imageNone = document.getElementById("image-none");
+        imageNone.style.display = "block"
+
+
+        // Inicialização DEBUG
+
+        // document.body.style.backgroundColor = "#dd4b39";
+
+        // // table
+        // let blueSection = document.getElementById("blue-section");
+        // blueSection.style.display = "none"
+
+        // let redSection = document.getElementById("red-section");
+        // redSection.style.display = "block"
+
+        // let greenSection = document.getElementById("green-section");
+        // greenSection.style.display = "none"
+        
+        // // PCB img
+        // let imageOn = document.getElementById("image-on");
+        // imageOn.style.display = "block"
+
+        // let imageOff = document.getElementById("image-off");
+        // imageOff.style.display = "none"
+
+        // let imageNone = document.getElementById("image-none");
+        // imageNone.style.display = "none"
+    </script>
+
+</div>
+
+    <script>    
+        
+        // SCRIPT DE INTERAÇÃO COM O BACK-END
         let URL = document.getElementById('circles').getAttribute("data-route");
         let intervalID = window.setInterval(getData, 1000, URL);
         function getData(URL) {          
@@ -56,11 +253,91 @@
             console.log(data["task_state"])
             console.log(data["data"])  
             if(data["data"]['step']) {
-                document.getElementById("steps").innerHTML = "#" + data["data"]['step'];
+
+                // blue screen
+                if (data["data"]['step'] < 5 ) {
+                    // console.log("debug" + data["data"]['step']);
+
+                    // background color
+                    document.body.style.backgroundColor = "#17a2b8";
+
+                    // table
+                    let blueSection = document.getElementById("blue-section");
+                    blueSection.style.display = "block"
+
+                    let redSection = document.getElementById("red-section");
+                    redSection.style.display = "none"
+
+                    let greenSection = document.getElementById("green-section");
+                    greenSection.style.display = "none"
+                    
+                    // PCB img
+                    let imageOn = document.getElementById("image-on");
+                    imageOn.style.display = "none"
+
+                    let imageOff = document.getElementById("image-off");
+                    imageOff.style.display = "block"
+
+                    let imageNone = document.getElementById("image-none");
+                    imageNone.style.display = "none"
+                    
+                // red screen
+                } else if (data["data"]['step'] < 10){
+                    // background color
+                    document.body.style.backgroundColor = "#dd4b39";
+
+                    // table
+                    let blueSection = document.getElementById("blue-section");
+                    blueSection.style.display = "none"
+
+                    let redSection = document.getElementById("red-section");
+                    redSection.style.display = "block"
+
+                    let greenSection = document.getElementById("green-section");
+                    greenSection.style.display = "none"
+
+                    // PCB img
+                    let imageOn = document.getElementById("image-on");
+                    imageOn.style.display = "block"
+
+                    let imageOff = document.getElementById("image-off");
+                    imageOff.style.display = "none"
+
+                    let imageNone = document.getElementById("image-none");
+                    imageNone.style.display = "none"
+                
+                // green screen
+                }else{
+                    // background color
+                    document.body.style.backgroundColor = "#28a745";
+
+                    // table
+                    let blueSection = document.getElementById("blue-section");
+                    blueSection.style.display = "none"
+
+                    let redSection = document.getElementById("red-section");
+                    redSection.style.display = "none"
+
+                    let greenSection = document.getElementById("green-section");
+                    greenSection.style.display = "block"
+
+
+                    // PCB img
+                    let imageOn = document.getElementById("image-on");
+                    imageOn.style.display = "block"
+
+                    let imageOff = document.getElementById("image-off");
+                    imageOff.style.display = "none"
+
+                    let imageNone = document.getElementById("image-none");
+                    imageNone.style.display = "none"
+                }
+                
+                // document.getElementById("steps").innerHTML = "#" + data["data"]['step'];
             }
           })
           .catch(err => { throw err });
         }    
-      </script>
+    </script>
 
 {% endblock %}
