@@ -174,7 +174,7 @@ def long_task(self):
         # Inverter e escrever o frame na pasta
         vframe = cv.flip(frame, -1)
         cv.imwrite("/usr/src/all-in-one/media/camera.jpg", vframe)
-        time.sleep(0.5) # Não esquentar tanto a raspi talvez
+        time.sleep(1) # Não esquentar tanto a raspi talvez
 
         # Botão de saída
         if butaoA.is_pressed:
