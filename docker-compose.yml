@@ -38,7 +38,7 @@ services:
       FLASK_APP: app.py
       DEFAULT_MEDIA_FOLDER: /usr/src/all-in-one/media/
       CELERY_RESULT_BACKEND: redis://all-in-one-redis:6379/0
-      CELERY_BROKER_URL: redis://all-in-one-redis:6379/0      
+      CELERY_BROKER_URL: redis://all-in-one-redis:6379/0  
     command: /usr/src/all-in-one/app/start      
     volumes:
       - "./app:/usr/src/all-in-one/app"      
@@ -48,6 +48,13 @@ services:
     depends_on:
       - all-in-one-redis
       - all-in-one-media
+    devices: 
+      - /dev/gpiomem:/dev/gpiomem
+      - /dev/mem:/dev/mem
+      - /dev/video0:/dev/video0
+      - /dev/vchiq:/dev/vchiq
+      - /dev/vcsm:/dev/vcsm
+    privileged: true
 
   all-in-one-app-worker:
     image: all-in-one-app:latest
@@ -66,4 +73,5 @@ services:
       - "./media:/usr/src/all-in-one/media/"
     depends_on:
       - all-in-one-app
+    privileged: true
     
