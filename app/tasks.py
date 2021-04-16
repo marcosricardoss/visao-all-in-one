@@ -1,4 +1,5 @@
 import time
+from redis import Redis
 from celery.utils.log import get_task_logger
 from app import create_celery_app
 
@@ -19,6 +20,7 @@ import argparse
 
 celery = create_celery_app()
 logger = get_task_logger(__name__)
+r = Redis(host='all-in-one-redis', port=6379, db=0, decode_responses=True)
 
 def makeDetection(frame, yolo, class_models):
     # Separa as duas PCBs

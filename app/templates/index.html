@@ -52,11 +52,12 @@
           fetch(URL)
           .then(res => res.json())
           .then((data) => {                        
+            console.log(data["task_id"])
+            console.log(data["task_state"])
             console.log(data["data"])  
             if(data["data"]['step']) {
                 document.getElementById("steps").innerHTML = "#" + data["data"]['step'];
             }
-            console.log(data["task_state"])              
           })
           .catch(err => { throw err });
         }    
