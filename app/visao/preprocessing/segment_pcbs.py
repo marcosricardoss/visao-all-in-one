@@ -95,7 +95,7 @@ def segment_pcbs(image):
     mask = fill_holes(close, 1000)
 
     # ler template
-    template = cv.imread('preprocessing/template-fhd.jpeg',0)
+    template = cv.imread('app/visao/preprocessing/template-fhd.jpeg',0)
 
     # resize pra uma proporção boa pra a distância da camera
     template = imutils.resize(template, width=500)
