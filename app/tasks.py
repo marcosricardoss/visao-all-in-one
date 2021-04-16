@@ -171,7 +171,7 @@ def long_task(self):
 
         # Inverter e escrever o frame na pasta
         vframe = cv.flip(frame, -1)
-        cv.imwrite("/usr/src/all-in-one/media/camera.jpg", vframe)
+        cv.imwrite(DEFAULT_MEDIA_FOLDER+"camera.jpg", vframe)
         time.sleep(1) # Não esquentar tanto a raspi talvez
 
         # Botão de saída
@@ -189,8 +189,8 @@ def long_task(self):
                     self.update_state(state="PCBS WERE NOT FOUND!", meta={"step":5})
                     time.sleep(5)
             except ValueError:
-                cv.imwrite("/usr/src/all-in-one/media/left.jpg", pcbL)
-                cv.imwrite("/usr/src/all-in-one/media/right.jpg", pcbR)
+                cv.imwrite(DEFAULT_MEDIA_FOLDER+"left.jpg", pcbL)
+                cv.imwrite(DEFAULT_MEDIA_FOLDER+"right.jpg", pcbR)
                 data["step"] = 4
                 self.update_state(state='SHOW TIME!', meta={"data":data})
                 time.sleep(10)
