@@ -59,18 +59,18 @@ def makeDetection(frame, yolo, class_models):
             coor = np.array(bbox[:4], dtype=np.int32)
             score = "{:.2f}".format(bbox[4])
             class_ind = int(bbox[5])
-            correct = 1
+            correct = True
 
             # Cores dos retangulos de cada classe
             rectangle_colors = {
-                '0': (0, 0, 255), # Componente incorreto
-                '1': (0, 255, 0), # Componente correto
+                'False': (0, 0, 255), # Componente incorreto
+                'True': (0, 255, 0), # Componente correto
             }
 
             # Cores dos scores de cada classe
             text_colors = {
-                '0': (0, 0, 0),
-                '1': (0, 0, 0),
+                'False': (0, 0, 0),
+                'True': (0, 0, 0),
             }
 
             classes = {
@@ -93,19 +93,19 @@ def makeDetection(frame, yolo, class_models):
                 prediction = class_models[str(class_ind)].predict(component[np.newaxis,...,np.newaxis])
 
             # Verificar se azuis e roxos estão na ordem correta
-            if ind == 0 and class_ind != 0:
-                correct = 0
+            if class_ind in range(2):
+                if ind == 0 and class_ind != 0:
+                    correct = False
 
-            if ind == 1 and class_ind != 1:
-                correct = 0
+                if ind == 1 and class_ind != 1:
+                    correct = False
 
-            if ind == 2 and class_ind != 1:
-                correct = 0
-            ind += 1
+                if ind == 2 and class_ind != 1:
+                    correct = False
             
             # Componente está incorreto
             if prediction[0][0]==0:
-                correct = 0
+                correct = False
 
             # Desenhar retângulo e score
             bbox_thick = 1
@@ -123,7 +123,11 @@ def makeDetection(frame, yolo, class_models):
                         fontScale, text_colors[str(correct)], 1, lineType=cv.LINE_AA)
 
             # colocar em data o indice da classe e se está certo ou errado
-            data[index+"-"+classes[str(class_ind)]+"-"+str(ind)] = correct
+            if class_ind in range(2):
+                data[index+"-"+classes[str(class_ind)]+"-"+str(ind)] = correct
+            else:
+                data[index+"-"+classes[str(class_ind)]] = correct
+            ind += 1 # ordem em que os componentes azuis e roxos estão
 
     def detect(index, image):
         bboxes = detect_image(yolo, image, input_size=YOLO_INPUT_SIZE, CLASSES=TRAIN_CLASSES,
