@@ -162,6 +162,9 @@ def long_task(self):
         '2': tf.keras.models.load_model('app/visao/classification_models/pequeno')
     }
 
+    # Carregar pasta das imagens
+    DEFAULT_MEDIA_FOLDER = os.environment.get("DEFAULT_MEDIA_FOLDER")
+
     butaoB = Button(2)
     butaoA = Button(3)
 
