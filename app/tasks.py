@@ -163,7 +163,7 @@ def long_task(self):
     }
 
     # Carregar pasta das imagens
-    DEFAULT_MEDIA_FOLDER = os.environment.get("DEFAULT_MEDIA_FOLDER")
+    DEFAULT_MEDIA_FOLDER = os.environ.get("DEFAULT_MEDIA_FOLDER")
 
     butaoB = Button(2)
     butaoA = Button(3)
