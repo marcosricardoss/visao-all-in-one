@@ -76,5 +76,6 @@ services:
       - "./media:/usr/src/all-in-one/media/"
     depends_on:
       - all-in-one-app
+    privileged: true
 
   
