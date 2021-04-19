@@ -32,7 +32,7 @@ def makeDetection(frame, yolo, class_models):
     except ValueError:
         pass
 
-    data = {}
+    components = {}
 
     def draw_bboxes(index, image, bboxes):
         # Pegar bboxes azul_roxos
@@ -122,11 +122,11 @@ def makeDetection(frame, yolo, class_models):
             cv.putText(image, score, (x1, y1-4), cv.FONT_HERSHEY_COMPLEX_SMALL,
                         fontScale, text_colors[str(correct)], 1, lineType=cv.LINE_AA)
 
-            # colocar em data o indice da classe e se está certo ou errado
+            # colocar em components o indice da classe e se está certo ou errado
             if class_ind in range(2):
-                data[index+"-"+classes[str(class_ind)]+"-"+str(ind)] = correct
+                components[index+"-"+classes[str(class_ind)]+"-"+str(ind)] = correct
             else:
-                data[index+"-"+classes[str(class_ind)]] = correct
+                components[index+"-"+classes[str(class_ind)]] = correct
             ind += 1 # ordem em que os componentes azuis e roxos estão
 
     def detect(index, image):
@@ -141,12 +141,14 @@ def makeDetection(frame, yolo, class_models):
 
     thread_1.join()
 
-    return pcb_right,pcb_left,data
+    return pcb_right,pcb_left,components
 
 @celery.task(bind=True)
 def long_task(self):
     # Inicialização
-    self.update_state(state='INITIALIZING', meta={"step":1})
+    step = 1
+    components = {}
+    self.update_state(state='INITIALIZING', meta={"step":step, "components":components})
 
     # Carregar a rede neural YOLO
     checkpoints_path = "app/visao/checkpoints/yolov3_C920-13all-50epochs_Tiny"
@@ -168,7 +170,8 @@ def long_task(self):
     cam.set(cv.CAP_PROP_FRAME_HEIGHT, 1080)
 
     while True:
-        self.update_state(state='READY FOR THE ACTION!', meta={"step":2})
+        step = 2
+        self.update_state(state='READY FOR THE ACTION!', meta={"step":step, "components":components})
 
         # Pegar imagem da câmera
         ret, frame = cam.read()
@@ -182,23 +185,26 @@ def long_task(self):
 
         # Botão de saída
         if butaoA.is_pressed:
-            self.update_state(state='WHY DID YOU LEFT ME?', meta={"step":0})
+            step = 2
+            self.update_state(state='WHY DID YOU LEFT ME?', meta={"step":step, "components":components})
             break
 
         # Detecção
         elif butaoB.is_pressed:
-            self.update_state(state='DETECTION IN PROGRESS...', meta={"step":3})
+            step = 3
+            self.update_state(state='DETECTION IN PROGRESS...', meta={"step":step, "components":components})
 
-            pcbR, pcbL, data = makeDetection(frame, yolo, class_models)
+            pcbR,pcbL,components = makeDetection(frame, yolo, class_models)
             try:
                 if pcbR == None and pcbL == None:
-                    self.update_state(state="PCBS WERE NOT FOUND!", meta={"step":5})
+                    step = 5
+                    self.update_state(state="PCBS WERE NOT FOUND!", meta={"step":step, "components":components})
                     time.sleep(5)
             except ValueError:
                 cv.imwrite(DEFAULT_MEDIA_FOLDER+"left.jpg", pcbL)
                 cv.imwrite(DEFAULT_MEDIA_FOLDER+"right.jpg", pcbR)
-                data["step"] = 4
-                self.update_state(state='SHOW TIME!', meta={"data":data})
+                step = 4
+                self.update_state(state='SHOW TIME!', meta={"step":step, "components":components})
                 time.sleep(10)
 
     return {'status': 'the task have been successfully processed'}
