@@ -208,3 +208,9 @@ def long_task(self):
                 time.sleep(10)
 
     return {'status': 'the task have been successfully processed'}
+
+# start the task and send your ID to the frontend via Redis
+task_id = r.get('taskid')
+if not task_id:
+    task = long_task.apply_async()
+    r.set('taskid', task.id)
