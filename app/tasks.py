@@ -187,13 +187,14 @@ def long_task(self):
         # time.sleep(1) # Não esquentar tanto a raspi talvez
 
         # Botão de saída
-        if butaoA.is_pressed:
+        k = cv.waitKey(1)
+        if k%256 == 27:             # ESC pressed
             step = 2
             self.update_state(state='WHY DID YOU LEFT ME?', meta={"step":step, "components":components})
             break
 
         # Detecção
-        elif butaoB.is_pressed:
+        elif k%256 == 32:           # SPACE pressed
             step = 3
             self.update_state(state='DETECTION IN PROGRESS...', meta={"step":step, "components":components})
 
