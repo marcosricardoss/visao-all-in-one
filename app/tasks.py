@@ -197,6 +197,7 @@ def long_task(self):
             step = 3
             self.update_state(state='DETECTION IN PROGRESS...', meta={"step":step, "components":components})
 
+            components.clear()
             pcbR,pcbL,components = makeDetection(frame, yolo, class_models)
             try:
                 if pcbR == None and pcbL == None:
