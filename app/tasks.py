@@ -23,16 +23,17 @@ logger = get_task_logger(__name__)
 r = Redis(host='all-in-one-redis', port=6379, db=0, decode_responses=True)
 
 def makeDetection(frame, yolo, class_models):
+    # Inicializa dicionário
+    components = {}
+
     # Separa as duas PCBs
     pcb_left, pcb_right = segment_pcbs(frame)
 
     try:
         if pcb_left == None and pcb_right == None:
-            return None, None, None
+            return None, None, components
     except ValueError:
         pass
-
-    components = {}
 
     def draw_bboxes(index, image, bboxes):
         # Pegar bboxes azul_roxos
