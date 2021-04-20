@@ -102,7 +102,7 @@ def segment_pcbs(image):
     w, h = template.shape[::-1]
 
     # specify a threshold
-    threshold = 0.4
+    threshold = 0.2
 
     # template matching
     res = cv.matchTemplate(mask,template,cv.TM_CCOEFF_NORMED)
