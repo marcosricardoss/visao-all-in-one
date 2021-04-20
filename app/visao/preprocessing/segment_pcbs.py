@@ -66,19 +66,12 @@ def segment_pcbs(image):
 
     # encontrar maior linha da imagem (esperamos que seja sempre a horizontal da placa)
     lines = cv.HoughLines(edges,1,np.pi/180,150)
-    rho, theta = lines[0][0][0], lines[0][0][1]
-    a = np.cos(theta)
-    b = np.sin(theta)
-    x0 = a*rho
-    y0 = b*rho
-    x1 = int(x0 + 1000*(-b))
-    y1 = int(y0 + 1000*(a))
-    x2 = int(x0 - 1000*(-b))
-    y2 = int(y0 - 1000*(a))
-    hough = cv.line(edges.copy(),(x1,y1),(x2,y2),150,2)
-
-    # rotacionar imagem -45 a partir dessa linha
-    image_rotated = imutils.rotate_bound(image, theta*57.2-45)
+    try:
+        if lines == None:
+            image_rotated = imutils.rotate_bound(image, -45)
+    except ValueError: 
+        rho, theta = lines[0][0][0], lines[0][0][1]
+        image_rotated = imutils.rotate_bound(image, theta*57.2-45)
 
     # grayscale e clahe novamente
     gray = cv.cvtColor(image_rotated, cv.COLOR_BGR2GRAY)
