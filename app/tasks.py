@@ -91,7 +91,7 @@ def makeDetection(frame, yolo, class_models):
                 component = image[y1-5:y2+5,x1-5:x2+5,:]
                 component = cv.resize(component, (32, 32))
                 component = cv.cvtColor(component, cv.COLOR_BGR2GRAY)
-                prediction = class_models[str(class_ind)].predict(component[np.newaxis,...,np.newaxis])
+                prediction = class_models[str(class_ind)](component[np.newaxis,...,np.newaxis])
 
             # Verificar se azuis e roxos estão na ordem correta
             # if class_ind in range(2):
