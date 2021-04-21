@@ -60,18 +60,18 @@ def makeDetection(frame, yolo, class_models):
             coor = np.array(bbox[:4], dtype=np.int32)
             score = "{:.2f}".format(bbox[4])
             class_ind = int(bbox[5])
-            correct = True
+            correct = 1
 
             # Cores dos retangulos de cada classe
             rectangle_colors = {
-                'False': (0, 0, 255), # Componente incorreto
-                'True': (0, 255, 0), # Componente correto
+                '0': (0, 0, 255), # Componente incorreto
+                '1': (0, 255, 0), # Componente correto
             }
 
             # Cores dos scores de cada classe
             text_colors = {
-                'False': (0, 0, 0),
-                'True': (0, 0, 0),
+                '0': (0, 0, 0),
+                '1': (0, 0, 0),
             }
 
             classes = {
@@ -96,17 +96,17 @@ def makeDetection(frame, yolo, class_models):
             # Verificar se azuis e roxos estão na ordem correta
             if class_ind in range(2):
                 if ind == 0 and class_ind != 0:
-                    correct = False
+                    correct = 0
 
                 if ind == 1 and class_ind != 1:
-                    correct = False
+                    correct = 0
 
                 if ind == 2 and class_ind != 1:
-                    correct = False
+                    correct = 0
             
             # Componente está incorreto
             if prediction[0][0]==0:
-                correct = False
+                correct = 0
 
             # Desenhar retângulo e score
             bbox_thick = 1
