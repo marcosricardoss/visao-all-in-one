@@ -180,7 +180,7 @@ def long_task(self):
 
         # Botão de saída
         if butaoA.is_pressed:
-            step = 2
+            step = 6
             self.update_state(state='WHY DID YOU LEFT ME?', meta={"step":step, "components":components})
             break
 
