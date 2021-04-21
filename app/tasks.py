@@ -94,15 +94,15 @@ def makeDetection(frame, yolo, class_models):
                 prediction = class_models[str(class_ind)].predict(component[np.newaxis,...,np.newaxis])
 
             # Verificar se azuis e roxos estão na ordem correta
-            if class_ind in range(2):
-                if ind == 0 and class_ind != 0:
-                    correct = 0
+            # if class_ind in range(2):
+            #     if ind == 0 and class_ind != 0:
+            #         correct = 0
 
-                if ind == 1 and class_ind != 1:
-                    correct = 0
+            #     if ind == 1 and class_ind != 1:
+            #         correct = 0
 
-                if ind == 2 and class_ind != 1:
-                    correct = 0
+            #     if ind == 2 and class_ind != 1:
+            #         correct = 0
             
             # Componente está incorreto
             if prediction[0][0]==0:
