@@ -210,7 +210,7 @@ def long_task(self):
                 cv.imwrite(DEFAULT_MEDIA_FOLDER+"right.jpg", pcbR)
                 step = 4
                 self.update_state(state='SHOW TIME!', meta={"step":step, "components":components})
-                time.sleep(10)
+                time.sleep(20)
 
     return {'status': 'the task have been successfully processed'}
 
