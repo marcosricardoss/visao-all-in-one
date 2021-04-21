@@ -174,11 +174,6 @@ def long_task(self):
         step = 2
         self.update_state(state='READY FOR THE ACTION!', meta={"step":step, "components":components})
 
-        # Pegar imagem da câmera
-        ret, frame = cam.read()
-        if not ret:
-            break
-
         # Inverter e escrever o frame na pasta
         frame = cv.imread(DEFAULT_MEDIA_FOLDER+"opencv_frame_8"+str(ind_image)+".png")
         time.sleep(1)
