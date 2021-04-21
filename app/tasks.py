@@ -186,15 +186,14 @@ def long_task(self):
 
         # Detecção
         elif butaoB.is_pressed:
-            ind_image += 1
-            if ind_image == 10:
-                ind_image = 0
-
             step = 3
             self.update_state(state='DETECTION IN PROGRESS...', meta={"step":step, "components":components})
 
             components.clear()
             pcbR,pcbL,components = makeDetection(frame, yolo, class_models)
+            ind_image += 1
+            if ind_image == 10:
+                ind_image = 0
             try:
                 if pcbR == None and pcbL == None:
                     step = 5
