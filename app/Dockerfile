@@ -11,8 +11,8 @@ RUN mkdir -p /var/log/celery/ /var/run/celery/
 ARG BUILD_ENV=production
 ADD requirements ./requirements
 
-RUN python3 -m pip install --upgrade pip
-RUN python3 -m pip install -r requirements/$BUILD_ENV.txt
+RUN pip install --upgrade pip
+RUN pip install -r requirements/$BUILD_ENV.txt
 
 # install gpio library
 
