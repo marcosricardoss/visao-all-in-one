@@ -4,63 +4,436 @@
 
 {% block body %}
 
-    <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-        <h1 class="display-4">STAGES</h1>
-        <h3 id="steps">#0</h3>
-        <p class="lead">Quickly build an effective pricing table for your potential customers with this Bootstrap
-            example. It’s built with default Bootstrap components and utilities with little customization.</p>
-    </div>
-    
-    <div id="circles" class="container center" data-route="{{ url|safe }}">
-        <!-- Three columns of text below the carousel -->
-        <div class="row circles-item" >
-            <div class="col-lg-4">
-                <svg class="bd-placeholder-img rounded-circle" width="140" height="140"
-                    xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140"
-                    preserveAspectRatio="xMidYMid slice" focusable="false">
-                    <title>Placeholder</title>
-                    <rect id="circle1" width="100%" height="100%" fill="#777" />                    
-                </svg>
-                <h2>Step #1</h2>
-                
-            </div><!-- /.col-lg-4 -->
-            <div class="col-lg-4">
-                <svg class="bd-placeholder-img rounded-circle" width="140" height="140"
-                    xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140"
-                    preserveAspectRatio="xMidYMid slice" focusable="false">
-                    <title>Placeholder</title>
-                    <rect id="circle2" width="100%" height="100%" fill="#777" />                    
-                </svg>
-                <h2>Step #2</h2>                
-            </div><!-- /.col-lg-4 -->
-            <div class="col-lg-4">
-                <svg class="bd-placeholder-img rounded-circle" width="140" height="140"
-                    xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140"
-                    preserveAspectRatio="xMidYMid slice" focusable="false">
-                    <title>Placeholder</title>
-                    <rect id="circle3" width="100%" height="100%" fill="#777" />     
-                </svg>
-                <h2>Step #3</h2>                
-            </div><!-- /.col-lg-4 -->
-        </div><!-- /.row -->
-    </div>
+<div id="circles" class=" row center" data-route="{{ url|safe }}">
 
-    <script>            
+    <section class="pcb-side col-xs-12 col-sm-9 col-md-9 col-lg-9 center">
+        <div class="video-capture ">
+            <img class="rounded center pallet-img" src="http://localhost:1001/img1.jpeg" alt="imagem de teste">
+        </div>
+            
+        <div id="image-on" >
+            <div class="pcb1 col-xs-10 col-sm-5 col-md-5">
+                <!-- <p class="pcb-title">Left</p> -->
+                <img class=" pcb-img " src="http://localhost:1001/img2.jpeg" alt="imagem de teste">
+            </div>
+            <div class="pcb2 col-xs-10 col-sm-5 col-md-5">
+                <!-- <p class="pcb-title">Right</p> -->
+                <img class="  pcb-img " src="http://localhost:1001/img3.jpeg" alt="imagem de teste">
+            </div>
+
+        </div>      
+        <div id="image-off" >
+            <div class="pcb1 col-xs-10 col-sm-5 col-md-5">
+                <!-- <p class="pcb-title">Left</p> -->
+                <div class="spinner-border text-light img-spinner " role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+            <div class="pcb2 col-xs-10 col-sm-5 col-md-5">
+                <!-- <p class="pcb-title">Right</p> -->
+                <div class="spinner-border text-light img-spinner " role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+
+        </div>      
+        <div id="image-none" >
+            <div class="pcb1 col-xs-10 col-sm-5 col-md-5">
+                <!-- <p class="pcb-title">Left</p> -->
+                <div class="pcb-img"></div>
+            </div>
+            <div class="pcb2 col-xs-10 col-sm-5 col-md-5">
+                <!-- <p class="pcb-title">Right</p> -->
+                <div class="pcb-img"></div>
+            </div>
+
+        </div>      
+
+    </section>
+
+
+    <section class="table-side col-xs-12 col-sm-3 col-md-3 col-lg-3">
+
+        <table class="table table-striped component-table ">
+            <thead class="component-table-bar">
+                <tr>
+                    <th scope="col">Componente</th>
+                    <th scope="col">Left</th>
+                    <th scope="col">Right</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="component-table-white">
+                    <th id = "component-name-1" scope="row">Azul</th>
+                    <td> <i id = "left-status-1" class="bi bi-hourglass-split"></i></td>
+                    <td> <i id = "right-status-1" class="bi bi-hourglass-split"></i></td>
+                </tr>
+                <tr class="component-table-gray">
+                    <th id = "component-name-2" scope="row">Branco</th>
+                    <td> <i id = "left-status-2" class="bi bi-hourglass-split"></i> </td>
+                    <td> <i id = "right-status-2" class="bi bi-hourglass-split"></i> </td>
+                </tr>
+                <tr class="component-table-white">
+                    <th id = "component-name-3" scope="row">Pequeno</th>
+                    <td> <i id = "left-status-3" class="bi bi-hourglass-split"></i> </td>
+                    <td> <i id = "right-status-3" class="bi bi-hourglass-split"></i> </td>
+                </tr>
+                <tr class="component-table-gray">
+                    <th id = "component-name-4" scope="row">Preto</th>
+                    <td> <i id = "left-status-4" class="bi bi-hourglass-split"></i> </td>
+                    <td> <i id = "right-status-4" class="bi bi-hourglass-split"></i> </td>
+                </tr>
+                <tr class="component-table-white">
+                    <th id = "component-name-5" scope="row">Roxo 1</th>
+                    <td> <i id = "left-status-5" class="bi bi-hourglass-split"></i> </td>
+                    <td> <i id = "right-status-5" class="bi bi-hourglass-split"></i> </td>
+                </tr>
+                <tr class="component-table-gray">
+                    <th  id = "component-name-6" scope="row">Roxo 2</th>
+                    <td> <i id = "left-status-6" class="bi bi-hourglass-split"></i> </td>
+                    <td> <i id = "right-status-6" class="bi bi-hourglass-split"></i> </td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <!-- inicialização -->
+    <script>
+        // background color
+        document.body.style.backgroundColor = "#17a2b8";
+
+
+
+        // PCB img
+        let imageOn = document.getElementById("image-on");
+        imageOn.style.display = "none"
+
+        let imageOff = document.getElementById("image-off");
+        imageOff.style.display = "none"
+
+        let imageNone = document.getElementById("image-none");
+        imageNone.style.display = "block"
+
+
+        // Inicialização DEBUG
+
+        // document.body.style.backgroundColor = "#dd4b39";
+
+        // // table
+        // let blueSection = document.getElementById("blue-section");
+        // blueSection.style.display = "none"
+
+        // let redSection = document.getElementById("red-section");
+        // redSection.style.display = "block"
+
+        // let greenSection = document.getElementById("green-section");
+        // greenSection.style.display = "none"
+        
+        // // PCB img
+        // let imageOn = document.getElementById("image-on");
+        // imageOn.style.display = "block"
+
+        // let imageOff = document.getElementById("image-off");
+        // imageOff.style.display = "none"
+
+        // let imageNone = document.getElementById("image-none");
+        // imageNone.style.display = "none"
+    </script>
+
+</div>
+
+    <script>    
+        
+        // SCRIPT DE INTERAÇÃO COM O BACK-END
         let URL = document.getElementById('circles').getAttribute("data-route");
         let intervalID = window.setInterval(getData, 1000, URL);
+
+        let dict = new Object();
+
+        dict['left-roxo-0'] = false;
+        dict['right-roxo-0'] = false;
+        dict['left-azul-1'] = false;
+        dict['right-azul-1'] = false;
+        dict['right-roxo-2'] = false;
+        dict['left-roxo-2'] = false;
+        dict['left-pequeno'] = false;
+        dict['left-preto'] = true;
+        dict['left-branco'] = true;
+        dict['right-pequeno'] = false;
+        dict['right-preto'] = true;
+        dict['right-branco'] = true;
+
+        let componentName1 = document.getElementById("component-name-1");
+        let leftStatus1 = document.getElementById("left-status-1");
+        let rightStatus1 = document.getElementById("right-status-1");
+
+        let componentName2 = document.getElementById("component-name-2");
+        let leftStatus2 = document.getElementById("left-status-2");
+        let rightStatus2 = document.getElementById("right-status-2");
+
+        let componentName3 = document.getElementById("component-name-3");
+        let leftStatus3 = document.getElementById("left-status-3");
+        let rightStatus3 = document.getElementById("right-status-3");
+
+        let componentName4 = document.getElementById("component-name-4");
+        let leftStatus4 = document.getElementById("left-status-4");
+        let rightStatus4 = document.getElementById("right-status-4");
+
+        let componentName5 = document.getElementById("component-name-5");
+        let leftStatus5 = document.getElementById("left-status-5");
+        let rightStatus5 = document.getElementById("right-status-5");
+
+        let componentName6 = document.getElementById("component-name-6");
+        let leftStatus6 = document.getElementById("left-status-6");
+        let rightStatus6 = document.getElementById("right-status-6");
+
+        let backColor = "blue";
+
         function getData(URL) {          
-          fetch(URL)
-          .then(res => res.json())
-          .then((data) => {                        
+            fetch(URL)
+            .then(res => res.json())
+            .then((data) => {                        
+            console.log(dict)
             console.log(data["task_id"])
             console.log(data["task_state"])
             console.log(data["data"])  
+
+
             if(data["data"]['step']) {
-                document.getElementById("steps").innerHTML = "#" + data["data"]['step'];
+
+            //     switch (data["task_state"]){
+            //         case 'INITIALIZING':
+                        
+            //             break;
+            //         case 'READY FOR THE ACTION!':
+                        
+            //             break;
+            //         case 'WHY DID YOU LEFT ME?':
+                        
+            //             break;
+            //         case 'DETECTION IN PROGRESS...':
+                        
+            //             break;
+            //         case 'PCBS WERE NOT FOUND!':
+                        
+            //             break;
+            //         case 'SHOW TIME!':
+                        
+            //             break;
+            //         default:
+
+            //     }
+
+                    // background color
+                    document.body.style.backgroundColor = "#17a2b8";
+                    backColor = "blue";
+
+                    // PCB img
+
+                    let imageOn = document.getElementById("image-on");
+                    imageOn.style.display = "none"
+
+                    let imageOff = document.getElementById("image-off");
+                    imageOff.style.display = "block"
+
+                    let imageNone = document.getElementById("image-none");
+                    imageNone.style.display = "none"
+                    
+                    
+
+                    for(let key in dict) {
+                        switch (key){
+                            case 'left-roxo-0':
+
+                                componentName1.textContent = "Roxo 0";
+
+                                if (dict[key] == true){
+                                    leftStatus1.className = "bi bi-check-circle-fill check"; 
+                                }else{
+                                    leftStatus1.className = "bi bi-x-circle-fill wrong"; 
+                                    if (backColor != "red"){
+                                        backColor == "red";
+                                        document.body.style.backgroundColor = "#dd4b39";
+                                    }
+                                }
+                                break;
+                                
+                            case 'right-roxo-0':
+
+                                componentName1.textContent = "Roxo 0";
+
+                                if (dict[key] == true){
+                                    rightStatus1.className = "bi bi-check-circle-fill check"; 
+                                }else{
+                                    rightStatus1.className = "bi bi-x-circle-fill wrong"; 
+                                    if (backColor != "red"){
+                                        backColor == "red";
+                                        document.body.style.backgroundColor = "#dd4b39";
+                                    }
+                                }
+                                break;
+                            case 'left-azul-1':
+
+                                componentName2.textContent = "Azul 0";
+
+                                if (dict[key] == true){
+                                    leftStatus2.className = "bi bi-check-circle-fill check"; 
+                                }else{
+                                    leftStatus2.className = "bi bi-x-circle-fill wrong"; 
+                                    if (backColor != "red"){
+                                        backColor == "red";
+                                        document.body.style.backgroundColor = "#dd4b39";
+                                    }
+                                }
+
+                                break;
+                            case 'right-azul-1':
+
+                                componentName2.textContent = "Azul 0";
+
+                                if (dict[key] == true){
+                                    rightStatus2.className = "bi bi-check-circle-fill check"; 
+                                }else{
+                                    rightStatus2.className = "bi bi-x-circle-fill wrong"; 
+                                    if (backColor != "red"){
+                                        backColor == "red";
+                                        document.body.style.backgroundColor = "#dd4b39";
+                                    }
+                                }
+
+                                break;
+                            case 'left-roxo-2':
+
+                                componentName3.textContent = "Roxo 2";
+
+                                if (dict[key] == true){
+                                    leftStatus3.className = "bi bi-check-circle-fill check"; 
+                                }else{
+                                    leftStatus3.className = "bi bi-x-circle-fill wrong"; 
+                                    if (backColor != "red"){
+                                        backColor == "red";
+                                        document.body.style.backgroundColor = "#dd4b39";
+                                    }
+                                }
+                                break;
+                            case 'right-roxo-2':
+
+                                componentName3.textContent = "Roxo 2";
+
+                                if (dict[key] == true){
+                                    rightStatus3.className = "bi bi-check-circle-fill check"; 
+                                }else{
+                                    rightStatus3.className = "bi bi-x-circle-fill wrong"; 
+                                    if (backColor != "red"){
+                                        backColor == "red";
+                                        document.body.style.backgroundColor = "#dd4b39";
+                                    }
+                                }
+
+                                break;
+                            case 'left-pequeno':
+
+                                componentName4.textContent = "Pequeno";
+
+                                if (dict[key] == true){
+                                    leftStatus4.className = "bi bi-check-circle-fill check"; 
+                                }else{
+                                    leftStatus4.className = "bi bi-x-circle-fill wrong"; 
+                                    if (backColor != "red"){
+                                        backColor == "red";
+                                        document.body.style.backgroundColor = "#dd4b39";
+                                    }
+                                }
+
+                                break;
+                            case 'left-preto':
+
+                                componentName5.textContent = "Preto";
+
+                                if (dict[key] == true){
+                                    leftStatus5.className = "bi bi-check-circle-fill check"; 
+                                }else{
+                                    leftStatus5.className = "bi bi-x-circle-fill wrong"; 
+                                    if (backColor != "red"){
+                                        backColor == "red";
+                                        document.body.style.backgroundColor = "#dd4b39";
+                                    }
+                                }
+
+                                break;
+                            case 'left-branco':
+
+                                componentName6.textContent = "Branco";
+
+                                if (dict[key] == true){
+                                    leftStatus6.className = "bi bi-check-circle-fill check"; 
+                                }else{
+                                    leftStatus6.className = "bi bi-x-circle-fill wrong"; 
+                                    if (backColor != "red"){
+                                        backColor == "red";
+                                        document.body.style.backgroundColor = "#dd4b39";
+                                    }
+                                }
+
+                                break;
+                            case 'right-pequeno':
+
+                                componentName4.textContent = "Pequeno";
+
+                                if (dict[key] == true){
+                                    rightStatus4.className = "bi bi-check-circle-fill check"; 
+                                }else{
+                                    rightStatus4.className = "bi bi-x-circle-fill wrong"; 
+                                    if (backColor != "red"){
+                                        backColor == "red";
+                                        document.body.style.backgroundColor = "#dd4b39";
+                                    }
+                                }
+
+                                break;
+                            case 'right-preto':
+
+                                componentName5.textContent = "Preto";
+
+                                if (dict[key] == true){
+                                    rightStatus5.className = "bi bi-check-circle-fill check"; 
+                                }else{
+                                    rightStatus5.className = "bi bi-x-circle-fill wrong"; 
+                                    if (backColor != "red"){
+                                        backColor == "red";
+                                        document.body.style.backgroundColor = "#dd4b39";
+                                    }
+                                }
+
+                                break;
+                            case 'right-branco':
+
+                                componentName6.textContent = "Branco";
+
+                                if (dict[key] == true){
+                                    rightStatus6.className = "bi bi-check-circle-fill check"; 
+                                }else{
+                                    rightStatus6.className = "bi bi-x-circle-fill wrong"; 
+                                    if (backColor != "red"){
+                                        backColor == "red";
+                                        document.body.style.backgroundColor = "#dd4b39";
+                                    }
+                                }
+
+                                break;
+                            default: 
+                                console.log(`Sorry, we are out of ${key}.`);
+                        }
+
+                    }
+
+
+ 
+                // document.getElementById("steps").innerHTML = "#" + data["data"]['step'];
             }
           })
           .catch(err => { throw err });
         }    
-      </script>
+    </script>
 
 {% endblock %}
