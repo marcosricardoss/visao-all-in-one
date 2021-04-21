@@ -169,10 +169,7 @@ def long_task(self):
     butaoB = Button(2)
     butaoA = Button(3)
 
-    cam = cv.VideoCapture(0)
-    cam.set(cv.CAP_PROP_FRAME_WIDTH, 1920)
-    cam.set(cv.CAP_PROP_FRAME_HEIGHT, 1080)
-
+    ind_image = 0
     while True:
         step = 2
         self.update_state(state='READY FOR THE ACTION!', meta={"step":step, "components":components})
@@ -183,9 +180,8 @@ def long_task(self):
             break
 
         # Inverter e escrever o frame na pasta
-        vframe = cv.flip(frame, -1)
-        cv.imwrite(DEFAULT_MEDIA_FOLDER+"camera.jpg", vframe)
-        time.sleep(1) # Não esquentar tanto a raspi talvez
+        frame = cv.imread(DEFAULT_MEDIA_FOLDER+"opencv_frame_8"+str(ind_image)+".png")
+        time.sleep(1)
 
         # Botão de saída
         if butaoA.is_pressed:
@@ -195,6 +191,10 @@ def long_task(self):
 
         # Detecção
         elif butaoB.is_pressed:
+            ind_image += 1
+            if ind_image == 10:
+                ind_image = 0
+
             step = 3
             self.update_state(state='DETECTION IN PROGRESS...', meta={"step":step, "components":components})
 
