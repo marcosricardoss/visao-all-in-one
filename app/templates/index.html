@@ -14,11 +14,11 @@
         <div id="image-on" >
             <div class="pcb1 col-xs-10 col-sm-5 col-md-5">
                 <!-- <p class="pcb-title">Left</p> -->
-                <img class=" pcb-img " src="http://localhost:1001/img2.jpeg" alt="imagem de teste">
+                <img class=" pcb-img " src="http://localhost:1001/left.jpeg" alt="imagem de teste">
             </div>
             <div class="pcb2 col-xs-10 col-sm-5 col-md-5">
                 <!-- <p class="pcb-title">Right</p> -->
-                <img class="  pcb-img " src="http://localhost:1001/img3.jpeg" alt="imagem de teste">
+                <img class="  pcb-img " src="http://localhost:1001/right.jpeg" alt="imagem de teste">
             </div>
 
         </div>      
@@ -193,48 +193,72 @@
             fetch(URL)
             .then(res => res.json())
             .then((data) => {                        
-            console.log(dict)
+            // console.log(dict)
             console.log(data["task_id"])
             console.log(data["task_state"])
-            console.log(data["data"])  
+            console.log(data["data"]) 
+            console.log("formato de components") 
+            console.log(data["data"]['components'])  
 
 
             if(data["data"]['step']) {
 
-            //     switch (data["task_state"]){
-            //         case 'INITIALIZING':
+                switch (data["task_state"]){
+                    case 'INITIALIZING':
+                        document.body.style.backgroundColor = "#17a2b8";
+                        backColor = "blue";
                         
-            //             break;
-            //         case 'READY FOR THE ACTION!':
-                        
-            //             break;
-            //         case 'WHY DID YOU LEFT ME?':
-                        
-            //             break;
-            //         case 'DETECTION IN PROGRESS...':
-                        
-            //             break;
-            //         case 'PCBS WERE NOT FOUND!':
-                        
-            //             break;
-            //         case 'SHOW TIME!':
-                        
-            //             break;
-            //         default:
+                        break;
 
-            //     }
+                    case 'READY FOR THE ACTION!':
+                        document.body.style.backgroundColor = "#17a2b8";
+                        backColor = "blue";
+                        
+                        break;
+
+                    case 'WHY DID YOU LEFT ME?':
+                        document.body.style.backgroundColor = "#000000";
+                        backColor = "white";
+                        break;
+
+                    case 'DETECTION IN PROGRESS...':
+                        document.body.style.backgroundColor = "#17a2b8";
+                        backColor = "blue";
+
+                        let imageOn = document.getElementById("image-on");
+                        imageOn.style.display = "none"
+
+                        let imageOff = document.getElementById("image-off");
+                        imageOff.style.display = "block"
+
+                        let imageNone = document.getElementById("image-none");
+                        imageNone.style.display = "none"
+                        break;
+
+                    case 'PCBS WERE NOT FOUND!':
+                        document.body.style.backgroundColor = "#dd4b39";
+                        backColor = "red";
+                        break;
+
+                    case 'SHOW TIME!':
+                        document.body.style.backgroundColor = "#28a745";
+                        backColor = "green";
+                        break;
+
+                    default:
+                        alert("ERROR on state task switch")
+
+                }
 
                     // background color
-                    document.body.style.backgroundColor = "#17a2b8";
-                    backColor = "blue";
 
                     // PCB img
 
                     let imageOn = document.getElementById("image-on");
-                    imageOn.style.display = "none"
+                    imageOn.style.display = "block"
 
                     let imageOff = document.getElementById("image-off");
-                    imageOff.style.display = "block"
+                    imageOff.style.display = "none"
 
                     let imageNone = document.getElementById("image-none");
                     imageNone.style.display = "none"
@@ -254,9 +278,8 @@
                                     if (backColor != "red"){
                                         backColor == "red";
                                         document.body.style.backgroundColor = "#dd4b39";
-                                    }
+                                    }break;
                                 }
-                                break;
                                 
                             case 'right-roxo-0':
 
@@ -265,12 +288,11 @@
                                 if (dict[key] == true){
                                     rightStatus1.className = "bi bi-check-circle-fill check"; 
                                 }else{
-                                    rightStatus1.className = "bi bi-x-circle-fill wrong"; 
-                                    if (backColor != "red"){
-                                        backColor == "red";
-                                        document.body.style.backgroundColor = "#dd4b39";
-                                    }
+                                }if (backColor != "red"){
+                                    backColor == "red";
+                                    document.body.style.backgroundColor = "#dd4b39";
                                 }
+                                rightStatus1.className = "bi bi-x-circle-fill wrong"; 
                                 break;
                             case 'left-azul-1':
 
@@ -285,7 +307,6 @@
                                         document.body.style.backgroundColor = "#dd4b39";
                                     }
                                 }
-
                                 break;
                             case 'right-azul-1':
 
@@ -300,7 +321,6 @@
                                         document.body.style.backgroundColor = "#dd4b39";
                                     }
                                 }
-
                                 break;
                             case 'left-roxo-2':
 
@@ -309,12 +329,11 @@
                                 if (dict[key] == true){
                                     leftStatus3.className = "bi bi-check-circle-fill check"; 
                                 }else{
-                                    leftStatus3.className = "bi bi-x-circle-fill wrong"; 
-                                    if (backColor != "red"){
-                                        backColor == "red";
-                                        document.body.style.backgroundColor = "#dd4b39";
-                                    }
+                                }if (backColor != "red"){
+                                    backColor == "red";
+                                    document.body.style.backgroundColor = "#dd4b39";
                                 }
+                                leftStatus3.className = "bi bi-x-circle-fill wrong"; 
                                 break;
                             case 'right-roxo-2':
 
@@ -329,7 +348,6 @@
                                         document.body.style.backgroundColor = "#dd4b39";
                                     }
                                 }
-
                                 break;
                             case 'left-pequeno':
 
@@ -344,7 +362,6 @@
                                         document.body.style.backgroundColor = "#dd4b39";
                                     }
                                 }
-
                                 break;
                             case 'left-preto':
 
@@ -359,7 +376,6 @@
                                         document.body.style.backgroundColor = "#dd4b39";
                                     }
                                 }
-
                                 break;
                             case 'left-branco':
 
@@ -374,7 +390,6 @@
                                         document.body.style.backgroundColor = "#dd4b39";
                                     }
                                 }
-
                                 break;
                             case 'right-pequeno':
 
@@ -389,7 +404,6 @@
                                         document.body.style.backgroundColor = "#dd4b39";
                                     }
                                 }
-
                                 break;
                             case 'right-preto':
 
@@ -404,7 +418,6 @@
                                         document.body.style.backgroundColor = "#dd4b39";
                                     }
                                 }
-
                                 break;
                             case 'right-branco':
 
