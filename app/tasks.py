@@ -148,6 +148,9 @@ def makeDetection(frame, yolo, class_models):
 
     thread_1.join()
 
+    # np.array to list
+    components = list(components)
+
     return pcb_right,pcb_left,components
 
 @celery.task(bind=True)
