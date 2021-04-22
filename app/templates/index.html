@@ -163,21 +163,6 @@
         let URL = document.getElementById('circles').getAttribute("data-route");
         let intervalID = window.setInterval(getData, 1000, URL);
 
-        let dict = new Object();
-
-        dict['left-roxo-0'] = false;
-        dict['right-roxo-0'] = false;
-        dict['left-azul-1'] = false;
-        dict['right-azul-1'] = false;
-        dict['right-roxo-2'] = false;
-        dict['left-roxo-2'] = false;
-        dict['left-pequeno'] = false;
-        dict['left-preto'] = true;
-        dict['left-branco'] = true;
-        dict['right-pequeno'] = false;
-        dict['right-preto'] = true;
-        dict['right-branco'] = true;
-
         let componentName1 = document.getElementById("component-name-1");
         let leftStatus1 = document.getElementById("left-status-1");
         let rightStatus1 = document.getElementById("right-status-1");
@@ -213,6 +198,10 @@
         let componentName9 = document.getElementById("component-name-9");
         let leftStatus9 = document.getElementById("left-status-9");
         let rightStatus9 = document.getElementById("right-status-9");
+
+        let imageOn = document.getElementById("image-on");
+        let imageOff = document.getElementById("image-off");
+        let imageNone = document.getElementById("image-none");
 
         let backColor = "blue";
 
@@ -278,13 +267,8 @@
 
 
 
-                        let imageOn = document.getElementById("image-on");
                         imageOn.style.display = "none"
-
-                        let imageOff = document.getElementById("image-off");
                         imageOff.style.display = "block"
-
-                        let imageNone = document.getElementById("image-none");
                         imageNone.style.display = "none"
                         break;
 
@@ -627,9 +611,7 @@
                         }
                         
                         imageOn.style.display = "block"
-
                         imageOff.style.display = "none"
-
                         imageNone.style.display = "none"
 
                         break;
