@@ -9,9 +9,9 @@
     <section class="pcb-side col-xs-12 col-sm-9 col-md-9 col-lg-9 center">
         <div class="video-capture ">
             <!-- Para quem não tem Pallet -->
-            <img class="rounded center pallet-img" src="http://192.168.0.111:1001/img1.jpeg" alt="pallet img">
+            <img id = "camera-img" class="rounded center pallet-img" src="http://192.168.0.111:1001/img1.jpeg" alt="pallet img">
             <!-- para quem tem Pallet -->
-            <!-- <img class="rounded center pallet-img" src="192.168.0.111:1001/cameraImg.jpeg" alt="pallet img"> -->
+            <!-- <img id = "camera-img"  class="rounded center pallet-img" src="192.168.0.111:1001/cameraImg.jpeg" alt="pallet img"> -->
         </div>
         
         <div id="image-on" >
@@ -224,13 +224,13 @@
                     case 'INITIALIZING':
                         document.body.style.backgroundColor = "#17a2b8";
                         backColor = "blue";
-                        cameratImg.src = cameratImg.src;
+                        cameraImg.src = cameraImg.src;
                         break;
 
                     case 'READY FOR THE ACTION!':
                         document.body.style.backgroundColor = "#17a2b8";
                         backColor = "blue";
-                        cameratImg.src = cameratImg.src;
+                        cameraImg.src = cameraImg.src;
                         break;
 
                     case 'WHY DID YOU LEFT ME?':
