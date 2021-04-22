@@ -8,17 +8,17 @@
 
     <section class="pcb-side col-xs-12 col-sm-9 col-md-9 col-lg-9 center">
         <div class="video-capture ">
-            <img class="rounded center pallet-img" src="192.168.0.111:1001/img1.jpg" alt="imagem de teste">
+            <img class="rounded center pallet-img" src="192.168.0.106:1001/img1.jpg" alt="imagem de teste">
         </div>
             
         <div id="image-on" >
             <div class="pcb1 col-xs-10 col-sm-5 col-md-5">
                 <!-- <p class="pcb-title">Left</p> -->
-                <img class=" pcb-img " src="192.168.0.111:1001/left.jpeg" alt="imagem de teste">
+                <img class=" pcb-img " src="192.168.0.106:1001/left.jpeg" alt="imagem de teste">
             </div>
             <div class="pcb2 col-xs-10 col-sm-5 col-md-5">
                 <!-- <p class="pcb-title">Right</p> -->
-                <img class="  pcb-img " src="192.168.0.111:1001/right.jpg" alt="imagem de teste">
+                <img class="  pcb-img " src="192.168.0.106:1001/right.jpg" alt="imagem de teste">
             </div>
 
         </div>      
@@ -224,37 +224,61 @@
             console.log(data["task_id"])
             console.log(data["task_state"])
             console.log(data["data"]) 
-            console.log("formato de components") 
-            console.log(data["data"]['components'])  
 
 
             if(data["data"]['step']) {
 
                 switch (data["task_state"]){
                     case 'INITIALIZING':
-                        console.log("ward");
                         document.body.style.backgroundColor = "#17a2b8";
                         backColor = "blue";
                         
                         break;
 
                     case 'READY FOR THE ACTION!':
-                    console.log("ward");
                         document.body.style.backgroundColor = "#17a2b8";
                         backColor = "blue";
                         
                         break;
 
                     case 'WHY DID YOU LEFT ME?':
-                        console.log("ward");
                         document.body.style.backgroundColor = "#000000";
                         backColor = "white";
                         break;
 
                     case 'DETECTION IN PROGRESS...':
-                        console.log("ward");
                         document.body.style.backgroundColor = "#17a2b8";
                         backColor = "blue";
+
+                        // Atualizando o estado da tabela
+                        leftStatus1.className = "bi bi-hourglass-split";
+                        rightStatus1.className = "bi bi-hourglass-split";
+
+                        leftStatus2.className = "bi bi-hourglass-split";
+                        rightStatus2.className = "bi bi-hourglass-split";
+
+                        leftStatus3.className = "bi bi-hourglass-split";
+                        rightStatus3.className = "bi bi-hourglass-split";
+
+                        leftStatus4.className = "bi bi-hourglass-split";
+                        rightStatus4.className = "bi bi-hourglass-split";
+
+                        leftStatus5.className = "bi bi-hourglass-split";
+                        rightStatus5.className = "bi bi-hourglass-split";
+
+                        leftStatus6.className = "bi bi-hourglass-split";
+                        rightStatus6.className = "bi bi-hourglass-split";
+
+                        leftStatus7.className = "bi bi-hourglass-split";
+                        rightStatus7.className = "bi bi-hourglass-split";
+
+                        leftStatus8.className = "bi bi-hourglass-split";
+                        rightStatus8.className = "bi bi-hourglass-split";
+                        
+                        leftStatus9.className = "bi bi-hourglass-split";
+                        rightStatus9.className = "bi bi-hourglass-split";
+
+
 
                         let imageOn = document.getElementById("image-on");
                         imageOn.style.display = "none"
@@ -267,16 +291,44 @@
                         break;
 
                     case "PCBS WERE NOT FOUND!":
-                        console.log("ward");
                         document.body.style.backgroundColor = "#dd4b39";
                         backColor = "red";
                         break;
 
                     case 'SHOW TIME!':
-                        console.log("ward");
                         document.body.style.backgroundColor = "#28a745";
                         backColor = "green";
 
+                        // Atualizando o estado da tabela
+                        leftStatus1.className = "bi bi-exclamation-octagon-fill warning";
+                        rightStatus1.className = "bi bi-exclamation-octagon-fill warning";
+
+                        leftStatus2.className = "bi bi-exclamation-octagon-fill warning";
+                        rightStatus2.className = "bi bi-exclamation-octagon-fill warning";
+
+                        leftStatus3.className = "bi bi-exclamation-octagon-fill warning";
+                        rightStatus3.className = "bi bi-exclamation-octagon-fill warning";
+
+                        leftStatus4.className = "bi bi-exclamation-octagon-fill warning";
+                        rightStatus4.className = "bi bi-exclamation-octagon-fill warning";
+
+                        leftStatus5.className = "bi bi-exclamation-octagon-fill warning";
+                        rightStatus5.className = "bi bi-exclamation-octagon-fill warning";
+
+                        leftStatus6.className = "bi bi-exclamation-octagon-fill warning";
+                        rightStatus6.className = "bi bi-exclamation-octagon-fill warning";
+
+                        leftStatus7.className = "bi bi-exclamation-octagon-fill warning";
+                        rightStatus7.className = "bi bi-exclamation-octagon-fill warning";
+
+                        leftStatus8.className = "bi bi-exclamation-octagon-fill warning";
+                        rightStatus8.className = "bi bi-exclamation-octagon-fill warning";
+                        
+                        leftStatus9.className = "bi bi-exclamation-octagon-fill warning";
+                        rightStatus9.className = "bi bi-exclamation-octagon-fill warning";
+                        
+                        
+                        
                         for(let key in data["data"]['components']) {
                             switch (key){
 
