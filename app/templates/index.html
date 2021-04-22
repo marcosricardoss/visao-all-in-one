@@ -8,17 +8,17 @@
 
     <section class="pcb-side col-xs-12 col-sm-9 col-md-9 col-lg-9 center">
         <div class="video-capture ">
-            <img class="rounded center pallet-img" src="http://localhost:1001/img1.jpeg" alt="imagem de teste">
+            <img class="rounded center pallet-img" src="192.168.0.111:1001/img1.jpg" alt="imagem de teste">
         </div>
             
         <div id="image-on" >
             <div class="pcb1 col-xs-10 col-sm-5 col-md-5">
                 <!-- <p class="pcb-title">Left</p> -->
-                <img class=" pcb-img " src="http://localhost:1001/left.jpeg" alt="imagem de teste">
+                <img class=" pcb-img " src="192.168.0.111:1001/left.jpeg" alt="imagem de teste">
             </div>
             <div class="pcb2 col-xs-10 col-sm-5 col-md-5">
                 <!-- <p class="pcb-title">Right</p> -->
-                <img class="  pcb-img " src="http://localhost:1001/right.jpeg" alt="imagem de teste">
+                <img class="  pcb-img " src="192.168.0.111:1001/right.jpg" alt="imagem de teste">
             </div>
 
         </div>      
@@ -205,23 +205,27 @@
 
                 switch (data["task_state"]){
                     case 'INITIALIZING':
+                        console.log("ward");
                         document.body.style.backgroundColor = "#17a2b8";
                         backColor = "blue";
                         
                         break;
 
                     case 'READY FOR THE ACTION!':
+                    console.log("ward");
                         document.body.style.backgroundColor = "#17a2b8";
                         backColor = "blue";
                         
                         break;
 
                     case 'WHY DID YOU LEFT ME?':
+                        console.log("ward");
                         document.body.style.backgroundColor = "#000000";
                         backColor = "white";
                         break;
 
                     case 'DETECTION IN PROGRESS...':
+                        console.log("ward");
                         document.body.style.backgroundColor = "#17a2b8";
                         backColor = "blue";
 
@@ -235,211 +239,197 @@
                         imageNone.style.display = "none"
                         break;
 
-                    case 'PCBS WERE NOT FOUND!':
+                    case "PCBS WERE NOT FOUND!":
+                        console.log("ward");
                         document.body.style.backgroundColor = "#dd4b39";
                         backColor = "red";
                         break;
 
                     case 'SHOW TIME!':
+                        console.log("ward");
                         document.body.style.backgroundColor = "#28a745";
                         backColor = "green";
+
+                        for(let key in data["data"]['components']) {
+                            switch (key){
+                                case 'left-roxo-0':
+
+                                    componentName1.textContent = "Roxo 0";
+
+                                    if (data["data"]['components'][key] == true){
+                                        leftStatus1.className = "bi bi-check-circle-fill check"; 
+                                    }else{
+                                        leftStatus1.className = "bi bi-x-circle-fill wrong"; 
+                                        if (backColor != "red"){
+                                            backColor == "red";
+                                            document.body.style.backgroundColor = "#dd4b39";
+                                        }break;
+                                    }
+                                    
+                                case 'right-roxo-0':
+
+                                    componentName1.textContent = "Roxo 0";
+
+                                    if (data["data"]['components'][key] == true){
+                                        rightStatus1.className = "bi bi-check-circle-fill check"; 
+                                    }else{
+                                    }if (backColor != "red"){
+                                        backColor == "red";
+                                        document.body.style.backgroundColor = "#dd4b39";
+                                    }
+                                    rightStatus1.className = "bi bi-x-circle-fill wrong"; 
+                                    break;
+                                case 'left-azul-1':
+
+                                    componentName2.textContent = "Azul 0";
+
+                                    if (data["data"]['components'][key] == true){
+                                        leftStatus2.className = "bi bi-check-circle-fill check"; 
+                                    }else{
+                                        leftStatus2.className = "bi bi-x-circle-fill wrong"; 
+                                        if (backColor != "red"){
+                                            backColor == "red";
+                                            document.body.style.backgroundColor = "#dd4b39";
+                                        }
+                                    }
+                                    break;
+                                case 'right-azul-1':
+
+                                    componentName2.textContent = "Azul 0";
+
+                                    if (data["data"]['components'][key] == true){
+                                        rightStatus2.className = "bi bi-check-circle-fill check"; 
+                                    }else{
+                                        rightStatus2.className = "bi bi-x-circle-fill wrong"; 
+                                        if (backColor != "red"){
+                                            backColor == "red";
+                                            document.body.style.backgroundColor = "#dd4b39";
+                                        }
+                                    }
+                                    break;
+                                case 'left-roxo-2':
+
+                                    componentName3.textContent = "Roxo 2";
+
+                                    if (data["data"]['components'][key] == true){
+                                        leftStatus3.className = "bi bi-check-circle-fill check"; 
+                                    }else{
+                                    }if (backColor != "red"){
+                                        backColor == "red";
+                                        document.body.style.backgroundColor = "#dd4b39";
+                                    }
+                                    leftStatus3.className = "bi bi-x-circle-fill wrong"; 
+                                    break;
+                                case 'right-roxo-2':
+
+                                    componentName3.textContent = "Roxo 2";
+
+                                    if (data["data"]['components'][key] == true){
+                                        rightStatus3.className = "bi bi-check-circle-fill check"; 
+                                    }else{
+                                        rightStatus3.className = "bi bi-x-circle-fill wrong"; 
+                                        if (backColor != "red"){
+                                            backColor == "red";
+                                            document.body.style.backgroundColor = "#dd4b39";
+                                        }
+                                    }
+                                    break;
+                                case 'left-pequeno':
+
+                                    componentName4.textContent = "Pequeno";
+
+                                    if (data["data"]['components'][key] == true){
+                                        leftStatus4.className = "bi bi-check-circle-fill check"; 
+                                    }else{
+                                        leftStatus4.className = "bi bi-x-circle-fill wrong"; 
+                                        if (backColor != "red"){
+                                            backColor == "red";
+                                            document.body.style.backgroundColor = "#dd4b39";
+                                        }
+                                    }
+                                    break;
+                                case 'left-preto':
+
+                                    componentName5.textContent = "Preto";
+
+                                    if (data["data"]['components'][key] == true){
+                                        leftStatus5.className = "bi bi-check-circle-fill check"; 
+                                    }else{
+                                        leftStatus5.className = "bi bi-x-circle-fill wrong"; 
+                                        if (backColor != "red"){
+                                            backColor == "red";
+                                            document.body.style.backgroundColor = "#dd4b39";
+                                        }
+                                    }
+                                    break;
+                                case 'left-branco':
+
+                                    componentName6.textContent = "Branco";
+
+                                    if (data["data"]['components'][key] == true){
+                                        leftStatus6.className = "bi bi-check-circle-fill check"; 
+                                    }else{
+                                        leftStatus6.className = "bi bi-x-circle-fill wrong"; 
+                                        if (backColor != "red"){
+                                            backColor == "red";
+                                            document.body.style.backgroundColor = "#dd4b39";
+                                        }
+                                    }
+                                    break;
+                                case 'right-pequeno':
+
+                                    componentName4.textContent = "Pequeno";
+
+                                    if (data["data"]['components'][key] == true){
+                                        rightStatus4.className = "bi bi-check-circle-fill check"; 
+                                    }else{
+                                        rightStatus4.className = "bi bi-x-circle-fill wrong"; 
+                                        if (backColor != "red"){
+                                            backColor == "red";
+                                            document.body.style.backgroundColor = "#dd4b39";
+                                        }
+                                    }
+                                    break;
+                                case 'right-preto':
+
+                                    componentName5.textContent = "Preto";
+
+                                    if (data["data"]['components'][key] == true){
+                                        rightStatus5.className = "bi bi-check-circle-fill check"; 
+                                    }else{
+                                        rightStatus5.className = "bi bi-x-circle-fill wrong"; 
+                                        if (backColor != "red"){
+                                            backColor == "red";
+                                            document.body.style.backgroundColor = "#dd4b39";
+                                        }
+                                    }
+                                    break;
+                                case 'right-branco':
+
+                                    componentName6.textContent = "Branco";
+
+                                    if (data["data"]['components'][key] == true){
+                                        rightStatus6.className = "bi bi-check-circle-fill check"; 
+                                    }else{
+                                        rightStatus6.className = "bi bi-x-circle-fill wrong"; 
+                                        if (backColor != "red"){
+                                            backColor == "red";
+                                            document.body.style.backgroundColor = "#dd4b39";
+                                        }
+                                    }
+
+                                    break;
+                                default: 
+                                    console.log("ERROR on Component switch.");
+                            }
+                        }
+                        
                         break;
 
                     default:
                         alert("ERROR on state task switch")
 
                 }
-
-                    // background color
-
-                    // PCB img
-
-                    let imageOn = document.getElementById("image-on");
-                    imageOn.style.display = "block"
-
-                    let imageOff = document.getElementById("image-off");
-                    imageOff.style.display = "none"
-
-                    let imageNone = document.getElementById("image-none");
-                    imageNone.style.display = "none"
-                    
-                    
-
-                    for(let key in dict) {
-                        switch (key){
-                            case 'left-roxo-0':
-
-                                componentName1.textContent = "Roxo 0";
-
-                                if (dict[key] == true){
-                                    leftStatus1.className = "bi bi-check-circle-fill check"; 
-                                }else{
-                                    leftStatus1.className = "bi bi-x-circle-fill wrong"; 
-                                    if (backColor != "red"){
-                                        backColor == "red";
-                                        document.body.style.backgroundColor = "#dd4b39";
-                                    }break;
-                                }
-                                
-                            case 'right-roxo-0':
-
-                                componentName1.textContent = "Roxo 0";
-
-                                if (dict[key] == true){
-                                    rightStatus1.className = "bi bi-check-circle-fill check"; 
-                                }else{
-                                }if (backColor != "red"){
-                                    backColor == "red";
-                                    document.body.style.backgroundColor = "#dd4b39";
-                                }
-                                rightStatus1.className = "bi bi-x-circle-fill wrong"; 
-                                break;
-                            case 'left-azul-1':
-
-                                componentName2.textContent = "Azul 0";
-
-                                if (dict[key] == true){
-                                    leftStatus2.className = "bi bi-check-circle-fill check"; 
-                                }else{
-                                    leftStatus2.className = "bi bi-x-circle-fill wrong"; 
-                                    if (backColor != "red"){
-                                        backColor == "red";
-                                        document.body.style.backgroundColor = "#dd4b39";
-                                    }
-                                }
-                                break;
-                            case 'right-azul-1':
-
-                                componentName2.textContent = "Azul 0";
-
-                                if (dict[key] == true){
-                                    rightStatus2.className = "bi bi-check-circle-fill check"; 
-                                }else{
-                                    rightStatus2.className = "bi bi-x-circle-fill wrong"; 
-                                    if (backColor != "red"){
-                                        backColor == "red";
-                                        document.body.style.backgroundColor = "#dd4b39";
-                                    }
-                                }
-                                break;
-                            case 'left-roxo-2':
-
-                                componentName3.textContent = "Roxo 2";
-
-                                if (dict[key] == true){
-                                    leftStatus3.className = "bi bi-check-circle-fill check"; 
-                                }else{
-                                }if (backColor != "red"){
-                                    backColor == "red";
-                                    document.body.style.backgroundColor = "#dd4b39";
-                                }
-                                leftStatus3.className = "bi bi-x-circle-fill wrong"; 
-                                break;
-                            case 'right-roxo-2':
-
-                                componentName3.textContent = "Roxo 2";
-
-                                if (dict[key] == true){
-                                    rightStatus3.className = "bi bi-check-circle-fill check"; 
-                                }else{
-                                    rightStatus3.className = "bi bi-x-circle-fill wrong"; 
-                                    if (backColor != "red"){
-                                        backColor == "red";
-                                        document.body.style.backgroundColor = "#dd4b39";
-                                    }
-                                }
-                                break;
-                            case 'left-pequeno':
-
-                                componentName4.textContent = "Pequeno";
-
-                                if (dict[key] == true){
-                                    leftStatus4.className = "bi bi-check-circle-fill check"; 
-                                }else{
-                                    leftStatus4.className = "bi bi-x-circle-fill wrong"; 
-                                    if (backColor != "red"){
-                                        backColor == "red";
-                                        document.body.style.backgroundColor = "#dd4b39";
-                                    }
-                                }
-                                break;
-                            case 'left-preto':
-
-                                componentName5.textContent = "Preto";
-
-                                if (dict[key] == true){
-                                    leftStatus5.className = "bi bi-check-circle-fill check"; 
-                                }else{
-                                    leftStatus5.className = "bi bi-x-circle-fill wrong"; 
-                                    if (backColor != "red"){
-                                        backColor == "red";
-                                        document.body.style.backgroundColor = "#dd4b39";
-                                    }
-                                }
-                                break;
-                            case 'left-branco':
-
-                                componentName6.textContent = "Branco";
-
-                                if (dict[key] == true){
-                                    leftStatus6.className = "bi bi-check-circle-fill check"; 
-                                }else{
-                                    leftStatus6.className = "bi bi-x-circle-fill wrong"; 
-                                    if (backColor != "red"){
-                                        backColor == "red";
-                                        document.body.style.backgroundColor = "#dd4b39";
-                                    }
-                                }
-                                break;
-                            case 'right-pequeno':
-
-                                componentName4.textContent = "Pequeno";
-
-                                if (dict[key] == true){
-                                    rightStatus4.className = "bi bi-check-circle-fill check"; 
-                                }else{
-                                    rightStatus4.className = "bi bi-x-circle-fill wrong"; 
-                                    if (backColor != "red"){
-                                        backColor == "red";
-                                        document.body.style.backgroundColor = "#dd4b39";
-                                    }
-                                }
-                                break;
-                            case 'right-preto':
-
-                                componentName5.textContent = "Preto";
-
-                                if (dict[key] == true){
-                                    rightStatus5.className = "bi bi-check-circle-fill check"; 
-                                }else{
-                                    rightStatus5.className = "bi bi-x-circle-fill wrong"; 
-                                    if (backColor != "red"){
-                                        backColor == "red";
-                                        document.body.style.backgroundColor = "#dd4b39";
-                                    }
-                                }
-                                break;
-                            case 'right-branco':
-
-                                componentName6.textContent = "Branco";
-
-                                if (dict[key] == true){
-                                    rightStatus6.className = "bi bi-check-circle-fill check"; 
-                                }else{
-                                    rightStatus6.className = "bi bi-x-circle-fill wrong"; 
-                                    if (backColor != "red"){
-                                        backColor == "red";
-                                        document.body.style.backgroundColor = "#dd4b39";
-                                    }
-                                }
-
-                                break;
-                            default: 
-                                console.log(`Sorry, we are out of ${key}.`);
-                        }
-
-                    }
-
 
  
                 // document.getElementById("steps").innerHTML = "#" + data["data"]['step'];
