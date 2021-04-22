@@ -11,7 +11,7 @@ services:
     ports:
       - "${REDIS_SERVICE_PORT}:6379"
     volumes:
-      - 'aio-redis-data:/data'
+      - 'redis-data:/data'
       - "./redis:/usr/local/etc/redis"
 
   all-in-one-media:
@@ -82,4 +82,4 @@ services:
     privileged: true
 
 volumes:    
-  aio-redis-data:          
+  redis-data:          
