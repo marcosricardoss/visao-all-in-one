@@ -93,21 +93,21 @@ def makeDetection(frame, yolo, class_models):
             if class_ind in range(2):
                 if  (y1+y2)/2 < image_y/3.2:
                     # AZUL 1
-                    if class_ind == 1:
+                    if class_ind == 1 or prediction[0][0] < 0.5:
                         correct = 3
                     else:
                         correct = 0
                     components[0][placa[index]] = correct
                 elif (y1+y2)/2 < image_y/2:
                     # ROXO 1
-                    if class_ind == 0:
+                    if class_ind == 0 or prediction[0][0] < 0.5:
                         correct = 3
                     else:
                         correct = 0
                     components[1][placa[index]] = correct
                 else:
                     # ROXO 2
-                    if class_ind == 0:
+                    if class_ind == 0 or prediction[0][0] < 0.5:
                         correct = 3
                     else:
                         correct = 0
