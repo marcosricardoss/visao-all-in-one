@@ -1,0 +1,5 @@
+azul
+roxo
+pequeno
+preto
+branco
