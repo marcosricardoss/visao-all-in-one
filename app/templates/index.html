@@ -8,17 +8,17 @@
 
     <section class="pcb-side col-xs-12 col-sm-9 col-md-9 col-lg-9 center">
         <div class="video-capture ">
-            <img class="rounded center pallet-img" src="{{ url_for('media', filename='img1.jpeg') }}" alt="imagem de teste">
+            <img class="rounded center pallet-img" src="http://192.168.0.111:1001/img1.jpeg" alt="pallet img">
         </div>
             
         <div id="image-on" >
             <div class="pcb1 col-xs-10 col-sm-5 col-md-5">
                 <!-- <p class="pcb-title">Left</p> -->
-                <img class=" pcb-img " src="{{ url_for('media', filename='left.jpg') }}" alt="imagem de teste">
+                <img class=" pcb-img " src="http://192.168.0.111:1001/left.jpg" alt="PCB img left">
             </div>
             <div class="pcb2 col-xs-10 col-sm-5 col-md-5">
                 <!-- <p class="pcb-title">Right</p> -->
-                <img class="  pcb-img " src=" {{ url_for('media', filename='right.jpg') }}" alt="imagem de teste">
+                <img class="  pcb-img " src="http://192.168.0.111:1001/right.jpg" alt="PCB img right">
             </div>
 
         </div>      
@@ -236,8 +236,6 @@
                         break;
 
                     case 'READY FOR THE ACTION!':
-                        document.body.style.backgroundColor = "#17a2b8";
-                        backColor = "blue";
                         
                         break;
 
@@ -628,6 +626,15 @@
                             }
                         }
                         
+                        let imageOn = document.getElementById("image-on");
+                        imageOn.style.display = "block"
+
+                        let imageOff = document.getElementById("image-off");
+                        imageOff.style.display = "none"
+
+                        let imageNone = document.getElementById("image-none");
+                        imageNone.style.display = "none"
+
                         break;
 
                     default:
