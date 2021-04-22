@@ -157,7 +157,7 @@ def makeDetection(frame, yolo, class_models):
 def long_task(self):
     # Inicialização
     step = 1
-    components = np.ones((6, 2))
+    components = []
     self.update_state(state='INITIALIZING', meta={"step":step, "components":components})
 
     # Carregar a rede neural YOLO
