@@ -23,8 +23,8 @@ logger = get_task_logger(__name__)
 r = Redis(host='all-in-one-redis', port=6379, db=0, decode_responses=True)
 
 def makeDetection(frame, yolo, class_models):
-    # Inicializa dicionário
-    components = {}
+    # Inicializa array
+    components = np.ones((6, 2))
 
     # Separa as duas PCBs
     pcb_left, pcb_right = segment_pcbs(frame)
@@ -55,31 +55,27 @@ def makeDetection(frame, yolo, class_models):
             if class_ind in range(2, 5):
                 azul_roxos.append(bbox)
 
-        ind = 0
         for bbox in azul_roxos:
             coor = np.array(bbox[:4], dtype=np.int32)
             score = "{:.2f}".format(bbox[4])
             class_ind = int(bbox[5])
-            correct = True
+            correct = 1
 
             # Cores dos retangulos de cada classe
             rectangle_colors = {
-                'False': (0, 0, 255), # Componente incorreto
-                'True': (0, 255, 0), # Componente correto
+                '3': (0, 0, 255), # Componente incorreto
+                '0': (0, 255, 0), # Componente correto
             }
 
             # Cores dos scores de cada classe
             text_colors = {
-                'False': (0, 0, 0),
-                'True': (0, 0, 0),
+                '3': (0, 0, 0),
+                '0': (0, 0, 0),
             }
 
-            classes = {
-                '0': 'azul',
-                '1': 'roxo',
-                '2': 'pequeno',
-                '3': 'preto',
-                '4': 'branco',
+            placa = {
+                'left': 0,
+                'right': 1,
             }
 
             # Coordenadas do bounding box
@@ -93,20 +89,42 @@ def makeDetection(frame, yolo, class_models):
                 component = cv.cvtColor(component, cv.COLOR_BGR2GRAY)
                 prediction = class_models[str(class_ind)](component[np.newaxis,...,np.newaxis])
 
-            # Verificar se azuis e roxos estão na ordem correta
+            image_y = image.shape[0]
             if class_ind in range(2):
-                if ind == 0 and class_ind != 0:
-                    correct = False
-
-                if ind == 1 and class_ind != 1:
-                    correct = False
-
-                if ind == 2 and class_ind != 1:
-                    correct = False
+                if  (y1+y2)/2 < image_y/3.2:
+                    # AZUL 1
+                    if class_ind == 1:
+                        correct = 3
+                    else:
+                        correct = 0
+                    components[0][placa[index]] = correct
+                elif (y1+y2)/2 < image_y/2:
+                    # ROXO 1
+                    if class_ind == 0:
+                        correct = 3
+                    else:
+                        correct = 0
+                    components[1][placa[index]] = correct
+                else:
+                    # ROXO 2
+                    if class_ind == 0:
+                        correct = 3
+                    else:
+                        correct = 0
+                    components[2][placa[index]] = correct
             
             # Componente está incorreto
+<<<<<<< HEAD
             if prediction[0][0]<0.9:
                 correct = False
+=======
+            else:
+                if prediction[0][0] < 0.5:
+                    correct = 3
+                else:
+                    correct = 0
+                components[class_ind+1][placa[index]] = correct
+>>>>>>> 94f16a0db08f3c1485f562c998826006e3deaba8
 
             # Desenhar retângulo e score
             bbox_thick = 1
@@ -122,14 +140,7 @@ def makeDetection(frame, yolo, class_models):
             # put text above rectangle
             cv.putText(image, score, (x1, y1-4), cv.FONT_HERSHEY_COMPLEX_SMALL,
                         fontScale, text_colors[str(correct)], 1, lineType=cv.LINE_AA)
-
-            # colocar em components o indice da classe e se está certo ou errado
-            if class_ind in range(2):
-                components[index+"-"+classes[str(class_ind)]+"-"+str(ind)] = correct
-            else:
-                components[index+"-"+classes[str(class_ind)]] = correct
-            ind += 1 # ordem em que os componentes azuis e roxos estão
-
+    
     def detect(index, image):
         bboxes = detect_image(yolo, image, input_size=YOLO_INPUT_SIZE, CLASSES=TRAIN_CLASSES,
                                 score_threshold=0.5, iou_threshold=0.3)
@@ -142,13 +153,16 @@ def makeDetection(frame, yolo, class_models):
 
     thread_1.join()
 
+    # np.array to list
+    components = list(components)
+
     return pcb_right,pcb_left,components
 
 @celery.task(bind=True)
 def long_task(self):
     # Inicialização
     step = 1
-    components = {}
+    components = np.ones((6, 2))
     self.update_state(state='INITIALIZING', meta={"step":step, "components":components})
 
     # Carregar a rede neural YOLO
@@ -186,15 +200,13 @@ def long_task(self):
 
         # Detecção
         elif butaoB.is_pressed:
-            ind_image += 1
-            if ind_image == 10:
-                ind_image = 0
-
             step = 3
             self.update_state(state='DETECTION IN PROGRESS...', meta={"step":step, "components":components})
 
-            components.clear()
             pcbR,pcbL,components = makeDetection(frame, yolo, class_models)
+            ind_image += 1
+            if ind_image == 10:
+                ind_image = 0
             try:
                 if pcbR == None and pcbL == None:
                     step = 5
