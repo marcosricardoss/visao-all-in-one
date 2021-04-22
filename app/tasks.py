@@ -149,7 +149,7 @@ def makeDetection(frame, yolo, class_models):
     thread_1.join()
 
     # np.array to list
-    components = list(components)
+    components = components.tolist()
 
     return pcb_right,pcb_left,components
 
