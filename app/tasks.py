@@ -114,17 +114,12 @@ def makeDetection(frame, yolo, class_models):
                     components[2][placa[index]] = correct
             
             # Componente está incorreto
-<<<<<<< HEAD
-            if prediction[0][0]<0.9:
-                correct = False
-=======
             else:
                 if prediction[0][0] < 0.5:
                     correct = 3
                 else:
                     correct = 0
                 components[class_ind+1][placa[index]] = correct
->>>>>>> 94f16a0db08f3c1485f562c998826006e3deaba8
 
             # Desenhar retângulo e score
             bbox_thick = 1
