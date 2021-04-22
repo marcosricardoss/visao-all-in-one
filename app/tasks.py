@@ -36,26 +36,7 @@ def makeDetection(frame, yolo, class_models):
         pass
 
     def draw_bboxes(index, image, bboxes):
-        # Pegar bboxes azul_roxos
-        azul_roxos = []
         for bbox in bboxes:
-            class_ind = int(bbox[5])
-            if class_ind in range(2):
-                azul_roxos.append(bbox)
-
-        # Ordenar azul_roxos por Y
-        def takeY(elem):
-            return elem[1]
-
-        azul_roxos.sort(key=takeY)
-
-        # Pegar resto dos bboxes
-        for bbox in bboxes:
-            class_ind = int(bbox[5])
-            if class_ind in range(2, 5):
-                azul_roxos.append(bbox)
-
-        for bbox in azul_roxos:
             coor = np.array(bbox[:4], dtype=np.int32)
             score = "{:.2f}".format(bbox[4])
             class_ind = int(bbox[5])
