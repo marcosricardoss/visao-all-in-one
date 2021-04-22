@@ -12,6 +12,10 @@ ADD requirements ./requirements
 RUN pip install --upgrade pip
 RUN pip install -r requirements/$BUILD_ENV.txt
 
+# install gpio library
+
+RUN apt install -y python3-gpiozero
+
 # creating user
 
 ARG GROUP_ID

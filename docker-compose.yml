@@ -11,6 +11,7 @@ services:
     ports:
       - "${REDIS_SERVICE_PORT}:6379"
     volumes:
+      - 'redis-data:/data'
       - "./redis:/usr/local/etc/redis"
 
   all-in-one-media:
@@ -36,12 +37,13 @@ services:
         USER_NAME: $USER_NAME
     image: all-in-one-app:latest
     environment:       
-      FLASK_PORT: "${APP_SERVICE_PORT}"            
+      FLASK_PORT: $APP_SERVICE_PORT            
       FLASK_ENV: $ENV
       FLASK_APP: app.py
       DEFAULT_MEDIA_FOLDER: /usr/src/all-in-one/media/
       CELERY_RESULT_BACKEND: redis://all-in-one-redis:6379/0
-      CELERY_BROKER_URL: redis://all-in-one-redis:6379/0      
+      CELERY_BROKER_URL: redis://all-in-one-redis:6379/0  
+      MEDIA_SERVICE_PORT: $MEDIA_SERVICE_PORT
     command: /usr/src/all-in-one/app/start      
     volumes:
       - "./app:/usr/src/all-in-one/app"      
@@ -51,24 +53,33 @@ services:
     depends_on:      
       - all-in-one-redis
       - all-in-one-media
+    devices: 
+      - /dev/gpiomem:/dev/gpiomem
+      - /dev/mem:/dev/mem
+      - /dev/video0:/dev/video0
+      - /dev/vchiq:/dev/vchiq
+      - /dev/vcsm:/dev/vcsm
+    privileged: true
 
   all-in-one-app-worker:
     image: all-in-one-app:latest
     container_name: all-in-one-app-worker
     restart: always        
     environment:
-      FLASK_PORT: "${APP_SERVICE_PORT}"            
+      FLASK_PORT: $APP_SERVICE_PORT"            
       FLASK_ENV: $ENV
       FLASK_APP: app.py
       DEFAULT_MEDIA_FOLDER: /usr/src/all-in-one/media/
       CELERY_RESULT_BACKEND: redis://all-in-one-redis:6379/0
       CELERY_BROKER_URL: redis://all-in-one-redis:6379/0
+      MEDIA_SERVICE_PORT: $MEDIA_SERVICE_PORT
     command: /usr/src/all-in-one/start_celery
     volumes:
       - "./app:/usr/src/all-in-one/app"      
       - "./media:/usr/src/all-in-one/media/"
     depends_on:
       - all-in-one-app
+    privileged: true
 
   adminlte:
     container_name: adminlte
@@ -79,3 +90,6 @@ services:
       - './AdminLTE-3.0.5:/usr/local/apache2/htdocs'
     ports:
       - "8008:80"      
+      
+volumes:    
+  redis-data:          
