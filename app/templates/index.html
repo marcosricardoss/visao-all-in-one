@@ -14,11 +14,11 @@
         <div id="image-on" >
             <div class="pcb1 col-xs-10 col-sm-5 col-md-5">
                 <!-- <p class="pcb-title">Left</p> -->
-                <img class=" pcb-img " src="http://192.168.0.111:1001/left.jpg" alt="PCB img left">
+                <img id = "left-img" class=" pcb-img " src="http://192.168.0.111:1001/left.jpg" alt="PCB img left">
             </div>
             <div class="pcb2 col-xs-10 col-sm-5 col-md-5">
                 <!-- <p class="pcb-title">Right</p> -->
-                <img class="  pcb-img " src="http://192.168.0.111:1001/right.jpg" alt="PCB img right">
+                <img id = "right-img"class="  pcb-img " src="http://192.168.0.111:1001/right.jpg" alt="PCB img right">
             </div>
 
         </div>      
@@ -162,6 +162,9 @@
         // SCRIPT DE INTERAÇÃO COM O BACK-END
         let URL = document.getElementById('circles').getAttribute("data-route");
         let intervalID = window.setInterval(getData, 1000, URL);
+
+        let leftImg = document.getElementById("left-img");
+        let rightImg = document.getElementById("right-img");
 
         let componentName1 = document.getElementById("component-name-1");
         let leftStatus1 = document.getElementById("left-status-1");
@@ -609,6 +612,9 @@
                         imageOn.style.display = "block"
                         imageOff.style.display = "none"
                         imageNone.style.display = "none"
+
+                        leftImg.src = leftImg.src;
+                        rightImg.src = rightImg.src;
 
                         break;
 
