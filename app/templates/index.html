@@ -93,7 +93,7 @@
                     <td> <i id = "left-status-6" class="bi bi-hourglass-split"></i> </td>
                     <td> <i id = "right-status-6" class="bi bi-hourglass-split"></i> </td>
                 </tr>
-                <tr class="component-table-gray">
+                <tr class="component-table-white">
                     <th  id = "component-name-7" scope="row">---</th>
                     <td> <i id = "left-status-7" class="bi bi-hourglass-split"></i> </td>
                     <td> <i id = "right-status-7" class="bi bi-hourglass-split"></i> </td>
@@ -103,7 +103,7 @@
                     <td> <i id = "left-status-8" class="bi bi-hourglass-split"></i> </td>
                     <td> <i id = "right-status-8" class="bi bi-hourglass-split"></i> </td>
                 </tr>
-                <tr class="component-table-gray">
+                <tr class="component-table-white">
                     <th  id = "component-name-9" scope="row">---</th>
                     <td> <i id = "left-status-9" class="bi bi-hourglass-split"></i> </td>
                     <td> <i id = "right-status-9" class="bi bi-hourglass-split"></i> </td>
@@ -202,6 +202,18 @@
         let leftStatus6 = document.getElementById("left-status-6");
         let rightStatus6 = document.getElementById("right-status-6");
 
+        let componentName7 = document.getElementById("component-name-7");
+        let leftStatus7 = document.getElementById("left-status-7");
+        let rightStatus7 = document.getElementById("right-status-7");
+
+        let componentName8 = document.getElementById("component-name-8");
+        let leftStatus8 = document.getElementById("left-status-8");
+        let rightStatus8 = document.getElementById("right-status-8");
+
+        let componentName9 = document.getElementById("component-name-9");
+        let leftStatus9 = document.getElementById("left-status-9");
+        let rightStatus9 = document.getElementById("right-status-9");
+
         let backColor = "blue";
 
         function getData(URL) {          
@@ -268,6 +280,7 @@
                         for(let key in data["data"]['components']) {
                             switch (key){
 
+                                // Linha 1
                                 case 'left-azul-0':
 
                                     componentName1.textContent = "Azul 0";
@@ -300,6 +313,7 @@
                                     break;
 
 
+                                // Linha 2
                                 case 'left-azul-1':
 
                                     componentName2.textContent = "Azul 1";
@@ -329,6 +343,8 @@
                                     }
                                     break;
 
+
+                                // Linha 3
                                 case 'left-azul-2':
                                     componentName3.textContent = "Azul 2";
 
@@ -359,6 +375,8 @@
                                     }
                                     break;
 
+
+                                // Linha 4
                                 case 'left-roxo-0':
 
                                     componentName4.textContent = "Roxo 0";
@@ -388,7 +406,8 @@
                                     }
                                     break;
 
-                                    
+                                
+                                // Linha 5
                                 case 'left-roxo-1':
 
                                     componentName5.textContent = "Roxo 1";
@@ -421,6 +440,7 @@
                                     break;
 
 
+                                // Linha 6
                                 case 'left-roxo-2':
 
                                     componentName6.textContent = "Roxo 2";
@@ -452,6 +472,7 @@
                                     }
                                     break;
 
+                                // Linha 7
                                 case 'left-pequeno':
 
                                     componentName7.textContent = "Pequeno";
@@ -483,7 +504,8 @@
                                     }
                                     break;
 
-
+                                
+                                // Linha 8
                                 case 'left-branco':
 
                                     componentName8.textContent = "Branco";
@@ -516,6 +538,7 @@
                                     break;
 
 
+                                // Linha 9
                                 case 'left-preto':
 
                                     componentName9.textContent = "Preto";
