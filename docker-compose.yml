@@ -78,4 +78,12 @@ services:
       - all-in-one-app
     privileged: true
 
-  
+  adminlte:
+    container_name: adminlte
+    image: 'httpd:latest'    
+    logging:
+      driver: none
+    volumes:
+      - './AdminLTE-3.0.5:/usr/local/apache2/htdocs'
+    ports:
+      - "8008:80"   
