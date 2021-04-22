@@ -36,26 +36,7 @@ def makeDetection(frame, yolo, class_models):
         pass
 
     def draw_bboxes(index, image, bboxes):
-        # Pegar bboxes azul_roxos
-        azul_roxos = []
         for bbox in bboxes:
-            class_ind = int(bbox[5])
-            if class_ind in range(2):
-                azul_roxos.append(bbox)
-
-        # Ordenar azul_roxos por Y
-        def takeY(elem):
-            return elem[1]
-
-        azul_roxos.sort(key=takeY)
-
-        # Pegar resto dos bboxes
-        for bbox in bboxes:
-            class_ind = int(bbox[5])
-            if class_ind in range(2, 5):
-                azul_roxos.append(bbox)
-
-        for bbox in azul_roxos:
             coor = np.array(bbox[:4], dtype=np.int32)
             score = "{:.2f}".format(bbox[4])
             class_ind = int(bbox[5])
@@ -93,21 +74,21 @@ def makeDetection(frame, yolo, class_models):
             if class_ind in range(2):
                 if  (y1+y2)/2 < image_y/3.2:
                     # AZUL 1
-                    if class_ind == 1:
+                    if class_ind == 1 or prediction[0][0] < 0.5:
                         correct = 3
                     else:
                         correct = 0
                     components[0][placa[index]] = correct
                 elif (y1+y2)/2 < image_y/2:
                     # ROXO 1
-                    if class_ind == 0:
+                    if class_ind == 0 or prediction[0][0] < 0.5:
                         correct = 3
                     else:
                         correct = 0
                     components[1][placa[index]] = correct
                 else:
                     # ROXO 2
-                    if class_ind == 0:
+                    if class_ind == 0 or prediction[0][0] < 0.5:
                         correct = 3
                     else:
                         correct = 0
@@ -149,7 +130,7 @@ def makeDetection(frame, yolo, class_models):
     thread_1.join()
 
     # np.array to list
-    components = list(components)
+    components = components.tolist()
 
     return pcb_right,pcb_left,components
 
@@ -157,7 +138,7 @@ def makeDetection(frame, yolo, class_models):
 def long_task(self):
     # Inicialização
     step = 1
-    components = np.ones((6, 2))
+    components = []
     self.update_state(state='INITIALIZING', meta={"step":step, "components":components})
 
     # Carregar a rede neural YOLO
