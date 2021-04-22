@@ -8,17 +8,20 @@
 
     <section class="pcb-side col-xs-12 col-sm-9 col-md-9 col-lg-9 center">
         <div class="video-capture ">
-            <img class="rounded center pallet-img" src="http://192.168.0.111:1001/img1.jpeg" alt="pallet img">
+            <!-- Para quem não tem Pallet -->
+            <img class="rounded center pallet-img" src="(os.environ.get('MEDIA_SERVICE_PORT'))/img1.jpeg" alt="pallet img">
+            <!-- para quem tem Pallet -->
+            <!-- <img class="rounded center pallet-img" src="(os.environ.get('MEDIA_SERVICE_PORT'))/cameraImg.jpeg" alt="pallet img"> -->
         </div>
             
         <div id="image-on" >
             <div class="pcb1 col-xs-10 col-sm-5 col-md-5">
                 <!-- <p class="pcb-title">Left</p> -->
-                <img id = "left-img" class=" pcb-img " src="http://192.168.0.111:1001/left.jpg" alt="PCB img left">
+                <img id = "left-img" class=" pcb-img " src="(os.environ.get('MEDIA_SERVICE_PORT'))/left.jpg" alt="PCB img left">
             </div>
             <div class="pcb2 col-xs-10 col-sm-5 col-md-5">
                 <!-- <p class="pcb-title">Right</p> -->
-                <img id = "right-img"class="  pcb-img " src="http://192.168.0.111:1001/right.jpg" alt="PCB img right">
+                <img id = "right-img"class="  pcb-img " src="(os.environ.get('MEDIA_SERVICE_PORT'))/right.jpg" alt="PCB img right">
             </div>
 
         </div>      
@@ -163,6 +166,7 @@
         let URL = document.getElementById('circles').getAttribute("data-route");
         let intervalID = window.setInterval(getData, 1000, URL);
 
+        let cameraImg = document.getElementById("camera-img");
         let leftImg = document.getElementById("left-img");
         let rightImg = document.getElementById("right-img");
 
@@ -220,11 +224,13 @@
                     case 'INITIALIZING':
                         document.body.style.backgroundColor = "#17a2b8";
                         backColor = "blue";
-                        
+                        cameratImg.src = cameratImg.src;
                         break;
 
                     case 'READY FOR THE ACTION!':
-                        
+                        document.body.style.backgroundColor = "#17a2b8";
+                        backColor = "blue";
+                        cameratImg.src = cameratImg.src;
                         break;
 
                     case 'WHY DID YOU LEFT ME?':
@@ -609,12 +615,14 @@
                             }
                         }
                         
+                        
+                        leftImg.src = leftImg.src;
+                        rightImg.src = rightImg.src;
+
                         imageOn.style.display = "block"
                         imageOff.style.display = "none"
                         imageNone.style.display = "none"
 
-                        leftImg.src = leftImg.src;
-                        rightImg.src = rightImg.src;
 
                         break;
 
