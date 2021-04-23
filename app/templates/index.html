@@ -488,8 +488,8 @@
                         }
                         
                         
-                        leftImg.src = "http://192.168.0.111:1001/left.jpg";
-                        rightImg.src = "http://192.168.0.111:1001/right.jpg";
+                        leftImg.src = "http://192.168.0.111:1001/left.jpg?cache=" + new Date().getTime();;
+                        rightImg.src = "http://192.168.0.111:1001/right.jpg?cache=" + new Date().getTime();;
 
                         imageOn.style.display = "block"
                         imageOff.style.display = "none"
