@@ -209,6 +209,9 @@
                     case 'WHY DID YOU LEFT ME?':
                         document.body.style.backgroundColor = "#000000";
                         backColor = "white";
+                        imageOn.style.display = "none"
+                        imageOff.style.display = "none"
+                        imageNone.style.display = "block"
                         break;
 
                     case 'DETECTION IN PROGRESS...':
@@ -248,25 +251,6 @@
                     case 'SHOW TIME!':
                         document.body.style.backgroundColor = "#28a745";
                         backColor = "green";
-
-                        // Atualizando o estado da tabela
-                        leftStatus1.className = "bi bi-exclamation-octagon-fill warning";
-                        rightStatus1.className = "bi bi-exclamation-octagon-fill warning";
-
-                        leftStatus2.className = "bi bi-exclamation-octagon-fill warning";
-                        rightStatus2.className = "bi bi-exclamation-octagon-fill warning";
-
-                        leftStatus3.className = "bi bi-exclamation-octagon-fill warning";
-                        rightStatus3.className = "bi bi-exclamation-octagon-fill warning";
-
-                        leftStatus4.className = "bi bi-exclamation-octagon-fill warning";
-                        rightStatus4.className = "bi bi-exclamation-octagon-fill warning";
-
-                        leftStatus5.className = "bi bi-exclamation-octagon-fill warning";
-                        rightStatus5.className = "bi bi-exclamation-octagon-fill warning";
-
-                        leftStatus6.className = "bi bi-exclamation-octagon-fill warning";
-                        rightStatus6.className = "bi bi-exclamation-octagon-fill warning";
 
                         
                         for(let key in data["data"]['components']) {
@@ -504,8 +488,8 @@
                         }
                         
                         
-                        leftImg.src = leftImg.src;
-                        rightImg.src = rightImg.src;
+                        leftImg.src = "http://192.168.0.111:1001/left.jpg";
+                        rightImg.src = "http://192.168.0.111:1001/right.jpg";
 
                         imageOn.style.display = "block"
                         imageOff.style.display = "none"
