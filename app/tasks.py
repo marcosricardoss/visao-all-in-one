@@ -25,6 +25,9 @@ r = Redis(host='all-in-one-redis', port=6379, db=0, decode_responses=True)
 def makeDetection(frame, yolo, class_models):
     # Inicializa array
     components = np.ones((6, 3))
+        
+    # np.array to list
+    components = components.tolist()
 
     # Separa as duas PCBs
     pcb_left, pcb_right = segment_pcbs(frame)
@@ -59,6 +62,15 @@ def makeDetection(frame, yolo, class_models):
                 'right': 1,
             }
 
+            components_names = {
+                '0': 'Azul',
+                '1': 'Roxo 1',
+                '2': 'Roxo 2',
+                '3': 'Pequeno',
+                '4': 'Preto',
+                '5': 'Branco',
+            }
+
             # Coordenadas do bounding box
             (x1, y1), (x2, y2) = (coor[0], coor[1]), (coor[2], coor[3])
             
@@ -79,7 +91,7 @@ def makeDetection(frame, yolo, class_models):
                     else:
                         correct = 0
                     components[0][placa[index]] = correct
-                    components[0][2] = 0
+                    components[0][2] = components_names['0']
                 elif (y1+y2)/2 < image_y/2:
                     # ROXO 1
                     if class_ind == 0 or prediction[0][0] < 0.5:
@@ -87,7 +99,7 @@ def makeDetection(frame, yolo, class_models):
                     else:
                         correct = 0
                     components[1][placa[index]] = correct
-                    components[1][2] = 1
+                    components[1][2] = components_names['1']
                 else:
                     # ROXO 2
                     if class_ind == 0 or prediction[0][0] < 0.5:
@@ -95,7 +107,7 @@ def makeDetection(frame, yolo, class_models):
                     else:
                         correct = 0
                     components[2][placa[index]] = correct
-                    components[2][2] = 2
+                    components[2][2] = components_names['2']
             
             # Componente está incorreto
             else:
@@ -104,7 +116,7 @@ def makeDetection(frame, yolo, class_models):
                 else:
                     correct = 0
                 components[class_ind+1][placa[index]] = correct
-                components[class_ind+1][2] = class_ind+1
+                components[class_ind+1][2] = components_names[str(class_ind+1)]
 
             # Desenhar retângulo e score
             bbox_thick = 1
@@ -136,8 +148,6 @@ def makeDetection(frame, yolo, class_models):
     def sort_func(x):
         return x[0]+x[1]
 
-    # np.array to list
-    components = components.tolist()
     components.sort(reverse=True, key=sort_func)
 
     return pcb_right,pcb_left,components
