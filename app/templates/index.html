@@ -11,7 +11,7 @@
             example. It’s built with default Bootstrap components and utilities with little customization.</p>
     </div>
     
-    <div id="circles" class="container center" data-route="{{ url|safe }}">
+    <div id="circles" class="container center" data-route="{{ url|safe }}" data-server-media-url="{{ media_service_url|safe }}">
         <!-- Three columns of text below the carousel -->
         <div class="row circles-item" >
             <div class="col-lg-4">
@@ -47,6 +47,8 @@
 
     <script>            
         let URL = document.getElementById('circles').getAttribute("data-route");
+        let MEDIA_SERVICE_URL = document.getElementById('circles').getAttribute("data-server-media-url");
+        console.log("MEDIA URL" + MEDIA_SERVICE_URL)
         let intervalID = window.setInterval(getData, 1000, URL);
         function getData(URL) {          
           fetch(URL)
