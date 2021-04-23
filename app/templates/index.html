@@ -8,10 +8,8 @@
 
     <section class="pcb-side col-xs-12 col-sm-9 col-md-9 col-lg-9 center">
         <div class="video-capture ">
-            <!-- Para quem não tem Pallet -->
-            <img id = "camera-img" class="rounded center pallet-img" src="http://192.168.0.111:1001/img1.jpeg" alt="pallet img">
             <!-- para quem tem Pallet -->
-            <!-- <img id = "camera-img"  class="rounded center pallet-img" src="192.168.0.111:1001/cameraImg.jpeg" alt="pallet img"> -->
+            <img id = "camera-img"  class="rounded center pallet-img" src="192.168.0.111:1001/camera.jpg" alt="pallet img">
         </div>
         
         <div id="image-on" >
@@ -197,13 +195,13 @@
                     case 'INITIALIZING':
                         document.body.style.backgroundColor = "#17a2b8";
                         backColor = "blue";
-                        cameraImg.src = cameraImg.src;
+                        cameraImg.src = "http://192.168.0.111:1001/camera.jpg?cache=" + new Date().getTime();;
                         break;
 
                     case 'READY FOR THE ACTION!':
                         document.body.style.backgroundColor = "#17a2b8";
                         backColor = "blue";
-                        cameraImg.src = cameraImg.src;
+                        cameraImg.src = "http://192.168.0.111:1001/camera.jpg?cache=" + new Date().getTime();;
                         break;
 
                     case 'WHY DID YOU LEFT ME?':
@@ -490,6 +488,7 @@
                         
                         leftImg.src = "http://192.168.0.111:1001/left.jpg?cache=" + new Date().getTime();;
                         rightImg.src = "http://192.168.0.111:1001/right.jpg?cache=" + new Date().getTime();;
+                        
 
                         imageOn.style.display = "block"
                         imageOff.style.display = "none"

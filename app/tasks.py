@@ -156,7 +156,7 @@ def makeDetection(frame, yolo, class_models):
 def long_task(self):
     # Inicialização
     step = 1
-    components = []
+    components = {}
     self.update_state(state='INITIALIZING', meta={"step":step, "components":components})
 
     # Carregar a rede neural YOLO
@@ -177,18 +177,27 @@ def long_task(self):
     butaoB = Button(2)
     butaoA = Button(3)
 
-    ind_image = 0
+    cam = cv.VideoCapture(0)
+    cam.set(cv.CAP_PROP_FRAME_WIDTH, 1920)
+    cam.set(cv.CAP_PROP_FRAME_HEIGHT, 1080)
+
     while True:
         step = 2
         self.update_state(state='READY FOR THE ACTION!', meta={"step":step, "components":components})
 
+        # Pegar imagem da câmera
+        ret, frame = cam.read()
+        if not ret:
+            break
+
         # Inverter e escrever o frame na pasta
-        frame = cv.imread(DEFAULT_MEDIA_FOLDER+"opencv_frame_8"+str(ind_image)+".png")
-        time.sleep(1)
+        vframe = cv.flip(frame, -1)
+        cv.imwrite(DEFAULT_MEDIA_FOLDER+"camera.jpg", vframe)
+        time.sleep(1) # Não esquentar tanto a raspi talvez
 
         # Botão de saída
         if butaoA.is_pressed:
-            step = 6
+            step = 2
             self.update_state(state='WHY DID YOU LEFT ME?', meta={"step":step, "components":components})
             break
 
@@ -197,10 +206,8 @@ def long_task(self):
             step = 3
             self.update_state(state='DETECTION IN PROGRESS...', meta={"step":step, "components":components})
 
+            components.clear()
             pcbR,pcbL,components = makeDetection(frame, yolo, class_models)
-            ind_image += 1
-            if ind_image == 10:
-                ind_image = 0
             try:
                 if pcbR == None and pcbL == None:
                     step = 5
@@ -214,7 +221,6 @@ def long_task(self):
                 time.sleep(20)
 
     return {'status': 'the task have been successfully processed'}
-
 # start the task and send your ID to the frontend via Redis
 task_id = r.get('taskid')
 if not task_id:
