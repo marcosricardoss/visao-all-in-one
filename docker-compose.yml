@@ -11,6 +11,7 @@ services:
     ports:
       - "${REDIS_SERVICE_PORT}:6379"
     volumes:
+      - 'redis-data:/data'
       - "./redis:/usr/local/etc/redis"
 
   all-in-one-media:
@@ -36,13 +37,14 @@ services:
         USER_NAME: $USER_NAME
     image: all-in-one-app:latest
     environment:       
-      FLASK_PORT: $APP_SERVICE_PORT            
-      FLASK_ENV: $ENV
-      FLASK_APP: app.py
-      DEFAULT_MEDIA_FOLDER: /usr/src/all-in-one/media/
-      CELERY_RESULT_BACKEND: redis://all-in-one-redis:6379/0
       CELERY_BROKER_URL: redis://all-in-one-redis:6379/0  
-      MEDIA_SERVICE_PORT: $MEDIA_SERVICE_PORT
+      CELERY_RESULT_BACKEND: redis://all-in-one-redis:6379/0
+      DEFAULT_MEDIA_FOLDER: /usr/src/all-in-one/media/
+      FLASK_APP: app.py
+      FLASK_ENV: $ENV
+      FLASK_PORT: $APP_SERVICE_PORT            
+      HOST_ADDRESS: $HOST_ADDRESS
+      MEDIA_SERVICE_PORT: $MEDIA_SERVICE_PORT      
     command: /usr/src/all-in-one/app/start      
     volumes:
       - "./app:/usr/src/all-in-one/app"      
@@ -65,13 +67,14 @@ services:
     container_name: all-in-one-app-worker
     restart: always        
     environment:
-      FLASK_PORT: $APP_SERVICE_PORT"            
-      FLASK_ENV: $ENV
-      FLASK_APP: app.py
-      DEFAULT_MEDIA_FOLDER: /usr/src/all-in-one/media/
-      CELERY_RESULT_BACKEND: redis://all-in-one-redis:6379/0
       CELERY_BROKER_URL: redis://all-in-one-redis:6379/0
-      MEDIA_SERVICE_PORT: $MEDIA_SERVICE_PORT
+      CELERY_RESULT_BACKEND: redis://all-in-one-redis:6379/0
+      DEFAULT_MEDIA_FOLDER: /usr/src/all-in-one/media/
+      FLASK_APP: app.py
+      FLASK_ENV: $ENV
+      FLASK_PORT: $APP_SERVICE_PORT"            
+      HOST_ADDRESS: $HOST_ADDRESS
+      MEDIA_SERVICE_PORT: $MEDIA_SERVICE_PORT      
     command: /usr/src/all-in-one/start_celery
     volumes:
       - "./app:/usr/src/all-in-one/app"      
@@ -80,6 +83,7 @@ services:
       - all-in-one-app
     privileged: true
 
+<<<<<<< HEAD
   adminlte:
     container_name: adminlte
     image: 'httpd:latest'    
@@ -89,3 +93,7 @@ services:
       - './AdminLTE-3.0.5:/usr/local/apache2/htdocs'
     ports:
       - "8008:80"   
+=======
+volumes:    
+  redis-data:          
+>>>>>>> master

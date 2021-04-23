@@ -4,34 +4,33 @@
 
 {% block body %}
 
-<div id="circles" class=" row center" data-route="{{ url|safe }}">
+<div id="circles" class=" row center" data-route="{{ url|safe }}" data-server-media-url="{{ media_service_url|safe }}">
 
     <section class="pcb-side col-xs-12 col-sm-9 col-md-9 col-lg-9 center">
         <div class="video-capture ">
-            <!-- Para quem não tem Pallet -->
-            <img id = "camera-img" class="rounded center pallet-img" src="http://192.168.0.111:1001/img1.jpeg" alt="pallet img">
+            <img id = "camera-img" class="rounded center pallet-img" src="{{ media_service_url|safe }}/img1.jpeg" alt="pallet img">
         </div>
         
         <div id="image-on" >
             <div class="pcb1 col-xs-10 col-sm-5 col-md-5">
-                <!-- <p class="pcb-title">Left</p> -->
-                <img id = "left-img" class=" pcb-img " src="http://192.168.0.111:1001/left.jpg" alt="PCB img left">
+                <!-- Left -->
+                <img id = "left-img" class=" pcb-img " src="{{ media_service_url|safe }}/left.jpg" alt="PCB img left">
             </div>
             <div class="pcb2 col-xs-10 col-sm-5 col-md-5">
-                <!-- <p class="pcb-title">Right</p> -->
-                <img id = "right-img"class="  pcb-img " src="http://192.168.0.111:1001/right.jpg" alt="PCB img right">
+                <!-- Right -->
+                <img id = "right-img"class="  pcb-img " src="{{ media_service_url|safe }}/right.jpg" alt="PCB img right">
             </div>
 
         </div>      
         <div id="image-off" >
             <div class="pcb1 col-xs-10 col-sm-5 col-md-5">
-                <!-- <p class="pcb-title">Left</p> -->
+                <!-- Left -->
                 <div class="spinner-border text-light img-spinner " role="status">
                     <span class="visually-hidden">Loading...</span>
                 </div>
             </div>
             <div class="pcb2 col-xs-10 col-sm-5 col-md-5">
-                <!-- <p class="pcb-title">Right</p> -->
+                <!-- Right -->
                 <div class="spinner-border text-light img-spinner " role="status">
                     <span class="visually-hidden">Loading...</span>
                 </div>
@@ -40,11 +39,11 @@
         </div>      
         <div id="image-none" >
             <div class="pcb1 col-xs-10 col-sm-5 col-md-5">
-                <!-- <p class="pcb-title">Left</p> -->
+                <!-- Left -->
                 <div class="pcb-img"></div>
             </div>
             <div class="pcb2 col-xs-10 col-sm-5 col-md-5">
-                <!-- <p class="pcb-title">Right</p> -->
+                <!-- Right -->
                 <div class="pcb-img"></div>
             </div>
 
@@ -115,30 +114,6 @@
         let imageNone = document.getElementById("image-none");
         imageNone.style.display = "block"
 
-
-        // Inicialização DEBUG
-
-        // document.body.style.backgroundColor = "#dd4b39";
-
-        // // table
-        // let blueSection = document.getElementById("blue-section");
-        // blueSection.style.display = "none"
-
-        // let redSection = document.getElementById("red-section");
-        // redSection.style.display = "block"
-
-        // let greenSection = document.getElementById("green-section");
-        // greenSection.style.display = "none"
-        
-        // // PCB img
-        // let imageOn = document.getElementById("image-on");
-        // imageOn.style.display = "block"
-
-        // let imageOff = document.getElementById("image-off");
-        // imageOff.style.display = "none"
-
-        // let imageNone = document.getElementById("image-none");
-        // imageNone.style.display = "none"
     </script>
 
 </div>
@@ -147,6 +122,8 @@
         
         // SCRIPT DE INTERAÇÃO COM O BACK-END
         let URL = document.getElementById('circles').getAttribute("data-route");
+        let MEDIA_SERVICE_URL = document.getElementById('circles').getAttribute("data-server-media-url");
+        console.log("MEDIA URL" + MEDIA_SERVICE_URL)
         let intervalID = window.setInterval(getData, 1000, URL);
 
         let cameraImg = document.getElementById("camera-img");
@@ -534,8 +511,8 @@
                         }
                         
                         
-                        leftImg.src = "http://192.168.0.111:1001/left.jpg?cache=" + new Date().getTime();;
-                        rightImg.src = "http://192.168.0.111:1001/right.jpg?cache=" + new Date().getTime();;
+                        leftImg.src = MEDIA_SERVICE_URL + "/left.jpg?cache=" + new Date().getTime();;
+                        rightImg.src = MEDIA_SERVICE_URL + "/right.jpg?cache=" + new Date().getTime();;
 
                         imageOn.style.display = "block"
                         imageOff.style.display = "none"
