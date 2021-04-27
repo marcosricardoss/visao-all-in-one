@@ -1,7 +1,7 @@
 version: "3.2"
 services:
 
-  all-in-one-redis-node:
+  all-in-one-node-exporter:
     container_name: all-in-one-redis-node
     image: prom/node-exporter:latest    
     restart: always    
