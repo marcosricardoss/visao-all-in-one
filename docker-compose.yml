@@ -1,6 +1,15 @@
 version: "3.2"
 services:
 
+  all-in-one-redis-node:
+    container_name: all-in-one-redis-node
+    image: prom/node-exporter:latest    
+    restart: always    
+    ports:
+      - $NODE_EXPORT_PORT:9100
+    logging:
+      driver: none
+
   all-in-one-redis:
     container_name: all-in-one-redis
     image: redis:latest
