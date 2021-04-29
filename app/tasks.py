@@ -2,6 +2,7 @@ import time
 from redis import Redis
 from celery.utils.log import get_task_logger
 from app import create_celery_app
+import gc
 
 # Detection imports
 import cv2 as cv
@@ -22,7 +23,8 @@ celery = create_celery_app()
 logger = get_task_logger(__name__)
 r = Redis(host='all-in-one-redis', port=6379, db=0, decode_responses=True)
 
-def makeDetection(frame, yolo, class_models):
+def makeDetection(frame, yolo, class_models, screw_cascade):
+    
     # Inicializa array
     components = np.ones((6, 3))
         
@@ -30,14 +32,11 @@ def makeDetection(frame, yolo, class_models):
     components = components.tolist()
 
     # Separa as duas PCBs
-    pcb_left, pcb_right = segment_pcbs(frame)
+    pcb_left, pcb_right = segment_pcbs(frame, screw_cascade)
 
-    try:
-        if pcb_left == None and pcb_right == None:
-            return None, None, components
-    except ValueError:
-        pass
-
+    if pcb_left is pcb_right:
+        return pcb_left, pcb_left, components
+    
     def draw_bboxes(index, image, bboxes):
         for bbox in bboxes:
             coor = np.array(bbox[:4], dtype=np.int32)
@@ -163,6 +162,9 @@ def long_task(self):
     checkpoints_path = "app/visao/checkpoints/yolov3_C920-13all-50epochs_Tiny"
     yolo = Create_Yolo(input_size=416, CLASSES="app/visao/model_data/classes.txt")
     yolo.load_weights(checkpoints_path)
+    screw_cascade = cv.CascadeClassifier()
+    screw_cascade.load(cv.samples.findFile("app/visao/screw_cascade.xml"))
+    
 
     # Carregar modelos de classificação 
     class_models = {
@@ -189,12 +191,7 @@ def long_task(self):
         ret, frame = cam.read()
         if not ret:
             break
-
-        # Inverter e escrever o frame na pasta
-        vframe = cv.flip(frame, -1)
-        cv.imwrite(DEFAULT_MEDIA_FOLDER+"camera.jpg", vframe)
-        time.sleep(1) # Não esquentar tanto a raspi talvez
-
+        
         # Botão de saída
         if butaoA.is_pressed:
             step = 2
@@ -207,18 +204,26 @@ def long_task(self):
             self.update_state(state='DETECTION IN PROGRESS...', meta={"step":step, "components":components})
 
             components.clear()
-            pcbR,pcbL,components = makeDetection(frame, yolo, class_models)
-            try:
-                if pcbR == None and pcbL == None:
-                    step = 5
-                    self.update_state(state="PCBS WERE NOT FOUND!", meta={"step":step, "components":components})
-                    time.sleep(5)
-            except ValueError:
+            pcbR,pcbL,components = makeDetection(frame, yolo, class_models, screw_cascade)
+            if pcbR is pcbL:
+                step = 5
+                self.update_state(state="PCBS WERE NOT FOUND!", meta={"step":step, "components":components})
+                time.sleep(5)
+            else:
                 cv.imwrite(DEFAULT_MEDIA_FOLDER+"left.jpg", pcbL)
                 cv.imwrite(DEFAULT_MEDIA_FOLDER+"right.jpg", pcbR)
                 step = 4
                 self.update_state(state='SHOW TIME!', meta={"step":step, "components":components})
-                time.sleep(20)
+                gc.collect()
+                time.sleep(10)
+        else:
+            # Inverter e escrever o frame na pasta
+            #vframe = cv.flip(frame, -1)
+            frame = cv.resize(frame, (640, 360))
+            frame = cv.line(frame, (10, 180), (630, 180), (255, 0, ), 2)
+            frame = cv.line(frame, (320, 10), (320, 350), (255, 0, ), 2)
+            cv.imwrite(DEFAULT_MEDIA_FOLDER+"camera.jpg", frame)
+            time.sleep(1) # Não esquentar tanto a raspi talvez
 
     return {'status': 'the task have been successfully processed'}
 # start the task and send your ID to the frontend via Redis
