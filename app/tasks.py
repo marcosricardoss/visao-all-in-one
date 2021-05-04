@@ -76,10 +76,13 @@ def makeDetection(frame, yolo, class_models, screw_cascade):
             # Classificar se está correto ou incorreto
             prediction = np.array([[1.]])
             if class_ind in range(3):
-                component = image[y1-5:y2+5,x1-5:x2+5,:]
-                component = cv.resize(component, (32, 32))
-                component = cv.cvtColor(component, cv.COLOR_BGR2GRAY)
-                prediction = class_models[str(class_ind)](component[np.newaxis,...,np.newaxis])
+                try:
+                   component = image[y1-5:y2+5,x1-5:x2+5,:]
+                   component = cv.resize(component, (32, 32))
+                   component = cv.cvtColor(component, cv.COLOR_BGR2GRAY)
+                   prediction = class_models[str(class_ind)](component[np.newaxis,...,np.newaxis])
+                except:
+                   print("An exception occurred")
 
             image_y = image.shape[0]
             if class_ind in range(2):
@@ -202,7 +205,8 @@ def long_task(self):
         elif butaoB.is_pressed:
             step = 3
             self.update_state(state='DETECTION IN PROGRESS...', meta={"step":step, "components":components})
-
+            date = datetime.now().strftime('%m_%d_%Y - %H:%S')
+            cv.imwrite(DEFAULT_MEDIA_FOLDER+"_"+date+"_frame.png", frame)
             components.clear()
             pcbR,pcbL,components = makeDetection(frame, yolo, class_models, screw_cascade)
             if pcbR is pcbL:
