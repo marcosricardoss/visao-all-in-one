@@ -163,7 +163,7 @@ def long_task(self):
 
     # Carregar a rede neural YOLO
     checkpoints_path = "app/visao/checkpoints/yolov3_custom_320_Tiny"
-    yolo = Create_Yolo(input_size=416, CLASSES="app/visao/model_data/classes.txt")
+    yolo = Create_Yolo(input_size=320, CLASSES="app/visao/model_data/classes.txt")
     yolo.load_weights(checkpoints_path)
     screw_cascade = cv.CascadeClassifier()
     screw_cascade.load(cv.samples.findFile("app/visao/screw_cascade.xml"))
