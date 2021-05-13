@@ -221,6 +221,9 @@
                     case "PCBS WERE NOT FOUND!":
                         document.body.style.backgroundColor = "#dd4b39";
                         backColor = "red";
+                        imageOn.style.display = "none"
+                        imageOff.style.display = "none"
+                        imageNone.style.display = "block"
                         break;
 
                     case 'SHOW TIME!':
@@ -240,19 +243,12 @@
                                     if (data["data"]['components'][key][0] == 0){
                                         leftStatus1.className = "bi bi-check-circle-fill check"; 
 
-                                    }else if (data["data"]['components'][key][0] == 1){
-                                        leftStatus1.className = "bi bi-exclamation-octagon-fill warning";
-                                        if (backColor != "red"){
-                                            backColor == "red";
-                                            document.body.style.backgroundColor = "#dd4b39";
-                                        }
-
-
-                                    }else if (data["data"]['components'][key][0] == 3){
-                                        leftStatus1.className = "bi bi-x-circle-fill wrong";
-                                        if (backColor != "red"){
-                                            backColor == "red";
-                                            document.body.style.backgroundColor = "#dd4b39";
+                                    }else{
+                                        backColor = "red";
+                                        if (data["data"]['components'][key][0] == 1){
+                                            leftStatus1.className = "bi bi-exclamation-octagon-fill warning";
+                                        }else{
+                                            leftStatus1.className = "bi bi-x-circle-fill wrong";
                                         }
                                     }
                                    
@@ -260,18 +256,12 @@
                                     if (data["data"]['components'][key][1] == 0){
                                         rightStatus1.className = "bi bi-check-circle-fill check";
 
-                                    }else if (data["data"]['components'][key][1] == 1){
-                                        rightStatus1.className = "bi bi-exclamation-octagon-fill warning";
-                                        if (backColor != "red"){
-                                            backColor == "red";
-                                            document.body.style.backgroundColor = "#dd4b39";
-                                        }
-
-                                    }else if (data["data"]['components'][key][1] == 3){
-                                        rightStatus1.className = "bi bi-x-circle-fill wrong"; 
-                                        if (backColor != "red"){
-                                            backColor == "red";
-                                            document.body.style.backgroundColor = "#dd4b39";
+                                    }else{
+                                        backColor = "red";
+                                        if (data["data"]['components'][key][1] == 1){
+                                            rightStatus1.className = "bi bi-exclamation-octagon-fill warning";
+                                        }else {
+                                            rightStatus1.className = "bi bi-x-circle-fill wrong"; 
                                         }
                                     }
 
@@ -287,18 +277,12 @@
                                     if (data["data"]['components'][key][0] == 0){
                                         leftStatus2.className = "bi bi-check-circle-fill check"; 
 
-                                    }else if (data["data"]['components'][key][0] == 1){
-                                        leftStatus2.className = "bi bi-exclamation-octagon-fill warning";
-                                        if (backColor != "red"){
-                                            backColor == "red";
-                                            document.body.style.backgroundColor = "#dd4b39";
-                                        }
-
-                                    }else if (data["data"]['components'][key][0] == 3){
-                                        leftStatus2.className = "bi bi-x-circle-fill wrong";
-                                        if (backColor != "red"){
-                                            backColor == "red";
-                                            document.body.style.backgroundColor = "#dd4b39";
+                                    }else{
+                                        backColor = "red";
+                                        if (data["data"]['components'][key][0] == 1){
+                                            leftStatus2.className = "bi bi-exclamation-octagon-fill warning";
+                                        }else{
+                                            leftStatus2.className = "bi bi-x-circle-fill wrong";
                                         }
                                     }
 
@@ -306,18 +290,12 @@
                                     if (data["data"]['components'][key][1] == 0){
                                         rightStatus2.className = "bi bi-check-circle-fill check";
                                         
-                                    }else if (data["data"]['components'][key][1] == 1){
-                                        rightStatus2.className = "bi bi-exclamation-octagon-fill warning";
-                                        if (backColor != "red"){
-                                            backColor == "red";
-                                            document.body.style.backgroundColor = "#dd4b39";
-                                        }
-
-                                    }else if (data["data"]['components'][key][1] == 3){
-                                        rightStatus2.className = "bi bi-x-circle-fill wrong"; 
-                                        if (backColor != "red"){
-                                            backColor == "red";
-                                            document.body.style.backgroundColor = "#dd4b39";
+                                    }else{
+                                        backColor = "red";
+                                        if (data["data"]['components'][key][1] == 1){
+                                            rightStatus2.className = "bi bi-exclamation-octagon-fill warning";
+                                        }else if (data["data"]['components'][key][1] == 3){
+                                            rightStatus2.className = "bi bi-x-circle-fill wrong"; 
                                         }
                                     }
 
@@ -332,18 +310,12 @@
                                     if (data["data"]['components'][key][0] == 0){
                                         leftStatus3.className = "bi bi-check-circle-fill check"; 
 
-                                    }else if (data["data"]['components'][key][0] == 1){
-                                        leftStatus3.className = "bi bi-exclamation-octagon-fill warning";
-                                        if (backColor != "red"){
-                                            backColor == "red";
-                                            document.body.style.backgroundColor = "#dd4b39";
-                                        }
-
-                                    }else if (data["data"]['components'][key][0] == 3){
-                                        leftStatus3.className = "bi bi-x-circle-fill wrong";
-                                        if (backColor != "red"){
-                                            backColor == "red";
-                                            document.body.style.backgroundColor = "#dd4b39";
+                                    }else{ 
+                                        backColor = "red";
+                                        if (data["data"]['components'][key][0] == 1){
+                                            leftStatus3.className = "bi bi-exclamation-octagon-fill warning";
+                                        }else{
+                                            leftStatus3.className = "bi bi-x-circle-fill wrong";
                                         }
                                     }
 
@@ -351,18 +323,12 @@
                                     if (data["data"]['components'][key][1] == 0){
                                         rightStatus3.className = "bi bi-check-circle-fill check";
                                         
-                                    }else if (data["data"]['components'][key][1] == 1){
-                                        rightStatus3.className = "bi bi-exclamation-octagon-fill warning";
-                                        if (backColor != "red"){
-                                            backColor == "red";
-                                            document.body.style.backgroundColor = "#dd4b39";
-                                        }
-
-                                    }else if (data["data"]['components'][key][1] == 3){
-                                        rightStatus3.className = "bi bi-x-circle-fill wrong"; 
-                                        if (backColor != "red"){
-                                            backColor == "red";
-                                            document.body.style.backgroundColor = "#dd4b39";
+                                    }else{ 
+                                        backColor = "red";
+                                        if (data["data"]['components'][key][1] == 1){
+                                            rightStatus3.className = "bi bi-exclamation-octagon-fill warning";
+                                        }else if (data["data"]['components'][key][1] == 3){
+                                            rightStatus3.className = "bi bi-x-circle-fill wrong"; 
                                         }
                                     }
 
@@ -378,18 +344,12 @@
                                     if (data["data"]['components'][key][0] == 0){
                                         leftStatus4.className = "bi bi-check-circle-fill check"; 
 
-                                    }else if (data["data"]['components'][key][0] == 1){
-                                        leftStatus4.className = "bi bi-exclamation-octagon-fill warning";
-                                        if (backColor != "red"){
-                                            backColor == "red";
-                                            document.body.style.backgroundColor = "#dd4b39";
-                                        }
-
-                                    }else if (data["data"]['components'][key][0] == 3){
-                                        leftStatus4.className = "bi bi-x-circle-fill wrong";
-                                        if (backColor != "red"){
-                                            backColor == "red";
-                                            document.body.style.backgroundColor = "#dd4b39";
+                                    }else{ 
+                                        backColor = "red";
+                                        if (data["data"]['components'][key][0] == 1){
+                                            leftStatus4.className = "bi bi-exclamation-octagon-fill warning";
+                                        }else if (data["data"]['components'][key][0] == 3){
+                                            leftStatus4.className = "bi bi-x-circle-fill wrong";
                                         }
                                     }
 
@@ -397,18 +357,12 @@
                                     if (data["data"]['components'][key][1] == 0){
                                         rightStatus4.className = "bi bi-check-circle-fill check";
                                         
-                                    }else if (data["data"]['components'][key][1] == 1){
-                                        rightStatus4.className = "bi bi-exclamation-octagon-fill warning";
-                                        if (backColor != "red"){
-                                            backColor == "red";
-                                            document.body.style.backgroundColor = "#dd4b39";
-                                        }
-
-                                    }else if (data["data"]['components'][key][1] == 3){
-                                        rightStatus4.className = "bi bi-x-circle-fill wrong"; 
-                                        if (backColor != "red"){
-                                            backColor == "red";
-                                            document.body.style.backgroundColor = "#dd4b39";
+                                    }else{ 
+                                        backColor = "red";
+                                        if (data["data"]['components'][key][1] == 1){
+                                            rightStatus4.className = "bi bi-exclamation-octagon-fill warning";
+                                        }else if (data["data"]['components'][key][1] == 3){
+                                            rightStatus4.className = "bi bi-x-circle-fill wrong"; 
                                         }
                                     }
 
@@ -424,18 +378,13 @@
                                     if (data["data"]['components'][key][0] == 0){
                                         leftStatus5.className = "bi bi-check-circle-fill check"; 
 
-                                    }else if (data["data"]['components'][key][0] == 1){
-                                        leftStatus5.className = "bi bi-exclamation-octagon-fill warning";
-                                        if (backColor != "red"){
-                                            backColor == "red";
-                                            document.body.style.backgroundColor = "#dd4b39";
-                                        }
+                                    }else{ 
+                                        backColor = "red";
+                                        if (data["data"]['components'][key][0] == 1){
+                                            leftStatus5.className = "bi bi-exclamation-octagon-fill warning";
 
-                                    }else if (data["data"]['components'][key][0] == 3){
-                                        leftStatus5.className = "bi bi-x-circle-fill wrong";
-                                        if (backColor != "red"){
-                                            backColor == "red";
-                                            document.body.style.backgroundColor = "#dd4b39";
+                                        }else if (data["data"]['components'][key][0] == 3){
+                                            leftStatus5.className = "bi bi-x-circle-fill wrong";
                                         }
                                     }
 
@@ -443,18 +392,12 @@
                                     if (data["data"]['components'][key][1] == 0){
                                         rightStatus5.className = "bi bi-check-circle-fill check";
                                         
-                                    }else if (data["data"]['components'][key][1] == 1){
-                                        rightStatus5.className = "bi bi-exclamation-octagon-fill warning";
-                                        if (backColor != "red"){
-                                            backColor == "red";
-                                            document.body.style.backgroundColor = "#dd4b39";
-                                        }
-
-                                    }else if (data["data"]['components'][key][1] == 3){
-                                        rightStatus5.className = "bi bi-x-circle-fill wrong"; 
-                                        if (backColor != "red"){
-                                            backColor == "red";
-                                            document.body.style.backgroundColor = "#dd4b39";
+                                    }else{ 
+                                        backColor = "red";
+                                        if (data["data"]['components'][key][1] == 1){
+                                            rightStatus5.className = "bi bi-exclamation-octagon-fill warning";
+                                        }else if (data["data"]['components'][key][1] == 3){
+                                            rightStatus5.className = "bi bi-x-circle-fill wrong"; 
                                         }
                                     }
 
@@ -469,37 +412,26 @@
                                     if (data["data"]['components'][key][0] == 0){
                                         leftStatus6.className = "bi bi-check-circle-fill check"; 
 
-                                    }else if (data["data"]['components'][key][0] == 1){
-                                        leftStatus6.className = "bi bi-exclamation-octagon-fill warning";
-                                        if (backColor != "red"){
-                                            backColor == "red";
+                                    }else{ 
+                                        backColor == "red";
+                                        if (data["data"]['components'][key][0] == 1){
+                                            leftStatus6.className = "bi bi-exclamation-octagon-fill warning";
+                                        }else{
                                             document.body.style.backgroundColor = "#dd4b39";
                                         }
-
-                                    }else if (data["data"]['components'][key][0] == 3){
-                                        leftStatus6.className = "bi bi-x-circle-fill wrong";
-                                        if (backColor != "red"){
-                                            backColor == "red";
-                                            document.body.style.backgroundColor = "#dd4b39";
-                                        }
+                                        
                                     }
 
                                     // right
                                     if (data["data"]['components'][key][1] == 0){
                                         rightStatus6.className = "bi bi-check-circle-fill check";
                                         
-                                    }else if (data["data"]['components'][key][1] == 1){
-                                        rightStatus6.className = "bi bi-exclamation-octagon-fill warning";
-                                        if (backColor != "red"){
-                                            backColor == "red";
-                                            document.body.style.backgroundColor = "#dd4b39";
-                                        }
-
-                                    }else if (data["data"]['components'][key][1] == 3){
-                                        rightStatus6.className = "bi bi-x-circle-fill wrong"; 
-                                        if (backColor != "red"){
-                                            backColor == "red";
-                                            document.body.style.backgroundColor = "#dd4b39";
+                                    }else{ 
+                                        backColor = "red";
+                                        if (data["data"]['components'][key][1] == 1){
+                                            rightStatus6.className = "bi bi-exclamation-octagon-fill warning";
+                                        }else if (data["data"]['components'][key][1] == 3){
+                                            rightStatus6.className = "bi bi-x-circle-fill wrong"; 
                                         }
                                     }
 
@@ -511,7 +443,9 @@
                         }
                         
                         
-                        
+                        if (backColor == "red"){
+                            document.body.style.backgroundColor = "#dd4b39";
+                        }
                         leftImg.src = MEDIA_SERVICE_URL + "/left.jpg?cache=" + new Date().getTime();;
                         rightImg.src = MEDIA_SERVICE_URL + "/right.jpg?cache=" + new Date().getTime();;
 
