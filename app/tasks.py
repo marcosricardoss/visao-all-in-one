@@ -15,7 +15,7 @@ from datetime import datetime
 from gpiozero import Button
 import argparse
 import tflite_runtime.interpreter as tflite
-from visao.core.yolov4 import filter_boxes
+from app.visao.core.yolov4 import filter_boxes
 
 celery = create_celery_app()
 logger = get_task_logger(__name__)
@@ -156,9 +156,9 @@ def long_task(self):
     self.update_state(state='INITIALIZING', meta={"step":step, "components":components})
 
     # Carregar a rede neural YOLO
-    yolo1 = tflite.Interpreter('./tf-lite/yolov4-tiny-416.tflite')
+    yolo1 = tflite.Interpreter('app/visao/tflite_model/yolov4-tiny-416.tflite')
     yolo1.allocate_tensors()
-    yolo2 = tflite.Interpreter('./tf-lite/yolov4-tiny-416.tflite')
+    yolo2 = tflite.Interpreter('app/visao/tflite_model/tf-lite/yolov4-tiny-416.tflite')
     yolo2.allocate_tensors()
     screw_cascade = cv.CascadeClassifier()
     screw_cascade.load(cv.samples.findFile("app/visao/screw_cascade.xml"))
