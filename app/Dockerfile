@@ -1,4 +1,4 @@
-FROM jumidlej/raspios-buster:tensorflow2.3.1
+FROM jumidlej/tflite:latest
 
 USER root
 
