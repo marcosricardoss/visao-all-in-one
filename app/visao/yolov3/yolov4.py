@@ -14,8 +14,8 @@ import numpy as np
 # from tensorflow.keras.regularizers import l2
 # from app.visao.yolov3.configs import *
 
-STRIDES         = np.array(YOLO_STRIDES)
-ANCHORS         = (np.array(YOLO_ANCHORS).T/STRIDES).T
+# STRIDES         = np.array(YOLO_STRIDES)
+# ANCHORS         = (np.array(YOLO_ANCHORS).T/STRIDES).T
 
 def filter_boxes(box_xywh, scores, score_threshold=0.4, input_shape=(416, 416), image_shape=(416, 416)):
     # Deixar só a classe com o maior score
