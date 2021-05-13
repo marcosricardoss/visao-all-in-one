@@ -9,10 +9,10 @@
 #
 #================================================================
 import numpy as np
-import tensorflow as tf
-from tensorflow.keras.layers import Conv2D, Input, LeakyReLU, ZeroPadding2D, BatchNormalization, MaxPool2D
-from tensorflow.keras.regularizers import l2
-from app.visao.yolov3.configs import *
+# import tensorflow as tf
+# from tensorflow.keras.layers import Conv2D, Input, LeakyReLU, ZeroPadding2D, BatchNormalization, MaxPool2D
+# from tensorflow.keras.regularizers import l2
+# from app.visao.yolov3.configs import *
 
 STRIDES         = np.array(YOLO_STRIDES)
 ANCHORS         = (np.array(YOLO_ANCHORS).T/STRIDES).T
