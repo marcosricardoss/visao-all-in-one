@@ -60,18 +60,58 @@ def makeDetection(frame, yolo1, yolo2, screw_cascade):
                 'right': 1,
             }
 
-            components_names = {
-                '0': 'Azul',
-                '1': 'Roxo 1',
-                '2': 'Roxo 2',
-                '3': 'Pequeno',
-                '4': 'Preto',
-                '5': 'Branco',
-            }
-
             # Coordenadas do bounding box
             (x1, y1), (x2, y2) = (coor[0], coor[1]), (coor[2], coor[3])
             
+            # Classificar se está correto ou incorreto
+            prediction = np.array([[1.]])
+
+            input_details_class = azul_roxo_1.get_input_details()
+            output_details_class = azul_roxo_1.get_output_details()
+
+            if class_ind in range(3):
+                component = image[y1-5:y2+5,x1-5:x2+5,:]
+                component = cv.resize(component, (32, 32))
+                component = cv.cvtColor(component, cv.COLOR_BGR2GRAY)
+                component = component / 255
+                component = np.reshape(component, (1, 32, 32, 1)).astype(np.float32)
+
+                class_models[index+str(class_ind)].set_tensor(input_details_class[0]['index'], component)
+                class_models[index+str(class_ind)].invoke()
+                prediction = [class_models[index+str(class_ind)].get_tensor(output_details_class[i]['index']) for i in range(len(output_details_class))]
+
+            image_y = image.shape[0]
+            if class_ind in range(2):
+                if  (y1+y2)/2 < image_y/3.2:
+                    # AZUL 1
+                    if class_ind == 1 or prediction[0][0] < 0.5:
+                        correct = 3
+                    else:
+                        correct = 0
+                    components[0][placa[index]] = correct
+                elif (y1+y2)/2 < image_y/2:
+                    # ROXO 1
+                    if class_ind == 0 or prediction[0][0] < 0.5:
+                        correct = 3
+                    else:
+                        correct = 0
+                    components[1][placa[index]] = correct
+                else:
+                    # ROXO 2
+                    if class_ind == 0 or prediction[0][0] < 0.5:
+                        correct = 3
+                    else:
+                        correct = 0
+                    components[2][placa[index]] = correct
+            
+            # Componente está incorreto
+            else:
+                if prediction[0][0] < 0.5:
+                    correct = 3
+                else:
+                    correct = 0
+                components[class_ind+1][placa[index]] = correct
+
             # Desenhar retângulo e score
             bbox_thick = 1
             fontScale = 0.75 * bbox_thick
@@ -86,6 +126,9 @@ def makeDetection(frame, yolo1, yolo2, screw_cascade):
             # put text above rectangle
             cv.putText(image, score, (x1, y1-4), cv.FONT_HERSHEY_COMPLEX_SMALL,
                         fontScale, text_colors[str(correct)], 1, lineType=cv.LINE_AA)
+    
+    input_details_yolo = yolo1.get_input_details()
+    output_details_yolo = yolo1.get_output_details()
 
     def detect1(index, image):
         image_data = cv.resize(image, (416, 416))
@@ -96,13 +139,10 @@ def makeDetection(frame, yolo1, yolo2, screw_cascade):
             images_data.append(image_data)
         images_data = np.asarray(images_data).astype(np.float32)
 
-        input_details = yolo1.get_input_details()
-        output_details = yolo1.get_output_details()
-
-        yolo1.set_tensor(input_details[0]['index'], images_data)
+        yolo1.set_tensor(input_details_yolo[0]['index'], images_data)
         yolo1.invoke()
 
-        predictions = [yolo1.get_tensor(output_details[i]['index']) for i in range(len(output_details))]
+        predictions = [yolo1.get_tensor(output_details_yolo[i]['index']) for i in range(len(output_details_yolo))]
         bboxes_xyhw = np.asarray(predictions[0])
         scores = np.asarray(predictions[1])
         bboxes_xyhw = np.reshape(bboxes_xyhw, (bboxes_xyhw.shape[1], bboxes_xyhw.shape[2]))
@@ -119,14 +159,11 @@ def makeDetection(frame, yolo1, yolo2, screw_cascade):
         for i in range(1):
             images_data.append(image_data)
         images_data = np.asarray(images_data).astype(np.float32)
-        
-        input_details = yolo2.get_input_details()
-        output_details = yolo2.get_output_details()
 
-        yolo2.set_tensor(input_details[0]['index'], images_data)
+        yolo2.set_tensor(input_details_yolo[0]['index'], images_data)
         yolo2.invoke()
 
-        predictions = [yolo2.get_tensor(output_details[i]['index']) for i in range(len(output_details))]
+        predictions = [yolo2.get_tensor(output_details_yolo[i]['index']) for i in range(len(output_details_yolo))]
         bboxes_xyhw = np.asarray(predictions[0])
         scores = np.asarray(predictions[1])
         bboxes_xyhw = np.reshape(bboxes_xyhw, (bboxes_xyhw.shape[1], bboxes_xyhw.shape[2]))
@@ -163,6 +200,25 @@ def long_task(self):
     yolo2.allocate_tensors()
     screw_cascade = cv.CascadeClassifier()
     screw_cascade.load(cv.samples.findFile("app/visao/screw_cascade.xml"))
+
+    azul_roxo_1 = tflite.Interpreter('./tf-lite/model_azul.tflite')
+    azul_roxo_1.allocate_tensors()
+    pequeno_1 = tflite.Interpreter('./tf-lite/model_pequeno.tflite')
+    pequeno_1.allocate_tensors()
+    azul_roxo_2 = tflite.Interpreter('./tf-lite/model_azul.tflite')
+    azul_roxo_2.allocate_tensors()
+    pequeno_2 = tflite.Interpreter('./tf-lite/model_pequeno.tflite')
+    pequeno_2.allocate_tensors()
+
+    # Carregar modelos de classificação
+    class_models = {
+        'left0': azul_roxo_1,
+        'left1': azul_roxo_1,
+        'left2': pequeno_1,
+        'right0': azul_roxo_2,
+        'right1': azul_roxo_2,
+        'right2': pequeno_2,
+    }
     
     # Carregar pasta das imagens
     DEFAULT_MEDIA_FOLDER = os.environ.get("DEFAULT_MEDIA_FOLDER")
