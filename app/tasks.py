@@ -197,21 +197,21 @@ def long_task(self):
     self.update_state(state='INITIALIZING', meta={"step":step, "components":components})
 
     # Carregar a rede neural YOLO
-    yolo1 = tflite.Interpreter('app/visao/tflite_model/yolov4-tiny-416.tflite')
+    yolo1 = tflite.Interpreter('app/visao/tflite_models/yolov4-tiny-416.tflite')
     yolo1.allocate_tensors()
-    yolo2 = tflite.Interpreter('app/visao/tflite_model/yolov4-tiny-416.tflite')
+    yolo2 = tflite.Interpreter('app/visao/tflite_models/yolov4-tiny-416.tflite')
     yolo2.allocate_tensors()
     screw_cascade = cv.CascadeClassifier()
     screw_cascade.load(cv.samples.findFile("app/visao/screw_cascade.xml"))
 
     # Carregar modelos de classificação
-    azul_roxo_1 = tflite.Interpreter('./tf-lite/model_azul.tflite')
+    azul_roxo_1 = tflite.Interpreter('app/visao/tflite_models/model_azul.tflite')
     azul_roxo_1.allocate_tensors()
-    pequeno_1 = tflite.Interpreter('./tf-lite/model_pequeno.tflite')
+    pequeno_1 = tflite.Interpreter('app/visao/tflite_models/model_pequeno.tflite')
     pequeno_1.allocate_tensors()
-    azul_roxo_2 = tflite.Interpreter('./tf-lite/model_azul.tflite')
+    azul_roxo_2 = tflite.Interpreter('app/visao/tflite_models/model_azul.tflite')
     azul_roxo_2.allocate_tensors()
-    pequeno_2 = tflite.Interpreter('./tf-lite/model_pequeno.tflite')
+    pequeno_2 = tflite.Interpreter('app/visao/tflite_models/model_pequeno.tflite')
     pequeno_2.allocate_tensors()
 
     class_models = {
