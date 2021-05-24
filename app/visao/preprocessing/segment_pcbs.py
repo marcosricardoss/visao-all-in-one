@@ -66,7 +66,7 @@ def segment_pcbs(image, screw_cascade):
     cy = 0.0
     
     if (len(screws) != 4):
-        print("Problemas com screw: ", screws.shape)
+        print("Problemas com screw: ", len(screws))
         pcbs = None
         return pcbs, pcbs
     
