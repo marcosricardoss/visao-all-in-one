@@ -15,7 +15,8 @@ from datetime import datetime
 from gpiozero import Button
 import argparse
 import tflite_runtime.interpreter as tflite
-from app.visao.yolov3.yolov4 import filter_boxes
+from app.visao.yolov3.utils import filter_boxes
+from app.visao.yolov3.utils import nms
 
 celery = create_celery_app()
 logger = get_task_logger(__name__)
@@ -148,6 +149,7 @@ def makeDetection(frame, yolo1, yolo2, screw_cascade):
         bboxes_xyhw = np.reshape(bboxes_xyhw, (bboxes_xyhw.shape[1], bboxes_xyhw.shape[2]))
         scores = np.reshape(scores, (scores.shape[1], scores.shape[2]))
         bboxes = filter_boxes(bboxes_xyhw, scores, score_threshold=0.25, input_shape=(416, 416))
+        bboxes = nms(bboxes, iou_threshold=0.4, sigma=0.3, method='nms')
         
         draw_bboxes(index, image, bboxes)
 
@@ -169,6 +171,7 @@ def makeDetection(frame, yolo1, yolo2, screw_cascade):
         bboxes_xyhw = np.reshape(bboxes_xyhw, (bboxes_xyhw.shape[1], bboxes_xyhw.shape[2]))
         scores = np.reshape(scores, (scores.shape[1], scores.shape[2]))
         bboxes = filter_boxes(bboxes_xyhw, scores, score_threshold=0.25, input_shape=(416, 416))
+        bboxes = nms(bboxes, iou_threshold=0.4, sigma=0.3, method='nms')
         
         draw_bboxes(index, image, bboxes)
 
@@ -201,6 +204,7 @@ def long_task(self):
     screw_cascade = cv.CascadeClassifier()
     screw_cascade.load(cv.samples.findFile("app/visao/screw_cascade.xml"))
 
+    # Carregar modelos de classificação
     azul_roxo_1 = tflite.Interpreter('./tf-lite/model_azul.tflite')
     azul_roxo_1.allocate_tensors()
     pequeno_1 = tflite.Interpreter('./tf-lite/model_pequeno.tflite')
@@ -210,7 +214,6 @@ def long_task(self):
     pequeno_2 = tflite.Interpreter('./tf-lite/model_pequeno.tflite')
     pequeno_2.allocate_tensors()
 
-    # Carregar modelos de classificação
     class_models = {
         'left0': azul_roxo_1,
         'left1': azul_roxo_1,
