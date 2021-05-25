@@ -31,8 +31,8 @@ def makeDetection(frame, yolo1, yolo2, screw_cascade):
     components = components.tolist()
 
     # Separa as duas PCBs
-    # pcb_left, pcb_right = segment_pcbs(frame, screw_cascade)
-    pcb_left, pcb_right = frame[0:416, 0:416, :], frame[500:916, 500:916, :]
+    pcb_left, pcb_right = segment_pcbs(frame, screw_cascade)
+    # pcb_left, pcb_right = frame[0:416, 0:416, :], frame[500:916, 500:916, :]
 
     if pcb_left is pcb_right:
         return pcb_left, pcb_left, components
