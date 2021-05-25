@@ -149,6 +149,8 @@ def makeDetection(frame, yolo1, yolo2, screw_cascade):
         bboxes_xyhw = np.reshape(bboxes_xyhw, (bboxes_xyhw.shape[1], bboxes_xyhw.shape[2]))
         scores = np.reshape(scores, (scores.shape[1], scores.shape[2]))
         bboxes = filter_boxes(bboxes_xyhw, scores, score_threshold=0.25, input_shape=(416, 416))
+        if not bboxes:
+            return None
         bboxes = nms(bboxes, iou_threshold=0.4, sigma=0.3, method='nms')
         
         draw_bboxes(index, image, bboxes)
@@ -171,6 +173,8 @@ def makeDetection(frame, yolo1, yolo2, screw_cascade):
         bboxes_xyhw = np.reshape(bboxes_xyhw, (bboxes_xyhw.shape[1], bboxes_xyhw.shape[2]))
         scores = np.reshape(scores, (scores.shape[1], scores.shape[2]))
         bboxes = filter_boxes(bboxes_xyhw, scores, score_threshold=0.25, input_shape=(416, 416))
+        if not bboxes:
+            return None
         bboxes = nms(bboxes, iou_threshold=0.4, sigma=0.3, method='nms')
         
         draw_bboxes(index, image, bboxes)
