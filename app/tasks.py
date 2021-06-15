@@ -32,7 +32,6 @@ def makeDetection(frame, yolo1, yolo2, screw_cascade):
 
     # Separa as duas PCBs
     pcb_left, pcb_right = segment_pcbs(frame, screw_cascade)
-    # pcb_left, pcb_right = frame[0:416, 0:416, :], frame[500:916, 500:916, :]
 
     if pcb_left is pcb_right:
         return pcb_left, pcb_left, components
@@ -62,7 +61,10 @@ def makeDetection(frame, yolo1, yolo2, screw_cascade):
             }
 
             # Coordenadas do bounding box
-            (x1, y1), (x2, y2) = (coor[0], coor[1]), (coor[2], coor[3])
+            x1 = int((coor[0]/416)*image.shape[1])
+            y1 = int((coor[1]/416)*image.shape[0])
+            x2 = int((coor[2]/416)*image.shape[1])
+            y2 = int((coor[3]/416)*image.shape[0])
             
             # Classificar se está correto ou incorreto
             prediction = np.array([[1.]])
@@ -149,8 +151,8 @@ def makeDetection(frame, yolo1, yolo2, screw_cascade):
         bboxes_xyhw = np.reshape(bboxes_xyhw, (bboxes_xyhw.shape[1], bboxes_xyhw.shape[2]))
         scores = np.reshape(scores, (scores.shape[1], scores.shape[2]))
         bboxes = filter_boxes(bboxes_xyhw, scores, score_threshold=0.25, input_shape=(416, 416))
-        if not bboxes:
-            return None
+        if bboxes.size == 0:
+            return pcb_right,pcb_left,components
         bboxes = nms(bboxes, iou_threshold=0.4, sigma=0.3, method='nms')
         
         draw_bboxes(index, image, bboxes)
@@ -173,8 +175,8 @@ def makeDetection(frame, yolo1, yolo2, screw_cascade):
         bboxes_xyhw = np.reshape(bboxes_xyhw, (bboxes_xyhw.shape[1], bboxes_xyhw.shape[2]))
         scores = np.reshape(scores, (scores.shape[1], scores.shape[2]))
         bboxes = filter_boxes(bboxes_xyhw, scores, score_threshold=0.25, input_shape=(416, 416))
-        if not bboxes:
-            return None
+        if bboxes.size == 0:
+            return pcb_right,pcb_left,components
         bboxes = nms(bboxes, iou_threshold=0.4, sigma=0.3, method='nms')
         
         draw_bboxes(index, image, bboxes)
