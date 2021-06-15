@@ -22,7 +22,7 @@ celery = create_celery_app()
 logger = get_task_logger(__name__)
 r = Redis(host='all-in-one-redis', port=6379, db=0, decode_responses=True)
 
-def makeDetection(frame, yolo1, yolo2, screw_cascade):
+def makeDetection(frame, yolo1, yolo2, class_models, screw_cascade):
     
     # Inicializa array
     components = np.ones((6, 3))
@@ -69,8 +69,8 @@ def makeDetection(frame, yolo1, yolo2, screw_cascade):
             # Classificar se está correto ou incorreto
             prediction = np.array([[1.]])
 
-            input_details_class = azul_roxo_1.get_input_details()
-            output_details_class = azul_roxo_1.get_output_details()
+            input_details_class = class_models['left0'].get_input_details()
+            output_details_class = class_models['left0'].get_output_details()
 
             if class_ind in range(3):
                 component = image[y1-5:y2+5,x1-5:x2+5,:]
@@ -261,7 +261,7 @@ def long_task(self):
             date = datetime.now().strftime('%m_%d_%Y - %H:%S')
             cv.imwrite(DEFAULT_MEDIA_FOLDER+"_"+date+"_frame.png", frame)
             components.clear()
-            pcbR,pcbL,components = makeDetection(frame, yolo1, yolo2, screw_cascade)
+            pcbR,pcbL,components = makeDetection(frame, yolo1, yolo2, class_models, screw_cascade)
             if pcbR is pcbL:
                 step = 5
                 self.update_state(state="PCBS WERE NOT FOUND!", meta={"step":step, "components":components})
