@@ -183,6 +183,7 @@ def long_task(self):
     butaoA = Button(3)
 
     cam = cv.VideoCapture(0)
+    cam.set(cv.CAP_PROP_BUFFERSIZE, 2)
     cam.set(cv.CAP_PROP_FRAME_WIDTH, 1920)
     cam.set(cv.CAP_PROP_FRAME_HEIGHT, 1080)
 
@@ -190,10 +191,16 @@ def long_task(self):
         step = 2
         self.update_state(state='READY FOR THE ACTION!', meta={"step":step, "components":components})
 
-        # Pegar imagem da câmera
-        ret, frame = cam.read()
-        if not ret:
-            break
+        # # Pegar imagem da câmera
+        # ret, frame = cam.read()
+        # if not ret:
+        #     break
+
+        # Tentativa de pegar sempre o frame mais reente
+        for i in range(2):
+            ret, frame = cam.read()
+            if not ret:
+                break
         
         # Botão de saída
         if butaoA.is_pressed:
