@@ -40,11 +40,11 @@
         <div id="image-none" >
             <div class="pcb1 col-xs-10 col-sm-5 col-md-5">
                 <!-- <p class="pcb-title">Left</p> -->
-                <div class="pcb-img"></div>
+                <img id = "left-img" class=" pcb-img " src="{{ media_service_url|safe }}/generic_pcb.png" alt="PCB img left">
             </div>
             <div class="pcb2 col-xs-10 col-sm-5 col-md-5">
                 <!-- <p class="pcb-title">Right</p> -->
-                <div class="pcb-img"></div>
+                <img id = "right-img"class="  pcb-img " src="{{ media_service_url|safe }}/generic_pcb.png" alt="PCB img right">
             </div>
 
         </div>      
@@ -179,6 +179,9 @@
                         document.body.style.backgroundColor = "#17a2b8";
                         backColor = "blue";
                         camImg.src = MEDIA_SERVICE_URL + "/camera.jpg?cache=" + new Date().getTime();;
+                        imageOn.style.display = "none"
+                        imageOff.style.display = "block"
+                        imageNone.style.display = "none"
                         break;
 
                     case 'WHY DID YOU LEFT ME?':
