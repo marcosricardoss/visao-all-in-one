@@ -77,12 +77,13 @@ def makeDetection(frame, yolo, class_models, screw_cascade):
             prediction = np.array([[1.]])
             if class_ind in range(3):
                 try:
-                   component = image[y1-5:y2+5,x1-5:x2+5,:]
-                   component = cv.resize(component, (32, 32))
-                   component = cv.cvtColor(component, cv.COLOR_BGR2GRAY)
-                   prediction = class_models[str(class_ind)](component[np.newaxis,...,np.newaxis])
+                    # Isso que eu fiz pode dar um problema nos limites do vetor
+                    component = image[y1-5:y2+5,x1-5:x2+5,:]
+                    component = cv.resize(component, (32, 32))
+                    component = cv.cvtColor(component, cv.COLOR_BGR2GRAY)
+                    prediction = class_models[str(class_ind)](component[np.newaxis,...,np.newaxis])
                 except:
-                   print("An exception occurred")
+                    print("An exception occurred")
 
             image_y = image.shape[0]
             if class_ind in range(2):
@@ -136,6 +137,7 @@ def makeDetection(frame, yolo, class_models, screw_cascade):
                         fontScale, text_colors[str(correct)], 1, lineType=cv.LINE_AA)
     
     def detect(index, image):
+        # o que retorna quando não encontra nenhum bbox?
         bboxes = detect_image(yolo, image, input_size=YOLO_INPUT_SIZE, CLASSES=TRAIN_CLASSES,
                                 score_threshold=0.5, iou_threshold=0.3)
         draw_bboxes(index, image, bboxes)
@@ -185,6 +187,7 @@ def long_task(self):
     cam = cv.VideoCapture(0)
     cam.set(cv.CAP_PROP_FRAME_WIDTH, 1920)
     cam.set(cv.CAP_PROP_FRAME_HEIGHT, 1080)
+    cam.set(cv.CAP_PROP_BUFFERSIZE, 1)
 
     while True:
         step = 2
