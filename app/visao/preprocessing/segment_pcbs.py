@@ -4,6 +4,7 @@ import math
 import sys
 import imutils
 from os import listdir
+import logging
 
 '''
 Does: list .png files
@@ -65,12 +66,12 @@ def segment_pcbs(image, screw_cascade):
     cx = 0.0
     cy = 0.0
 
-    console.log("Antes do Problemas com screw:")
+    logging.warning('Watch out!')  # will print a message to the console
     if (screws.shape[0] != 4):
-        console.log("Problemas com screw")
+        logging.warning('Problemas com screws!')  # will print a message to the console
         pcbs = None
         return pcbs, pcbs
-    console.log("Sem problemas com screw")
+    logging.warning('No problema com screws!')  # will print a message to the console
     
     # Procurand o centro de rotação
     for(x, y, w, h) in screws:
