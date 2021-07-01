@@ -4,7 +4,6 @@ import math
 import sys
 import imutils
 from os import listdir
-import logging
 
 '''
 Does: list .png files
@@ -66,12 +65,16 @@ def segment_pcbs(image, screw_cascade):
     cx = 0.0
     cy = 0.0
 
-    logging.warning('Watch out!')  # will print a message to the console
-    if (screws.shape[0] != 4):
-        logging.warning('Problemas com screws!')  # will print a message to the console
+    # aqui a gente tem um erro quando não encontra nenhum screw, aparentemente não retorna um numpy array
+    # ERRO: AttributeError: 'tuple' object has no attribute 'shape'
+    try: 
+        if (screws.shape[0] != 4):
+            pcbs = None
+            return pcbs, pcbs
+    except AttributeError:
         pcbs = None
         return pcbs, pcbs
-    logging.warning('No problema com screws!')  # will print a message to the console
+
     
     # Procurand o centro de rotação
     for(x, y, w, h) in screws:
