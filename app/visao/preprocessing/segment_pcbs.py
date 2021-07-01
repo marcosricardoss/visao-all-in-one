@@ -64,11 +64,13 @@ def segment_pcbs(image, screw_cascade):
                                             minSize = (50, 50), maxSize = (60, 60))
     cx = 0.0
     cy = 0.0
-    
+
+    console.log("Antes do Problemas com screw:")
     if (screws.shape[0] != 4):
-        print("Problemas com screw: ", screws.shape)
+        console.log("Problemas com screw")
         pcbs = None
         return pcbs, pcbs
+    console.log("Sem problemas com screw")
     
     # Procurand o centro de rotação
     for(x, y, w, h) in screws:
