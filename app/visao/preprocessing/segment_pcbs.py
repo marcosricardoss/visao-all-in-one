@@ -75,7 +75,6 @@ def segment_pcbs(image, screw_cascade):
         pcbs = None
         return pcbs, pcbs
 
-    
     # Procurand o centro de rotação
     for(x, y, w, h) in screws:
         cx = cx + x + w//2
@@ -97,6 +96,15 @@ def segment_pcbs(image, screw_cascade):
                 scrD["rt"] = (cx, cy)
             else:
                 scrD["rb"] = (cx, cy)
+
+    # translação para o centro da imagem
+    image_h, image_w = image.shape[0], image.shape[1]
+    cix = image_w//2
+    ciy = image_h//2
+    tx = cix - center[0]
+    ty = ciy - center[1]
+    M = np.float32([ [1,0,tx], [0,1,ty] ])
+    image = cv.warpAffine(image, M, (image_w, image_h))
 
     # equalização adaptativa
     clahe = cv.createCLAHE(clipLimit=1.0, tileGridSize=(8,8))
