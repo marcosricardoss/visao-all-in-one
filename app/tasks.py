@@ -164,13 +164,12 @@ def long_task(self):
     self.update_state(state='INITIALIZING', meta={"step":step, "components":components})
 
     # Carregar a rede neural YOLO
-    checkpoints_path = "app/visao/checkpoints/yolov3_C920-13all-50epochs_Tiny"
+    checkpoints_path = "app/visao/checkpoints/yolov3_k3_60_Tiny"
     yolo = Create_Yolo(input_size=416, CLASSES="app/visao/model_data/classes.txt")
     yolo.load_weights(checkpoints_path)
     screw_cascade = cv.CascadeClassifier()
-    screw_cascade.load(cv.samples.findFile("app/visao/screw_cascade.xml"))
+    screw_cascade.load(cv.samples.findFile("app/visao/preprocessing/cascade.xml"))
     
-
     # Carregar modelos de classificação 
     class_models = {
         '0': tf.keras.models.load_model('app/visao/classification_models/azul-roxo'),
