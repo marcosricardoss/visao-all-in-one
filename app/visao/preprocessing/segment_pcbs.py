@@ -71,7 +71,7 @@ def segment_pcbs(image, screw_cascade):
         ang = np.degrees(np.arctan2(scrD["lb"][1] - scrD["rt"][1], scrD["rt"][0] - scrD["lb"][0]))
     except:
         print("Algo deu errado com os parafusos!\n")
-        pcbs = None
+        return None, None
         
     ang -= 2.61 # correção do ângulo dos parafusos
     # ang *= -1
