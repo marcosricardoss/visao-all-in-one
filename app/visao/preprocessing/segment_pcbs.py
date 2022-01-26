@@ -39,7 +39,7 @@ def segment_pcbs(image, screw_cascade):
     cy = 0.0
     # Procurando centro de rotação
     for(x, y) in screws:
-        cv.circle(draw_screws, (int(x), int(y)), 10, (255,255,0), -1)
+        # cv.circle(draw_screws, (int(x), int(y)), 10, (255,255,0), -1)
         cx = cx + x
         cy = cy + y
     center = (int(cx//4), int(cy//4))
