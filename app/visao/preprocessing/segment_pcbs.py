@@ -24,16 +24,16 @@ def segment_pcbs(image, screw_cascade):
     try: 
         if (screws.shape[0] < 4):
             print("Screws < 4")
-            pcbs = None
+            return None, None
         elif screws.shape[0] >= 4:
             print("Screws >= 4")
             screws = filter_screws(gray, screws)
             if screws == None:
-                print("Algo deu errado com os parafusos!\n")
-                pcbs = None
+                print("Não foram encontrados parafusos após os filtros!\n")
+                return None, None
     except AttributeError:
-        print("Algo deu errado com os parafusos!\n")
-        pcbs = None
+        print("O cascade não retornou parafusos!\n")
+        return None, None
 
     cx = 0.0
     cy = 0.0
